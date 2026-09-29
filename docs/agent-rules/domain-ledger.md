@@ -1,22 +1,30 @@
 # Ledger domain rules
 
-## Transactions and postings
+## Double-entry model
 
-The ledger is double-entry, modelled on hledger
-(https://hledger.org).
+The ledger is hledger-style double-entry (https://hledger.org).
 
-- A transaction has **two or more postings**, and its postings **sum to
-  zero** per currency. Validate this in the domain layer before saving.
-- An account is a colon-separated hierarchy, e.g. `Expenses:Food` or
-  `Assets:Bank:KBank`. When syncing with the hledger journal, names must
-  match its English accounts (see [sync.md](sync.md)).
+- A `LedgerTransaction` has two or more `Posting`s (account + signed
+  `Money`). Per currency, a transaction's postings sum to zero; positive
+  debits the account, negative credits it. Validate this in the domain
+  layer before saving.
+- Accounts are colon-separated hierarchies (`ค่าใช้จ่าย:อาหาร`,
+  `Assets:Bank:KBank`). Names can be in any language, so each top-level
+  account declares its `AccountType` (asset / liability / equity /
+  income / expense) instead of the type being guessed from the name.
+  When syncing with the hledger journal, names must match its English
+  accounts (see [sync.md](sync.md)).
 - On input, one posting may leave its amount blank; it is inferred as
   whatever balances the transaction, as in hledger. Store the inferred
   amount, so every stored posting has one.
-- Income / expense / transfer is only a UI shortcut that presets the
-  postings. It is not stored; there is no `TransactionType`.
-- A transaction has a status: unmarked, pending (`!`) or cleared (`*`),
-  as in hledger.
+- Income / expense / transfer is a UI shortcut that presets postings,
+  not a stored field. Derive it from the account types when displaying.
+- Balances are sums of postings. Liabilities and income are naturally
+  negative; flip the sign only for display.
+- A transaction has a status matching hledger's: unmarked, pending (`!`)
+  or cleared (`*`).
+- A slip's reference number is the transaction `code` (hledger's
+  `(CODE)`), which is also what duplicate detection keys on.
 
 ## Money
 
@@ -37,9 +45,8 @@ money class.
 - Format only at the UI edge, with the shared patterns in
   `lib/utils/money_format.dart` (e.g. `'S#,##0.00'`); no ad-hoc
   `format(...)` patterns in widgets.
-- Sign convention is hledger's: a posting amount is signed. Money
-  flowing into an account is positive, out of it negative. An expense
-  posting is positive and the bank posting paying for it is negative.
+- The slip parser still uses the older `lib/domain/models/money.dart`;
+  new code uses money2, and the parser moves over when it is next touched.
 
 ## Dates and time
 
@@ -47,8 +54,8 @@ money class.
   time**. Store them as the local date and wall-clock time the user sees
   (e.g. `date TEXT '2026-09-29'`, `time TEXT '14:05'`). Never convert
   them to UTC, or a late-night entry moves to another day.
-- Same-day transactions sort by time when present, otherwise by entry
-  order.
+- Sort same-day transactions by time when present; untimed ones go
+  after timed ones, then by entry order.
 - `Slip.timestamp` is a UTC instant. When a slip becomes a transaction,
   take its date and time in Thai time (UTC+7), which is what the slip
   shows, not the device's time zone.
