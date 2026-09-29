@@ -28,7 +28,7 @@ Read the relevant file in `docs/agent-rules/` before working in that area:
 | [bloc.md](docs/agent-rules/bloc.md) | writing or using a Bloc/Cubit, events, states |
 | [dart-style.md](docs/agent-rules/dart-style.md) | writing any Dart code |
 | [widgets-ui.md](docs/agent-rules/widgets-ui.md) | working in `lib/ui/` |
-| [domain-ledger.md](docs/agent-rules/domain-ledger.md) | touching money, dates, slips, OCR parsing |
+| [domain-ledger.md](docs/agent-rules/domain-ledger.md) | touching transactions, postings, money, dates, slips, OCR parsing |
 | [platform-channels.md](docs/agent-rules/platform-channels.md) | touching `ios/`, `android/`, or a MethodChannel |
 | [sync.md](docs/agent-rules/sync.md) | touching the database, IDs, deletes, repositories that write, or anything sync-related |
 | [testing.md](docs/agent-rules/testing.md) | writing or changing tests |
