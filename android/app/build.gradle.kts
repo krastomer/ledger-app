@@ -47,3 +47,9 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // On-device OCR with Thai support (ML Kit has no Thai). Models live in
+    // src/main/assets/tessdata, fetched by tool/fetch_tessdata.sh.
+    implementation("cz.adaptech.tesseract4android:tesseract4android:4.9.0")
+}

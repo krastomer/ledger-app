@@ -46,3 +46,9 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Real slip OCR output used by tests (personal data; never commit)
+/testing/fixtures/slips_private/
+
+# Tesseract models for Android OCR, fetched by tool/fetch_tessdata.sh
+/android/app/src/main/assets/tessdata/
