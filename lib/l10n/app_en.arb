@@ -1,0 +1,58 @@
+{
+  "@@locale": "en",
+  "appTitle": "Ledger",
+  "navHome": "Home",
+  "navTransactions": "Transactions",
+  "navInbox": "Inbox",
+  "navSettings": "Settings",
+  "homeTitle": "Overview",
+  "hideAmounts": "Hide amounts",
+  "showAmounts": "Show amounts",
+  "netWorth": "Net worth",
+  "seeAccounts": "Accounts",
+  "assets": "Assets",
+  "liabilities": "Liabilities",
+  "reviewBannerTitle": "{count, plural, =1{1 item to review} other{{count} items to review}}",
+  "@reviewBannerTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "income": "Income",
+  "expenses": "Expenses",
+  "net": "Net",
+  "seeReports": "Reports",
+  "topSpending": "Top spending",
+  "recent": "Recent",
+  "seeAll": "See all",
+  "noTransactions": "No transactions yet",
+  "loadFailed": "Couldn't load your ledger",
+  "retry": "Try again",
+  "comingSoon": "Coming soon",
+  "accountsTitle": "Accounts",
+  "reportsTitle": "Reports",
+  "settingsGeneral": "General",
+  "settingsLanguage": "Language",
+  "settingsYearFormat": "Year format",
+  "languageThai": "ไทย",
+  "languageEnglish": "English",
+  "yearBuddhistEra": "B.E. {year}",
+  "@yearBuddhistEra": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "yearCommonEra": "A.D. {year}",
+  "@yearCommonEra": {
+    "placeholders": {
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsSaveFailed": "Couldn't save the setting"
+}

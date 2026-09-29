@@ -1,0 +1,76 @@
+; Demo ledger for development. Made-up data; not a real account.
+; Regenerate assets/ledger/sample.json with tool/export_ledger.sh.
+
+2026-08-01 * ยอดยกมา
+    Assets:Bank:KBank                THB 60,000.00
+    Assets:Bank:SCB                  THB 12,300.00
+    Assets:Bank:KKP                  THB 154,200.00
+    Assets:Cash                      THB 1,240.00
+    Assets:Investments:Dime          THB 31,220.18
+    Liabilities:CreditCard          THB -2,403.00
+    Equity:Opening
+
+2026-09-09 * ค่าบริการรายเดือน
+    Expenses:Other                   THB 742.00
+    Assets:Bank:KBank
+
+2026-09-11 * เติมบัตรรถไฟฟ้า
+    Expenses:Transport               THB 1,809.00
+    Assets:Bank:KBank
+
+2026-09-13 * ร้านอาหาร
+    Expenses:Food                    THB 5,820.00
+    Liabilities:CreditCard
+
+2026-09-14 * ดอกเบี้ย
+    Assets:Bank:KKP                  THB 312.45
+    Income:Interest
+
+2026-09-16 * อาหารเย็น
+    Expenses:Food                    THB 320.00
+    Expenses:Food:Drinks             THB 85.00
+    Assets:Bank:KBank
+
+2026-09-17 * ช้อปปิ้งออนไลน์
+    Expenses:Shopping                THB 2,585.00
+    Liabilities:CreditCard
+
+2026-09-18 * ร้านหนังสือ
+    Expenses:Shopping                THB 605.00
+    Assets:Bank:KBank
+
+2026-09-20 * ชำระบัตรเครดิต
+    Liabilities:CreditCard           THB 6,000.00
+    Assets:Bank:KBank
+
+2026-09-22 * ร้านสะดวกซื้อ
+    Expenses:Food                    THB 135.00
+    Assets:Bank:KBank
+
+2026-09-24 * ค่าไฟฟ้า
+    Expenses:Utilities               THB 1,284.50
+    Assets:Bank:KBank
+
+2026-09-25 * เงินเดือน
+    Assets:Bank:SCB                  THB 45,000.00
+    Income:Salary
+
+2026-09-26 * (SAMPLE-REF-0003) โอนเข้ากสิกร
+    Assets:Bank:KBank                THB 5,000.00
+    Assets:Bank:SCB
+
+2026-09-28 * BTS
+    Expenses:Transport               THB 47.00
+    Liabilities:CreditCard
+
+2026-09-28 * (SAMPLE-REF-0002) ซื้อ NVDA 0.7295 หุ้น
+    Assets:Investments:Dime          THB 4,200.00
+    Assets:Bank:KKP
+
+2026-09-29 ! (SAMPLE-REF-0004) โอนค่าห้อง  ; time:09:15
+    Expenses:Housing                 THB 8,500.00
+    Assets:Bank:KBank
+
+2026-09-29 * (SAMPLE-REF-0001) ข้าวมันไก่  ; time:12:41
+    Expenses:Food                    THB 60.00
+    Assets:Bank:KBank

@@ -1,0 +1,1917 @@
+[
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-08-01",
+    "tdate2": null,
+    "tdescription": "ยอดยกมา",
+    "tindex": 1,
+    "tpostings": [
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 6000000,
+              "decimalPlaces": 2,
+              "floatingPoint": 60000
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "1",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:SCB",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 1230000,
+              "decimalPlaces": 2,
+              "floatingPoint": 12300
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "1",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KKP",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 15420000,
+              "decimalPlaces": 2,
+              "floatingPoint": 154200
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "1",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Cash",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 124000,
+              "decimalPlaces": 2,
+              "floatingPoint": 1240
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "1",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Investments:Dime",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 3122018,
+              "decimalPlaces": 2,
+              "floatingPoint": 31220.18
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "1",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Liabilities:CreditCard",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -240300,
+              "decimalPlaces": 2,
+              "floatingPoint": -2403
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "1",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Equity:Opening",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -25655718,
+              "decimalPlaces": 2,
+              "floatingPoint": -256557.18
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "1",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 4,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 12,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-09",
+    "tdate2": null,
+    "tdescription": "ค่าบริการรายเดือน",
+    "tindex": 2,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Other",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 74200,
+              "decimalPlaces": 2,
+              "floatingPoint": 742
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "2",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -74200,
+              "decimalPlaces": 2,
+              "floatingPoint": -742
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "2",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 13,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 16,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-11",
+    "tdate2": null,
+    "tdescription": "เติมบัตรรถไฟฟ้า",
+    "tindex": 3,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Transport",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 180900,
+              "decimalPlaces": 2,
+              "floatingPoint": 1809
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "3",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -180900,
+              "decimalPlaces": 2,
+              "floatingPoint": -1809
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "3",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 17,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 20,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-13",
+    "tdate2": null,
+    "tdescription": "ร้านอาหาร",
+    "tindex": 4,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Food",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 582000,
+              "decimalPlaces": 2,
+              "floatingPoint": 5820
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "4",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Liabilities:CreditCard",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -582000,
+              "decimalPlaces": 2,
+              "floatingPoint": -5820
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "4",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 21,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 24,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-14",
+    "tdate2": null,
+    "tdescription": "ดอกเบี้ย",
+    "tindex": 5,
+    "tpostings": [
+      {
+        "paccount": "Assets:Bank:KKP",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 31245,
+              "decimalPlaces": 2,
+              "floatingPoint": 312.45
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "5",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Income:Interest",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -31245,
+              "decimalPlaces": 2,
+              "floatingPoint": -312.45
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "5",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 25,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 28,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-16",
+    "tdate2": null,
+    "tdescription": "อาหารเย็น",
+    "tindex": 6,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Food",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 32000,
+              "decimalPlaces": 2,
+              "floatingPoint": 320
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "6",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Expenses:Food:Drinks",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 8500,
+              "decimalPlaces": 2,
+              "floatingPoint": 85
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "6",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -40500,
+              "decimalPlaces": 2,
+              "floatingPoint": -405
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "6",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 29,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 33,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-17",
+    "tdate2": null,
+    "tdescription": "ช้อปปิ้งออนไลน์",
+    "tindex": 7,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Shopping",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 258500,
+              "decimalPlaces": 2,
+              "floatingPoint": 2585
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "7",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Liabilities:CreditCard",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -258500,
+              "decimalPlaces": 2,
+              "floatingPoint": -2585
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "7",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 34,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 37,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-18",
+    "tdate2": null,
+    "tdescription": "ร้านหนังสือ",
+    "tindex": 8,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Shopping",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 60500,
+              "decimalPlaces": 2,
+              "floatingPoint": 605
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "8",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -60500,
+              "decimalPlaces": 2,
+              "floatingPoint": -605
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "8",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 38,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 41,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-20",
+    "tdate2": null,
+    "tdescription": "ชำระบัตรเครดิต",
+    "tindex": 9,
+    "tpostings": [
+      {
+        "paccount": "Liabilities:CreditCard",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 600000,
+              "decimalPlaces": 2,
+              "floatingPoint": 6000
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "9",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -600000,
+              "decimalPlaces": 2,
+              "floatingPoint": -6000
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "9",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 42,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 45,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-22",
+    "tdate2": null,
+    "tdescription": "ร้านสะดวกซื้อ",
+    "tindex": 10,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Food",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 13500,
+              "decimalPlaces": 2,
+              "floatingPoint": 135
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "10",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -13500,
+              "decimalPlaces": 2,
+              "floatingPoint": -135
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "10",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 46,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 49,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-24",
+    "tdate2": null,
+    "tdescription": "ค่าไฟฟ้า",
+    "tindex": 11,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Utilities",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 128450,
+              "decimalPlaces": 2,
+              "floatingPoint": 1284.5
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "11",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -128450,
+              "decimalPlaces": 2,
+              "floatingPoint": -1284.5
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "11",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 50,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 53,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-25",
+    "tdate2": null,
+    "tdescription": "เงินเดือน",
+    "tindex": 12,
+    "tpostings": [
+      {
+        "paccount": "Assets:Bank:SCB",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 4500000,
+              "decimalPlaces": 2,
+              "floatingPoint": 45000
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "12",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Income:Salary",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -4500000,
+              "decimalPlaces": 2,
+              "floatingPoint": -45000
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "12",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 54,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 57,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "SAMPLE-REF-0003",
+    "tcomment": "",
+    "tdate": "2026-09-26",
+    "tdate2": null,
+    "tdescription": "โอนเข้ากสิกร",
+    "tindex": 13,
+    "tpostings": [
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 500000,
+              "decimalPlaces": 2,
+              "floatingPoint": 5000
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "13",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:SCB",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -500000,
+              "decimalPlaces": 2,
+              "floatingPoint": -5000
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "13",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 58,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 61,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "",
+    "tcomment": "",
+    "tdate": "2026-09-28",
+    "tdate2": null,
+    "tdescription": "BTS",
+    "tindex": 14,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Transport",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 4700,
+              "decimalPlaces": 2,
+              "floatingPoint": 47
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "14",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Liabilities:CreditCard",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -4700,
+              "decimalPlaces": 2,
+              "floatingPoint": -47
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "14",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 62,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 65,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "SAMPLE-REF-0002",
+    "tcomment": "",
+    "tdate": "2026-09-28",
+    "tdate2": null,
+    "tdescription": "ซื้อ NVDA 0.7295 หุ้น",
+    "tindex": 15,
+    "tpostings": [
+      {
+        "paccount": "Assets:Investments:Dime",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 420000,
+              "decimalPlaces": 2,
+              "floatingPoint": 4200
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "15",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KKP",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -420000,
+              "decimalPlaces": 2,
+              "floatingPoint": -4200
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "15",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 66,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 69,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": []
+  },
+  {
+    "tcode": "SAMPLE-REF-0004",
+    "tcomment": "time:09:15\n",
+    "tdate": "2026-09-29",
+    "tdate2": null,
+    "tdescription": "โอนค่าห้อง",
+    "tindex": 16,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Housing",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 850000,
+              "decimalPlaces": 2,
+              "floatingPoint": 8500
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "16",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -850000,
+              "decimalPlaces": 2,
+              "floatingPoint": -8500
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "16",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 70,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 73,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Pending",
+    "ttags": [
+      [
+        "time",
+        "09:15"
+      ]
+    ]
+  },
+  {
+    "tcode": "SAMPLE-REF-0001",
+    "tcomment": "time:12:41\n",
+    "tdate": "2026-09-29",
+    "tdate2": null,
+    "tdescription": "ข้าวมันไก่",
+    "tindex": 17,
+    "tpostings": [
+      {
+        "paccount": "Expenses:Food",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": 6000,
+              "decimalPlaces": 2,
+              "floatingPoint": 60
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "17",
+        "ptype": "RegularPosting"
+      },
+      {
+        "paccount": "Assets:Bank:KBank",
+        "pamount": [
+          {
+            "acommodity": "THB",
+            "acost": null,
+            "acostbasis": null,
+            "aquantity": {
+              "decimalMantissa": -6000,
+              "decimalPlaces": 2,
+              "floatingPoint": -60
+            },
+            "astyle": {
+              "ascommodityside": "L",
+              "ascommodityspaced": true,
+              "asdecimalmark": ".",
+              "asdigitgroups": [
+                ",",
+                [
+                  3
+                ]
+              ],
+              "asprecision": 2,
+              "asrounding": "NoRounding"
+            }
+          }
+        ],
+        "pbalanceassertion": null,
+        "pcomment": "",
+        "pdate": null,
+        "pdate2": null,
+        "poriginal": null,
+        "pstatus": "Unmarked",
+        "ptags": [],
+        "ptransaction_": "17",
+        "ptype": "RegularPosting"
+      }
+    ],
+    "tprecedingcomment": "",
+    "tsourcepos": [
+      {
+        "sourceColumn": 1,
+        "sourceLine": 74,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      },
+      {
+        "sourceColumn": 1,
+        "sourceLine": 77,
+        "sourceName": "/Users/kasama.t/workspaces/ledger_app/tool/sample_ledger.journal"
+      }
+    ],
+    "tstatus": "Cleared",
+    "ttags": [
+      [
+        "time",
+        "12:41"
+      ]
+    ]
+  }
+]
