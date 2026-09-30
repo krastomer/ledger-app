@@ -222,7 +222,7 @@ void main() {
     final ledger = parser.parse(source);
 
     expect(ledger.issues, isEmpty);
-    expect(ledger.transactions, hasLength(17));
+    expect(ledger.transactions, hasLength(37));
     expect(
       ledger.accounts.map((a) => a.type),
       unorderedEquals(AccountType.values),

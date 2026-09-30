@@ -1,7 +1,7 @@
 ; Demo ledger for development. Made-up data; not a real account.
 ; Regenerate assets/ledger/sample.json with tool/export_ledger.sh.
 
-2026-08-01 * ยอดยกมา
+2026-07-01 * ยอดยกมา
     Assets:Bank:KBank                THB 60,000.00
     Assets:Bank:SCB                  THB 12,300.00
     Assets:Bank:KKP                  THB 154,200.00
@@ -9,6 +9,86 @@
     Assets:Investments:Dime          THB 31,220.18
     Liabilities:CreditCard          THB -2,403.00
     Equity:Opening
+
+2026-07-03 * ร้านอาหาร
+    Expenses:Food                    THB 4,260.00
+    Liabilities:CreditCard
+
+2026-07-05 * โอนค่าห้อง
+    Expenses:Housing                 THB 8,500.00
+    Assets:Bank:KBank
+
+2026-07-08 * ค่าไฟฟ้า
+    Expenses:Utilities               THB 1,120.00
+    Assets:Bank:KBank
+
+2026-07-12 * เติมบัตรรถไฟฟ้า
+    Expenses:Transport               THB 1,650.00
+    Assets:Bank:KBank
+
+2026-07-14 * ดอกเบี้ย
+    Assets:Bank:KKP                  THB 298.10
+    Income:Interest
+
+2026-07-18 * ช้อปปิ้งออนไลน์
+    Expenses:Shopping                THB 1,940.00
+    Liabilities:CreditCard
+
+2026-07-20 * ชำระบัตรเครดิต
+    Liabilities:CreditCard           THB 5,000.00
+    Assets:Bank:KBank
+
+2026-07-24 * ร้านสะดวกซื้อ
+    Expenses:Food                    THB 210.00
+    Assets:Bank:KBank
+
+2026-07-25 * เงินเดือน
+    Assets:Bank:SCB                  THB 45,000.00
+    Income:Salary
+
+2026-07-27 * ค่าบริการรายเดือน
+    Expenses:Other                   THB 742.00
+    Assets:Bank:KBank
+
+2026-08-02 * โอนค่าห้อง
+    Expenses:Housing                 THB 8,500.00
+    Assets:Bank:KBank
+
+2026-08-04 * ร้านอาหาร
+    Expenses:Food                    THB 5,140.00
+    Liabilities:CreditCard
+
+2026-08-07 * ค่าไฟฟ้า
+    Expenses:Utilities               THB 1,395.00
+    Assets:Bank:KBank
+
+2026-08-10 * เติมบัตรรถไฟฟ้า
+    Expenses:Transport               THB 1,720.00
+    Assets:Bank:KBank
+
+2026-08-14 * ดอกเบี้ย
+    Assets:Bank:KKP                  THB 305.60
+    Income:Interest
+
+2026-08-16 * ช้อปปิ้งออนไลน์
+    Expenses:Shopping                THB 3,210.00
+    Liabilities:CreditCard
+
+2026-08-19 * อาหารเย็น
+    Expenses:Food                    THB 415.00
+    Assets:Bank:KBank
+
+2026-08-20 * ชำระบัตรเครดิต
+    Liabilities:CreditCard           THB 5,500.00
+    Assets:Bank:KBank
+
+2026-08-25 * เงินเดือน
+    Assets:Bank:SCB                  THB 45,000.00
+    Income:Salary
+
+2026-08-27 * ค่าบริการรายเดือน
+    Expenses:Other                   THB 742.00
+    Assets:Bank:KBank
 
 2026-09-09 * ค่าบริการรายเดือน
     Expenses:Other                   THB 742.00
