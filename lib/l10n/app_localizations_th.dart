@@ -121,4 +121,89 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get settingsSaveFailed => 'บันทึกการตั้งค่าไม่สำเร็จ';
+
+  @override
+  String get netIncome => 'สุทธิ';
+
+  @override
+  String get previousMonth => 'เดือนก่อน';
+
+  @override
+  String get nextMonth => 'เดือนถัดไป';
+
+  @override
+  String get noTransactionsThisMonth => 'เดือนนี้ยังไม่มีรายการ';
+
+  @override
+  String get searchTransactions => 'ค้นหารายการ';
+
+  @override
+  String get clearSearch => 'ล้างคำค้นหา';
+
+  @override
+  String get filterPending => 'รอตรวจ';
+
+  @override
+  String get filterWithSlip => 'มีสลิป';
+
+  @override
+  String get today => 'วันนี้';
+
+  @override
+  String get transferLabel => 'โอน';
+
+  @override
+  String get slipAttached => 'มีสลิป';
+
+  @override
+  String get noMatchingTransactions => 'ไม่พบรายการที่ตรงกัน';
+
+  @override
+  String get netLabel => 'สุทธิ';
+
+  @override
+  String get tapSliceToDrill => 'แตะที่ชิ้นของกราฟเพื่อดูหมวดย่อย';
+
+  @override
+  String get generalCategory => 'ทั่วไป';
+
+  @override
+  String get savedLabel => 'ออมได้';
+
+  @override
+  String get leftOver => 'คงเหลือ';
+
+  @override
+  String subcategoriesCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count หมวดย่อย',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String entriesCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count รายการ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allocationItem => 'รายการ';
+
+  @override
+  String get allocationShare => 'สัดส่วน';
+
+  @override
+  String get allocationAmount => 'ยอด';
+
+  @override
+  String shareOfParent(String percent, String parent) {
+    return '$percent ของ$parent';
+  }
 }

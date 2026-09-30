@@ -301,6 +301,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t save the setting'**
   String get settingsSaveFailed;
+
+  /// No description provided for @netIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Net income'**
+  String get netIncome;
+
+  /// No description provided for @previousMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous month'**
+  String get previousMonth;
+
+  /// No description provided for @nextMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Next month'**
+  String get nextMonth;
+
+  /// No description provided for @noTransactionsThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions this month'**
+  String get noTransactionsThisMonth;
+
+  /// No description provided for @searchTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Search transactions'**
+  String get searchTransactions;
+
+  /// No description provided for @clearSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get clearSearch;
+
+  /// No description provided for @filterPending.
+  ///
+  /// In en, this message translates to:
+  /// **'To review'**
+  String get filterPending;
+
+  /// No description provided for @filterWithSlip.
+  ///
+  /// In en, this message translates to:
+  /// **'Has slip'**
+  String get filterWithSlip;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @transferLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer'**
+  String get transferLabel;
+
+  /// No description provided for @slipAttached.
+  ///
+  /// In en, this message translates to:
+  /// **'Slip attached'**
+  String get slipAttached;
+
+  /// No description provided for @noMatchingTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching transactions'**
+  String get noMatchingTransactions;
+
+  /// No description provided for @netLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Net'**
+  String get netLabel;
+
+  /// No description provided for @tapSliceToDrill.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a slice to drill down'**
+  String get tapSliceToDrill;
+
+  /// No description provided for @generalCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get generalCategory;
+
+  /// No description provided for @savedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get savedLabel;
+
+  /// No description provided for @leftOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Left over'**
+  String get leftOver;
+
+  /// No description provided for @subcategoriesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 subcategory} other{{count} subcategories}}'**
+  String subcategoriesCount(num count);
+
+  /// No description provided for @entriesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 entry} other{{count} entries}}'**
+  String entriesCount(num count);
+
+  /// No description provided for @allocationItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Item'**
+  String get allocationItem;
+
+  /// No description provided for @allocationShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get allocationShare;
+
+  /// No description provided for @allocationAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get allocationAmount;
+
+  /// No description provided for @shareOfParent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent} of {parent}'**
+  String shareOfParent(String percent, String parent);
 }
 
 class _AppLocalizationsDelegate

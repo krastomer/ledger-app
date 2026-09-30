@@ -31,4 +31,19 @@ void main() {
     expect(formatMonthName(date, 'th'), 'กันยายน');
     expect(formatMonthName(date, 'en'), 'September');
   });
+
+  test('formats month and year with the chosen era', () {
+    expect(formatMonthYear(date, 'th', YearEra.buddhist), 'กันยายน 2569');
+    expect(formatMonthYear(date, 'en', YearEra.gregorian), 'September 2026');
+  });
+
+  test('formats a day heading without the year', () {
+    expect(formatDayHeading(date, 'th'), 'อ. 29 ก.ย.');
+    expect(formatDayHeading(date, 'en'), 'Tue, Sep 29');
+  });
+
+  test('formats a time of day with leading zeros', () {
+    expect(formatTime(const Duration(hours: 9, minutes: 5)), '09:05');
+    expect(formatTime(const Duration(hours: 18, minutes: 30)), '18:30');
+  });
 }

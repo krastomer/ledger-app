@@ -6,7 +6,9 @@ import 'package:ledger_app/ui/core/widgets/app_shell.dart';
 import 'package:ledger_app/ui/core/widgets/coming_soon_page.dart';
 import 'package:ledger_app/ui/dev/ocr_test_page.dart';
 import 'package:ledger_app/ui/home/view/home_page.dart';
+import 'package:ledger_app/ui/reports/view/reports_page.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
+import 'package:ledger_app/ui/transactions/view/transactions_page.dart';
 
 import 'routes.dart';
 
@@ -30,8 +32,7 @@ GoRouter createRouter({required SlipOcrService ocrService}) => GoRouter(
                 ),
                 GoRoute(
                   path: Routes.reports.substring(1),
-                  builder: (context, state) =>
-                      ComingSoonPage(title: context.l10n.reportsTitle),
+                  builder: (context, state) => const ReportsPage(),
                 ),
               ],
             ),
@@ -41,8 +42,7 @@ GoRouter createRouter({required SlipOcrService ocrService}) => GoRouter(
           routes: [
             GoRoute(
               path: Routes.transactions,
-              builder: (context, state) =>
-                  ComingSoonPage(title: context.l10n.navTransactions),
+              builder: (context, state) => const TransactionsPage(),
             ),
           ],
         ),

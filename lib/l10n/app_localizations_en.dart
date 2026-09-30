@@ -122,4 +122,91 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsSaveFailed => 'Couldn\'t save the setting';
+
+  @override
+  String get netIncome => 'Net income';
+
+  @override
+  String get previousMonth => 'Previous month';
+
+  @override
+  String get nextMonth => 'Next month';
+
+  @override
+  String get noTransactionsThisMonth => 'No transactions this month';
+
+  @override
+  String get searchTransactions => 'Search transactions';
+
+  @override
+  String get clearSearch => 'Clear search';
+
+  @override
+  String get filterPending => 'To review';
+
+  @override
+  String get filterWithSlip => 'Has slip';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get transferLabel => 'Transfer';
+
+  @override
+  String get slipAttached => 'Slip attached';
+
+  @override
+  String get noMatchingTransactions => 'No matching transactions';
+
+  @override
+  String get netLabel => 'Net';
+
+  @override
+  String get tapSliceToDrill => 'Tap a slice to drill down';
+
+  @override
+  String get generalCategory => 'General';
+
+  @override
+  String get savedLabel => 'Saved';
+
+  @override
+  String get leftOver => 'Left over';
+
+  @override
+  String subcategoriesCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count subcategories',
+      one: '1 subcategory',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String entriesCount(num count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count entries',
+      one: '1 entry',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get allocationItem => 'Item';
+
+  @override
+  String get allocationShare => 'Share';
+
+  @override
+  String get allocationAmount => 'Amount';
+
+  @override
+  String shareOfParent(String percent, String parent) {
+    return '$percent of $parent';
+  }
 }

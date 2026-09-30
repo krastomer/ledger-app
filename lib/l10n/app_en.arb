@@ -54,5 +54,38 @@
       }
     }
   },
-  "settingsSaveFailed": "Couldn't save the setting"
+  "settingsSaveFailed": "Couldn't save the setting",
+  "netIncome": "Net income",
+  "previousMonth": "Previous month",
+  "nextMonth": "Next month",
+  "noTransactionsThisMonth": "No transactions this month",
+  "searchTransactions": "Search transactions",
+  "clearSearch": "Clear search",
+  "filterPending": "To review",
+  "filterWithSlip": "Has slip",
+  "today": "Today",
+  "transferLabel": "Transfer",
+  "slipAttached": "Slip attached",
+  "noMatchingTransactions": "No matching transactions",
+  "netLabel": "Net",
+  "tapSliceToDrill": "Tap a slice to drill down",
+  "generalCategory": "General",
+  "savedLabel": "Saved",
+  "leftOver": "Left over",
+  "subcategoriesCount": "{count, plural, =1{1 subcategory} other{{count} subcategories}}",
+  "entriesCount": "{count, plural, =1{1 entry} other{{count} entries}}",
+  "allocationItem": "Item",
+  "allocationShare": "Share",
+  "allocationAmount": "Amount",
+  "shareOfParent": "{percent} of {parent}",
+  "@shareOfParent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      },
+      "parent": {
+        "type": "String"
+      }
+    }
+  }
 }
