@@ -69,12 +69,11 @@ class _HomeContent extends StatelessWidget {
               assets: summary.assets,
               liabilities: summary.liabilities,
               amountsHidden: hidden,
-              onToggleHidden: cubit.toggleAmountsHidden,
               onTap: () => context.go(Routes.accounts),
             ),
-            if (summary.pendingCount > 0)
+            if (summary.reviewCount > 0)
               ReviewBanner(
-                count: summary.pendingCount,
+                count: summary.reviewCount,
                 onTap: () => context.go(Routes.inbox),
               ),
             MonthSummaryCard(

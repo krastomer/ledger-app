@@ -4,9 +4,17 @@ import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 
 class AppShell extends StatelessWidget {
-  const AppShell({super.key, required this.navigationShell});
+  const AppShell({
+    super.key,
+    required this.navigationShell,
+    this.inboxCount = 0,
+  });
+
+  /// Index of the inbox tab, which shows [inboxCount] as `[n]`.
+  static const inboxTab = 2;
 
   final StatefulNavigationShell navigationShell;
+  final int inboxCount;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +45,7 @@ class AppShell extends StatelessWidget {
                     child: _Tab(
                       index: index,
                       label: label,
+                      count: index == inboxTab ? inboxCount : 0,
                       isSelected: index == current,
                       onTap: () => navigationShell.goBranch(
                         index,
@@ -57,12 +66,14 @@ class _Tab extends StatelessWidget {
   const _Tab({
     required this.index,
     required this.label,
+    required this.count,
     required this.isSelected,
     required this.onTap,
   });
 
   final int index;
   final String label;
+  final int count;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -73,7 +84,7 @@ class _Tab extends StatelessWidget {
     return Semantics(
       button: true,
       selected: isSelected,
-      label: label,
+      label: count > 0 ? '$label, $count' : label,
       excludeSemantics: true,
       child: InkWell(
         onTap: onTap,
@@ -84,8 +95,23 @@ class _Tab extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: Dimens.gapXS),
               child: FittedBox(
                 fit: BoxFit.scaleDown,
-                child: Text(
-                  '$index:${label.toLowerCase()}${isSelected ? '*' : ''}',
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text:
+                            '$index:${label.toLowerCase()}'
+                            '${isSelected ? '*' : ''}',
+                      ),
+                      if (count > 0)
+                        TextSpan(
+                          text: '[$count]',
+                          style: TextStyle(
+                            color: isSelected ? null : scheme.error,
+                          ),
+                        ),
+                    ],
+                  ),
                   maxLines: 1,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: isSelected

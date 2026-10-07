@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
@@ -11,9 +13,12 @@ part 'accounts_state.dart';
 
 class AccountsCubit extends Cubit<AccountsState> {
   AccountsCubit({required this._accountsSummary})
-    : super(const AccountsState());
+    : super(const AccountsState()) {
+    _changes = _accountsSummary.changes.listen((_) => load());
+  }
 
   final AccountsSummaryUseCase _accountsSummary;
+  late final StreamSubscription<void> _changes;
 
   Future<void> load() async {
     emit(state.copyWith(status: AccountsStatus.loading, error: null));
@@ -69,5 +74,11 @@ class AccountsCubit extends Cubit<AccountsState> {
       }
     }
     return open;
+  }
+
+  @override
+  Future<void> close() async {
+    await _changes.cancel();
+    return super.close();
   }
 }

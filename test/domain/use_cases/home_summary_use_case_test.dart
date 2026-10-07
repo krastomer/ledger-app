@@ -82,10 +82,10 @@ void main() {
     expect(byId['rent']?.isPending, isTrue);
   });
 
-  test('counts pending transactions', () async {
+  test('counts entries waiting for review', () async {
     final summary = await summarize(repository);
 
-    expect(summary.pendingCount, 1);
+    expect(summary.reviewCount, 1);
   });
 
   test('ignores postings in other currencies', () async {

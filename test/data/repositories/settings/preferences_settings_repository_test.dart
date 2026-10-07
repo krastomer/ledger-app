@@ -26,6 +26,9 @@ void main() {
     const settings = AppSettings(
       language: AppLanguage.en,
       yearEra: YearEra.gregorian,
+      hideOnLaunch: true,
+      showZeroBalance: true,
+      keepSlipImages: false,
     );
 
     await repository.save(settings);

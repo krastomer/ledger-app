@@ -11,6 +11,8 @@ class TuiPanel extends StatelessWidget {
     required this.title,
     required this.child,
     this.trailing,
+    this.trailingColor,
+    this.background,
     this.accent = false,
     this.borderColor,
     this.padding = const EdgeInsets.fromLTRB(
@@ -25,6 +27,12 @@ class TuiPanel extends StatelessWidget {
   final String title;
   final Widget child;
   final String? trailing;
+
+  /// Highlights [trailing], e.g. a red `! pending`.
+  final Color? trailingColor;
+
+  /// Fills the inside of the border.
+  final Color? background;
 
   /// Amber title for the screen's main panel.
   final bool accent;
@@ -48,6 +56,7 @@ class TuiPanel extends StatelessWidget {
           padding: const EdgeInsets.only(top: _labelHeight / 2),
           child: DecoratedBox(
             decoration: BoxDecoration(
+              color: background,
               border: openBottom
                   ? Border(top: side, left: side, right: side)
                   : Border.fromBorderSide(side),
@@ -79,7 +88,10 @@ class TuiPanel extends StatelessWidget {
                   child: _Label(
                     text: trailing,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: scheme.onSurfaceVariant,
+                      color: trailingColor ?? scheme.onSurfaceVariant,
+                      fontWeight: trailingColor == null
+                          ? null
+                          : FontWeight.w600,
                     ),
                   ),
                 ),

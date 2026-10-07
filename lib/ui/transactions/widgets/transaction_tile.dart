@@ -8,9 +8,10 @@ import 'package:ledger_app/ui/core/widgets/amount_text.dart';
 import 'package:ledger_app/utils/date_format.dart';
 
 class TransactionTile extends StatelessWidget {
-  const TransactionTile({super.key, required this.transaction});
+  const TransactionTile({super.key, required this.transaction, this.onTap});
 
   final TransactionSummary transaction;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,67 +27,70 @@ class TransactionTile extends StatelessWidget {
       TransactionKind.transfer => (transaction.amount, null),
     };
     final time = transaction.time;
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2),
-        child: Row(
-          spacing: Dimens.gapS,
-          children: [
-            SizedBox(
-              width: 12,
-              child: transaction.isPending
-                  ? Text(
-                      '!',
-                      semanticsLabel: l10n.filterPending,
-                      style: TextStyle(
-                        color: scheme.error,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  : null,
-            ),
-            Text(
-              time == null ? '--:--' : formatTime(time),
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+      onTap: onTap,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2),
+          child: Row(
+            spacing: Dimens.gapS,
+            children: [
+              SizedBox(
+                width: 12,
+                child: transaction.isPending
+                    ? Text(
+                        '!',
+                        semanticsLabel: l10n.filterPending,
+                        style: TextStyle(
+                          color: scheme.error,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    : null,
+              ),
+              Text(
+                time == null ? '--:--' : formatTime(time),
+                style: TextStyle(color: scheme.onSurfaceVariant),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      transaction.description,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      '${transaction.from} → ${transaction.to}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: small,
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    transaction.description,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  AmountText(
+                    amount,
+                    showPlus: transaction.kind == TransactionKind.income,
+                    color: color,
                   ),
-                  Text(
-                    '${transaction.from} → ${transaction.to}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: small,
-                  ),
+                  if (transaction.hasSlip)
+                    Text(
+                      '[slip]',
+                      semanticsLabel: l10n.slipAttached,
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
                 ],
               ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                AmountText(
-                  amount,
-                  showPlus: transaction.kind == TransactionKind.income,
-                  color: color,
-                ),
-                if (transaction.hasSlip)
-                  Text(
-                    '[slip]',
-                    semanticsLabel: l10n.slipAttached,
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: scheme.onSurfaceVariant,
-                    ),
-                  ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

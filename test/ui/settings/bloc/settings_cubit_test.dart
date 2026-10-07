@@ -57,4 +57,36 @@ void main() {
       ),
     ],
   );
+
+  blocTest<SettingsCubit, SettingsState>(
+    'changes and saves the switches',
+    build: () =>
+        SettingsCubit(repository: repository, initial: const AppSettings()),
+    act: (cubit) async {
+      await cubit.setHideOnLaunch(true);
+      await cubit.setShowZeroBalance(true);
+      await cubit.setKeepSlipImages(false);
+    },
+    expect: () => [
+      const SettingsState(settings: AppSettings(hideOnLaunch: true)),
+      const SettingsState(
+        settings: AppSettings(hideOnLaunch: true, showZeroBalance: true),
+      ),
+      const SettingsState(
+        settings: AppSettings(
+          hideOnLaunch: true,
+          showZeroBalance: true,
+          keepSlipImages: false,
+        ),
+      ),
+    ],
+    verify: (_) => expect(
+      repository.saved,
+      const AppSettings(
+        hideOnLaunch: true,
+        showZeroBalance: true,
+        keepSlipImages: false,
+      ),
+    ),
+  );
 }

@@ -16,5 +16,9 @@ abstract class Posting with _$Posting {
 
   String get rootAccount => account.split(accountSeparator).first;
 
+  /// The account's first two levels, e.g. `Expenses:Food`.
+  String get category =>
+      account.split(accountSeparator).take(2).join(accountSeparator);
+
   String get leafName => account.split(accountSeparator).last;
 }

@@ -21,4 +21,10 @@ void main() {
   test('can omit the symbol', () {
     expect(formatMoney(thb(123456), showSymbol: false), '1,234.56');
   });
+
+  test('shortens whole amounts for scales', () {
+    expect(formatCompactMoney(thb(30000)), '300');
+    expect(formatCompactMoney(thb(120000)), '1.2k');
+    expect(formatCompactMoney(thb(1500099)), '15k');
+  });
 }

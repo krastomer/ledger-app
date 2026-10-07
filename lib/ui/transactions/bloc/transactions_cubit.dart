@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ledger_app/domain/models/month_transactions.dart';
@@ -10,9 +12,12 @@ part 'transactions_state.dart';
 
 class TransactionsCubit extends Cubit<TransactionsState> {
   TransactionsCubit({required this._monthTransactions})
-    : super(const TransactionsState());
+    : super(const TransactionsState()) {
+    _changes = _monthTransactions.changes.listen((_) => load());
+  }
 
   final MonthTransactionsUseCase _monthTransactions;
+  late final StreamSubscription<void> _changes;
   int _requestId = 0;
 
   Future<void> load() => _load(state.data?.month);
@@ -62,5 +67,11 @@ class TransactionsCubit extends Cubit<TransactionsState> {
           ),
         );
     }
+  }
+
+  @override
+  Future<void> close() async {
+    await _changes.cancel();
+    return super.close();
   }
 }

@@ -21,6 +21,15 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> setYearEra(YearEra yearEra) =>
       _save(state.settings.copyWith(yearEra: yearEra));
 
+  Future<void> setHideOnLaunch(bool value) =>
+      _save(state.settings.copyWith(hideOnLaunch: value));
+
+  Future<void> setShowZeroBalance(bool value) =>
+      _save(state.settings.copyWith(showZeroBalance: value));
+
+  Future<void> setKeepSlipImages(bool value) =>
+      _save(state.settings.copyWith(keepSlipImages: value));
+
   Future<void> _save(AppSettings settings) async {
     final previous = state.settings;
     if (settings == previous) return;

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 
-enum _Kind { link, action, chip }
+enum _Kind { link, action, primary, chip }
 
 /// Text-only terminal controls. Labels are shown in lower case.
 ///
 /// - [TuiButton.new]: an amber link (`open →`), or a key hint (`[q] back`)
 ///   when [keyHint] is set.
 /// - [TuiButton.action]: an ncurses button (`< try again >`).
+/// - [TuiButton.primary]: a filled `< save >` button for the main action.
 /// - [TuiButton.chip]: a bordered toggle that fills amber when selected.
 class TuiButton extends StatelessWidget {
   const TuiButton({
@@ -18,7 +19,9 @@ class TuiButton extends StatelessWidget {
     this.keyHint,
     this.minWidth = 0,
     this.padding = 6,
+    this.alignment,
   }) : selected = false,
+       color = null,
        _kind = _Kind.link;
 
   const TuiButton.action({
@@ -28,9 +31,24 @@ class TuiButton extends StatelessWidget {
     this.tooltip,
     this.minWidth = 0,
     this.padding = 6,
+    this.color,
   }) : selected = false,
        keyHint = null,
+       alignment = null,
        _kind = _Kind.action;
+
+  const TuiButton.primary({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.tooltip,
+    this.minWidth = 0,
+    this.padding = 14,
+    this.color,
+  }) : selected = false,
+       keyHint = null,
+       alignment = null,
+       _kind = _Kind.primary;
 
   const TuiButton.chip({
     super.key,
@@ -41,6 +59,8 @@ class TuiButton extends StatelessWidget {
     this.minWidth = 0,
     this.padding = 10,
   }) : keyHint = null,
+       alignment = null,
+       color = null,
        _kind = _Kind.chip;
 
   final String label;
@@ -50,6 +70,12 @@ class TuiButton extends StatelessWidget {
   final bool selected;
   final double minWidth;
   final double padding;
+
+  /// Where the label sits in the tap target; centered by default.
+  final AlignmentGeometry? alignment;
+
+  /// Text color of an action, or fill of a primary button.
+  final Color? color;
   final _Kind _kind;
 
   @override
@@ -58,7 +84,7 @@ class TuiButton extends StatelessWidget {
     final scheme = theme.colorScheme;
     final keyHint = this.keyHint;
     final text = switch (_kind) {
-      _Kind.action => '< ${label.toLowerCase()} >',
+      _Kind.action || _Kind.primary => '< ${label.toLowerCase()} >',
       _Kind.link || _Kind.chip => label.toLowerCase(),
     };
     final (
@@ -72,8 +98,10 @@ class TuiButton extends StatelessWidget {
         scheme.primary,
       ),
       _Kind.chip => (scheme.onSurface, null, scheme.outlineVariant),
+      _Kind.primary => (scheme.surface, color ?? scheme.primary, null),
       _Kind.link when keyHint != null => (scheme.onSurface, null, null),
-      _Kind.link || _Kind.action => (scheme.primary, null, null),
+      _Kind.action => (color ?? scheme.primary, null, null),
+      _Kind.link => (scheme.primary, null, null),
     };
     final button = TextButton(
       onPressed: onPressed,
@@ -81,14 +109,20 @@ class TuiButton extends StatelessWidget {
         foregroundColor: foreground,
         backgroundColor: background,
         disabledForegroundColor: scheme.outline,
+        disabledBackgroundColor: background == null
+            ? null
+            : scheme.surfaceContainerHigh,
         minimumSize: Size(minWidth, Dimens.tapTarget),
         padding: EdgeInsets.symmetric(horizontal: padding),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        alignment: alignment,
         shape: RoundedRectangleBorder(
           side: border == null ? BorderSide.none : BorderSide(color: border),
         ),
         textStyle: theme.textTheme.bodyMedium?.copyWith(
-          fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
+          fontWeight: selected || _kind == _Kind.primary
+              ? FontWeight.w600
+              : FontWeight.w400,
         ),
       ),
       child: keyHint == null

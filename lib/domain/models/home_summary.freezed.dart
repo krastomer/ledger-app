@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeSummary {
 
- DateTime get asOf; Money get netWorth; Money get assets; Money get liabilities; Money get monthIncome; Money get monthExpenses; Money get monthNet; List<CategoryTotal> get topSpending; List<TransactionSummary> get recent; int get pendingCount;
+ DateTime get asOf; Money get netWorth; Money get assets; Money get liabilities; Money get monthIncome; Money get monthExpenses; Money get monthNet; List<CategoryTotal> get topSpending; List<TransactionSummary> get recent;/// Entries waiting in the inbox.
+ int get reviewCount;
 /// Create a copy of HomeSummary
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -27,20 +28,20 @@ $HomeSummaryCopyWith<HomeSummary> get copyWith => _$HomeSummaryCopyWithImpl<Home
 @override
 bool operator ==(Object other) {
   final _this = this as HomeSummary;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeSummary&&(identical(other.asOf, _this.asOf) || other.asOf == _this.asOf)&&(identical(other.netWorth, _this.netWorth) || other.netWorth == _this.netWorth)&&(identical(other.assets, _this.assets) || other.assets == _this.assets)&&(identical(other.liabilities, _this.liabilities) || other.liabilities == _this.liabilities)&&(identical(other.monthIncome, _this.monthIncome) || other.monthIncome == _this.monthIncome)&&(identical(other.monthExpenses, _this.monthExpenses) || other.monthExpenses == _this.monthExpenses)&&(identical(other.monthNet, _this.monthNet) || other.monthNet == _this.monthNet)&&const DeepCollectionEquality().equals(other.topSpending, _this.topSpending)&&const DeepCollectionEquality().equals(other.recent, _this.recent)&&(identical(other.pendingCount, _this.pendingCount) || other.pendingCount == _this.pendingCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeSummary&&(identical(other.asOf, _this.asOf) || other.asOf == _this.asOf)&&(identical(other.netWorth, _this.netWorth) || other.netWorth == _this.netWorth)&&(identical(other.assets, _this.assets) || other.assets == _this.assets)&&(identical(other.liabilities, _this.liabilities) || other.liabilities == _this.liabilities)&&(identical(other.monthIncome, _this.monthIncome) || other.monthIncome == _this.monthIncome)&&(identical(other.monthExpenses, _this.monthExpenses) || other.monthExpenses == _this.monthExpenses)&&(identical(other.monthNet, _this.monthNet) || other.monthNet == _this.monthNet)&&const DeepCollectionEquality().equals(other.topSpending, _this.topSpending)&&const DeepCollectionEquality().equals(other.recent, _this.recent)&&(identical(other.reviewCount, _this.reviewCount) || other.reviewCount == _this.reviewCount));
 }
 
 
 @override
 int get hashCode {
   final _this = this as HomeSummary;
-  return Object.hash(runtimeType,_this.asOf,_this.netWorth,_this.assets,_this.liabilities,_this.monthIncome,_this.monthExpenses,_this.monthNet,const DeepCollectionEquality().hash(_this.topSpending),const DeepCollectionEquality().hash(_this.recent),_this.pendingCount);
+  return Object.hash(runtimeType,_this.asOf,_this.netWorth,_this.assets,_this.liabilities,_this.monthIncome,_this.monthExpenses,_this.monthNet,const DeepCollectionEquality().hash(_this.topSpending),const DeepCollectionEquality().hash(_this.recent),_this.reviewCount);
 }
 
 @override
 String toString() {
   final _this = this as HomeSummary;
-  return 'HomeSummary(asOf: ${_this.asOf}, netWorth: ${_this.netWorth}, assets: ${_this.assets}, liabilities: ${_this.liabilities}, monthIncome: ${_this.monthIncome}, monthExpenses: ${_this.monthExpenses}, monthNet: ${_this.monthNet}, topSpending: ${_this.topSpending}, recent: ${_this.recent}, pendingCount: ${_this.pendingCount})';
+  return 'HomeSummary(asOf: ${_this.asOf}, netWorth: ${_this.netWorth}, assets: ${_this.assets}, liabilities: ${_this.liabilities}, monthIncome: ${_this.monthIncome}, monthExpenses: ${_this.monthExpenses}, monthNet: ${_this.monthNet}, topSpending: ${_this.topSpending}, recent: ${_this.recent}, reviewCount: ${_this.reviewCount})';
 }
 
 
@@ -51,7 +52,7 @@ abstract mixin class $HomeSummaryCopyWith<$Res>  {
   factory $HomeSummaryCopyWith(HomeSummary value, $Res Function(HomeSummary) _then) = _$HomeSummaryCopyWithImpl;
 @useResult
 $Res call({
- DateTime asOf, Money netWorth, Money assets, Money liabilities, Money monthIncome, Money monthExpenses, Money monthNet, List<CategoryTotal> topSpending, List<TransactionSummary> recent, int pendingCount
+ DateTime asOf, Money netWorth, Money assets, Money liabilities, Money monthIncome, Money monthExpenses, Money monthNet, List<CategoryTotal> topSpending, List<TransactionSummary> recent, int reviewCount
 });
 
 
@@ -68,7 +69,7 @@ class _$HomeSummaryCopyWithImpl<$Res>
 
 /// Create a copy of HomeSummary
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? asOf = null,Object? netWorth = null,Object? assets = null,Object? liabilities = null,Object? monthIncome = null,Object? monthExpenses = null,Object? monthNet = null,Object? topSpending = null,Object? recent = null,Object? pendingCount = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? asOf = null,Object? netWorth = null,Object? assets = null,Object? liabilities = null,Object? monthIncome = null,Object? monthExpenses = null,Object? monthNet = null,Object? topSpending = null,Object? recent = null,Object? reviewCount = null,}) {
   return _then(HomeSummary(
 asOf: null == asOf ? _self.asOf : asOf // ignore: cast_nullable_to_non_nullable
 as DateTime,netWorth: null == netWorth ? _self.netWorth : netWorth // ignore: cast_nullable_to_non_nullable
@@ -79,7 +80,7 @@ as Money,monthExpenses: null == monthExpenses ? _self.monthExpenses : monthExpen
 as Money,monthNet: null == monthNet ? _self.monthNet : monthNet // ignore: cast_nullable_to_non_nullable
 as Money,topSpending: null == topSpending ? _self.topSpending : topSpending // ignore: cast_nullable_to_non_nullable
 as List<CategoryTotal>,recent: null == recent ? _self.recent : recent // ignore: cast_nullable_to_non_nullable
-as List<TransactionSummary>,pendingCount: null == pendingCount ? _self.pendingCount : pendingCount // ignore: cast_nullable_to_non_nullable
+as List<TransactionSummary>,reviewCount: null == reviewCount ? _self.reviewCount : reviewCount // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -165,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime asOf,  Money netWorth,  Money assets,  Money liabilities,  Money monthIncome,  Money monthExpenses,  Money monthNet,  List<CategoryTotal> topSpending,  List<TransactionSummary> recent,  int pendingCount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime asOf,  Money netWorth,  Money assets,  Money liabilities,  Money monthIncome,  Money monthExpenses,  Money monthNet,  List<CategoryTotal> topSpending,  List<TransactionSummary> recent,  int reviewCount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeSummary() when $default != null:
-return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.monthIncome,_that.monthExpenses,_that.monthNet,_that.topSpending,_that.recent,_that.pendingCount);case _:
+return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.monthIncome,_that.monthExpenses,_that.monthNet,_that.topSpending,_that.recent,_that.reviewCount);case _:
   return orElse();
 
 }
@@ -186,10 +187,10 @@ return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.m
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime asOf,  Money netWorth,  Money assets,  Money liabilities,  Money monthIncome,  Money monthExpenses,  Money monthNet,  List<CategoryTotal> topSpending,  List<TransactionSummary> recent,  int pendingCount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime asOf,  Money netWorth,  Money assets,  Money liabilities,  Money monthIncome,  Money monthExpenses,  Money monthNet,  List<CategoryTotal> topSpending,  List<TransactionSummary> recent,  int reviewCount)  $default,) {final _that = this;
 switch (_that) {
 case _HomeSummary():
-return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.monthIncome,_that.monthExpenses,_that.monthNet,_that.topSpending,_that.recent,_that.pendingCount);case _:
+return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.monthIncome,_that.monthExpenses,_that.monthNet,_that.topSpending,_that.recent,_that.reviewCount);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -206,10 +207,10 @@ return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.m
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime asOf,  Money netWorth,  Money assets,  Money liabilities,  Money monthIncome,  Money monthExpenses,  Money monthNet,  List<CategoryTotal> topSpending,  List<TransactionSummary> recent,  int pendingCount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime asOf,  Money netWorth,  Money assets,  Money liabilities,  Money monthIncome,  Money monthExpenses,  Money monthNet,  List<CategoryTotal> topSpending,  List<TransactionSummary> recent,  int reviewCount)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeSummary() when $default != null:
-return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.monthIncome,_that.monthExpenses,_that.monthNet,_that.topSpending,_that.recent,_that.pendingCount);case _:
+return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.monthIncome,_that.monthExpenses,_that.monthNet,_that.topSpending,_that.recent,_that.reviewCount);case _:
   return null;
 
 }
@@ -221,7 +222,7 @@ return $default(_that.asOf,_that.netWorth,_that.assets,_that.liabilities,_that.m
 
 
 class _HomeSummary implements HomeSummary {
-  const _HomeSummary({required this.asOf, required this.netWorth, required this.assets, required this.liabilities, required this.monthIncome, required this.monthExpenses, required this.monthNet, required  List<CategoryTotal> topSpending, required  List<TransactionSummary> recent, required this.pendingCount}): _topSpending = topSpending,_recent = recent;
+  const _HomeSummary({required this.asOf, required this.netWorth, required this.assets, required this.liabilities, required this.monthIncome, required this.monthExpenses, required this.monthNet, required  List<CategoryTotal> topSpending, required  List<TransactionSummary> recent, required this.reviewCount}): _topSpending = topSpending,_recent = recent;
   
 
 @override final  DateTime asOf;
@@ -245,7 +246,8 @@ class _HomeSummary implements HomeSummary {
   return EqualUnmodifiableListView(_recent);
 }
 
-@override final  int pendingCount;
+/// Entries waiting in the inbox.
+@override final  int reviewCount;
 
 /// Create a copy of HomeSummary
 /// with the given fields replaced by the non-null parameter values.
@@ -257,18 +259,18 @@ _$HomeSummaryCopyWith<_HomeSummary> get copyWith => __$HomeSummaryCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeSummary&&(identical(other.asOf, asOf) || other.asOf == asOf)&&(identical(other.netWorth, netWorth) || other.netWorth == netWorth)&&(identical(other.assets, assets) || other.assets == assets)&&(identical(other.liabilities, liabilities) || other.liabilities == liabilities)&&(identical(other.monthIncome, monthIncome) || other.monthIncome == monthIncome)&&(identical(other.monthExpenses, monthExpenses) || other.monthExpenses == monthExpenses)&&(identical(other.monthNet, monthNet) || other.monthNet == monthNet)&&const DeepCollectionEquality().equals(other.topSpending, _topSpending)&&const DeepCollectionEquality().equals(other.recent, _recent)&&(identical(other.pendingCount, pendingCount) || other.pendingCount == pendingCount));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeSummary&&(identical(other.asOf, asOf) || other.asOf == asOf)&&(identical(other.netWorth, netWorth) || other.netWorth == netWorth)&&(identical(other.assets, assets) || other.assets == assets)&&(identical(other.liabilities, liabilities) || other.liabilities == liabilities)&&(identical(other.monthIncome, monthIncome) || other.monthIncome == monthIncome)&&(identical(other.monthExpenses, monthExpenses) || other.monthExpenses == monthExpenses)&&(identical(other.monthNet, monthNet) || other.monthNet == monthNet)&&const DeepCollectionEquality().equals(other.topSpending, _topSpending)&&const DeepCollectionEquality().equals(other.recent, _recent)&&(identical(other.reviewCount, reviewCount) || other.reviewCount == reviewCount));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,asOf,netWorth,assets,liabilities,monthIncome,monthExpenses,monthNet,const DeepCollectionEquality().hash(_topSpending),const DeepCollectionEquality().hash(_recent),pendingCount);
+    return Object.hash(runtimeType,asOf,netWorth,assets,liabilities,monthIncome,monthExpenses,monthNet,const DeepCollectionEquality().hash(_topSpending),const DeepCollectionEquality().hash(_recent),reviewCount);
 }
 
 @override
 String toString() {
-    return 'HomeSummary(asOf: $asOf, netWorth: $netWorth, assets: $assets, liabilities: $liabilities, monthIncome: $monthIncome, monthExpenses: $monthExpenses, monthNet: $monthNet, topSpending: $topSpending, recent: $recent, pendingCount: $pendingCount)';
+    return 'HomeSummary(asOf: $asOf, netWorth: $netWorth, assets: $assets, liabilities: $liabilities, monthIncome: $monthIncome, monthExpenses: $monthExpenses, monthNet: $monthNet, topSpending: $topSpending, recent: $recent, reviewCount: $reviewCount)';
 }
 
 
@@ -279,7 +281,7 @@ abstract mixin class _$HomeSummaryCopyWith<$Res> implements $HomeSummaryCopyWith
   factory _$HomeSummaryCopyWith(_HomeSummary value, $Res Function(_HomeSummary) _then) = __$HomeSummaryCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime asOf, Money netWorth, Money assets, Money liabilities, Money monthIncome, Money monthExpenses, Money monthNet, List<CategoryTotal> topSpending, List<TransactionSummary> recent, int pendingCount
+ DateTime asOf, Money netWorth, Money assets, Money liabilities, Money monthIncome, Money monthExpenses, Money monthNet, List<CategoryTotal> topSpending, List<TransactionSummary> recent, int reviewCount
 });
 
 
@@ -296,7 +298,7 @@ class __$HomeSummaryCopyWithImpl<$Res>
 
 /// Create a copy of HomeSummary
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? asOf = null,Object? netWorth = null,Object? assets = null,Object? liabilities = null,Object? monthIncome = null,Object? monthExpenses = null,Object? monthNet = null,Object? topSpending = null,Object? recent = null,Object? pendingCount = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? asOf = null,Object? netWorth = null,Object? assets = null,Object? liabilities = null,Object? monthIncome = null,Object? monthExpenses = null,Object? monthNet = null,Object? topSpending = null,Object? recent = null,Object? reviewCount = null,}) {
   return _then(_HomeSummary(
 asOf: null == asOf ? _self.asOf : asOf // ignore: cast_nullable_to_non_nullable
 as DateTime,netWorth: null == netWorth ? _self.netWorth : netWorth // ignore: cast_nullable_to_non_nullable
@@ -307,7 +309,7 @@ as Money,monthExpenses: null == monthExpenses ? _self.monthExpenses : monthExpen
 as Money,monthNet: null == monthNet ? _self.monthNet : monthNet // ignore: cast_nullable_to_non_nullable
 as Money,topSpending: null == topSpending ? _self._topSpending : topSpending // ignore: cast_nullable_to_non_nullable
 as List<CategoryTotal>,recent: null == recent ? _self._recent : recent // ignore: cast_nullable_to_non_nullable
-as List<TransactionSummary>,pendingCount: null == pendingCount ? _self.pendingCount : pendingCount // ignore: cast_nullable_to_non_nullable
+as List<TransactionSummary>,reviewCount: null == reviewCount ? _self.reviewCount : reviewCount // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

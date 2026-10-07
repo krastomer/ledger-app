@@ -97,4 +97,61 @@ void main() {
 
     expect(await repository.getTransactions(), isA<Ok>());
   });
+
+  group('edits', () {
+    late HledgerLedgerRepository repository;
+    List<LedgerTransaction> current(Result<List<LedgerTransaction>> result) =>
+        (result as Ok<List<LedgerTransaction>>).value;
+
+    setUp(() {
+      repository = HledgerLedgerRepository(
+        source: _FakeLedgerSource(Result.ok(export)),
+      );
+    });
+
+    test('a saved entry replaces the imported one with its id', () async {
+      final lunch = current(await repository.getTransactions()).single;
+
+      await repository.save(lunch.copyWith(description: 'Late lunch'));
+
+      expect(
+        current(await repository.getTransactions()).single.description,
+        'Late lunch',
+      );
+    });
+
+    test('a new entry is added and a deleted one hidden', () async {
+      final lunch = current(await repository.getTransactions()).single;
+
+      await repository.save(lunch.copyWith(id: 'new'));
+      await repository.delete(lunch.id);
+
+      expect(current(await repository.getTransactions()).map((t) => t.id), [
+        'new',
+      ]);
+    });
+
+    test('refuses an entry that does not balance', () async {
+      final lunch = current(await repository.getTransactions()).single;
+
+      final result = await repository.save(
+        lunch.copyWith(postings: [lunch.postings.first]),
+      );
+
+      expect(result, isA<Error<void>>());
+    });
+
+    test('tells listeners about each change', () async {
+      final lunch = current(await repository.getTransactions()).single;
+      final changes = <void>[];
+      final subscription = repository.changes.listen(changes.add);
+
+      await repository.save(lunch);
+      await repository.delete(lunch.id);
+      await pumpEventQueue();
+
+      expect(changes, hasLength(2));
+      await subscription.cancel();
+    });
+  });
 }

@@ -5,8 +5,8 @@ import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/themes/money_colors.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
-import 'package:ledger_app/ui/core/widgets/tui_button.dart';
 import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
+import 'package:ledger_app/ui/core/widgets/tui_link_footer.dart';
 import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:ledger_app/utils/date_format.dart';
 
@@ -29,31 +29,27 @@ class RecentTransactions extends StatelessWidget {
       title: l10n.recent,
       padding: const EdgeInsets.fromLTRB(
         Dimens.panelPadding,
-        Dimens.gapS,
+        Dimens.gapXS,
         Dimens.panelPadding,
-        0,
+        Dimens.gapS,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (transactions.isEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: Dimens.gapS),
-              child: Text(l10n.noTransactions),
-            ),
-          for (final (index, transaction) in transactions.indexed) ...[
-            if (index > 0) const TuiDashedLine(),
-            _TransactionRow(transaction: transaction, hidden: amountsHidden),
+      child: TuiLinkFooter(
+        label: l10n.seeAll,
+        onPressed: onSeeAll,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (transactions.isEmpty)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: Dimens.gapS),
+                child: Text(l10n.noTransactions),
+              ),
+            for (final (index, transaction) in transactions.indexed) ...[
+              if (index > 0) const TuiDashedLine(),
+              _TransactionRow(transaction: transaction, hidden: amountsHidden),
+            ],
           ],
-          Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: TuiButton(
-              label: '${l10n.seeAll} →',
-              padding: 0,
-              onPressed: onSeeAll,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -74,8 +70,8 @@ class _TransactionRow extends StatelessWidget {
       TransactionKind.income => (transaction.amount, theme.moneyColors.income),
       TransactionKind.transfer => (transaction.amount, null),
     };
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: Dimens.gapS),
       child: Row(
         spacing: Dimens.gapS,
         children: [

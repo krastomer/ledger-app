@@ -2,10 +2,13 @@ import 'package:ledger_app/data/repositories/ledger/ledger_repository.dart';
 import 'package:ledger_app/domain/models/account_type.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
 import 'package:ledger_app/domain/models/account_tree_builder.dart';
+import 'package:ledger_app/domain/models/daily_spend.dart';
 import 'package:ledger_app/domain/models/income_statement.dart';
 import 'package:ledger_app/domain/models/ledger_book.dart';
+import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/domain/models/posting.dart';
 import 'package:ledger_app/utils/result.dart';
+import 'package:money2/money2.dart';
 
 class IncomeStatementUseCase {
   IncomeStatementUseCase({
@@ -15,6 +18,9 @@ class IncomeStatementUseCase {
 
   final LedgerRepository _ledgerRepository;
   final DateTime Function() _now;
+
+  /// Fires when the ledger changes, so screens can reload.
+  Stream<void> get changes => _ledgerRepository.changes;
 
   Future<Result<IncomeStatement>> call({DateTime? month}) async {
     final accounts = await _ledgerRepository.getAccounts();
@@ -27,7 +33,7 @@ class IncomeStatementUseCase {
         _statement(
           LedgerBook(accounts: accounts, transactions: transactions),
           DateTime(requested.year, requested.month),
-          latest,
+          now,
         ),
       ),
       (Error(:final error), _) ||
@@ -35,7 +41,8 @@ class IncomeStatementUseCase {
     };
   }
 
-  IncomeStatement _statement(LedgerBook book, DateTime month, DateTime latest) {
+  IncomeStatement _statement(LedgerBook book, DateTime month, DateTime now) {
+    final latest = DateTime(now.year, now.month);
     final monthTransactions = book.inMonth(month);
     final incomeTree = _tree(
       book.postings(monthTransactions, AccountType.income),
@@ -62,6 +69,54 @@ class IncomeStatementUseCase {
           : null,
       expenseTree: expenseTree,
       incomeTree: incomeTree,
+      dailySpend: _dailySpend(book, monthTransactions, month, now),
+    );
+  }
+
+  DailySpend _dailySpend(
+    LedgerBook book,
+    List<LedgerTransaction> monthTransactions,
+    DateTime month,
+    DateTime now,
+  ) {
+    final dayCount = DateTime(month.year, month.month + 1, 0).day;
+    final days = List.filled(dayCount, LedgerBook.zero);
+    final byCategory = [for (var i = 0; i < dayCount; i++) <String, Money>{}];
+    for (final t in monthTransactions) {
+      final index = t.date.day - 1;
+      for (final p in book.postings([t], AccountType.expense)) {
+        days[index] += p.amount;
+        byCategory[index][p.category] =
+            (byCategory[index][p.category] ?? LedgerBook.zero) + p.amount;
+      }
+    }
+    final isCurrent = now.year == month.year && now.month == month.month;
+    final elapsedDays = isCurrent ? now.day : dayCount;
+    final spent = days
+        .take(elapsedDays)
+        .fold(LedgerBook.zero, (total, amount) => total + amount);
+    int? peakIndex;
+    for (final (index, amount) in days.indexed) {
+      if (amount.isPositive &&
+          (peakIndex == null || amount > days[peakIndex])) {
+        peakIndex = index;
+      }
+    }
+    final peakCategory = peakIndex == null
+        ? null
+        : byCategory[peakIndex].entries
+              .reduce((a, b) => b.value > a.value ? b : a)
+              .key
+              .split(accountSeparator)
+              .last;
+    return DailySpend(
+      month: month,
+      days: days,
+      elapsedDays: elapsedDays,
+      today: isCurrent ? now.day : null,
+      average: LedgerBook.divide(spent, elapsedDays),
+      peakDay: peakIndex == null ? null : peakIndex + 1,
+      peakCategory: peakCategory,
     );
   }
 

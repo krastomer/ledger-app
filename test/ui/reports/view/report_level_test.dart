@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
+import 'package:ledger_app/domain/models/daily_spend.dart';
 import 'package:ledger_app/domain/models/income_statement.dart';
 import 'package:ledger_app/l10n/app_localizations_en.dart';
 import 'package:ledger_app/ui/reports/bloc/reports_cubit.dart';
@@ -28,6 +29,12 @@ void main() {
     expensesPerMille: 200,
     expenseTree: tree('Expenses', 1000000),
     incomeTree: tree('Income', 5000000),
+    dailySpend: DailySpend(
+      month: DateTime(2026, 9),
+      days: const [],
+      elapsedDays: 30,
+      average: thb(0),
+    ),
   );
 
   ReportLevel level(ReportSide? side, List<AccountNode> trail) =>

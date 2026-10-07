@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:money2/money2.dart';
 
 import 'account_node.dart';
+import 'daily_spend.dart';
 
 part 'income_statement.freezed.dart';
 
@@ -23,6 +24,7 @@ abstract class IncomeStatement with _$IncomeStatement {
     int? expensesPerMille,
     required AccountNode expenseTree,
     required AccountNode incomeTree,
+    required DailySpend dailySpend,
   }) = _IncomeStatement;
 
   const IncomeStatement._();

@@ -18,6 +18,8 @@ abstract class HomeSummary with _$HomeSummary {
     required Money monthNet,
     required List<CategoryTotal> topSpending,
     required List<TransactionSummary> recent,
-    required int pendingCount,
+
+    /// Entries waiting in the inbox.
+    required int reviewCount,
   }) = _HomeSummary;
 }

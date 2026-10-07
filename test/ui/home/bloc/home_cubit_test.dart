@@ -50,4 +50,13 @@ void main() {
       ..toggleAmountsHidden(),
     expect: () => [const HomeState(amountsHidden: true), const HomeState()],
   );
+
+  test('can start with amounts hidden', () {
+    final cubit = HomeCubit(
+      homeSummary: HomeSummaryUseCase(ledgerRepository: FakeLedgerRepository()),
+      amountsHidden: true,
+    );
+
+    expect(cubit.state.amountsHidden, isTrue);
+  });
 }

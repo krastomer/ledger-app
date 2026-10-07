@@ -7,6 +7,7 @@ import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 
 import '../bloc/reports_cubit.dart';
 import '../widgets/allocation_rows.dart';
+import '../widgets/daily_spend_panel.dart';
 import '../widgets/income_statement_panel.dart';
 import 'report_level.dart';
 
@@ -170,8 +171,13 @@ class _ReportsContent extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             )
-          else
+          else ...[
+            if (state.side != ReportSide.income) ...[
+              DailySpendPanel(dailySpend: statement.dailySpend),
+              const SizedBox(height: Dimens.panelGap),
+            ],
             _LevelPanel(level: level),
+          ],
         ],
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ledger_app/routing/routes.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/tui_button.dart';
@@ -172,7 +174,10 @@ class _Content extends StatelessWidget {
         itemCount: data.isEmpty ? 1 : data.days.length,
         itemBuilder: (context, index) => data.isEmpty
             ? _EmptyMessage(isFiltered: isFiltered)
-            : TransactionDaySection(day: data.days[index]),
+            : TransactionDaySection(
+                day: data.days[index],
+                onOpen: (id) => context.push(Routes.transactionPath(id)),
+              ),
       ),
     );
   }

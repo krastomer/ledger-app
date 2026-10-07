@@ -14,6 +14,7 @@ flutter pub get
 flutter analyze            # must be clean before finishing a task
 dart format .              # format all Dart code
 flutter test               # unit + widget tests
+flutter test --update-goldens test/goldens   # re-render screen PNGs
 flutter run                # run on a booted simulator/device
 dart run build_runner build -d   # regenerate freezed code
 ```

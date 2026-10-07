@@ -23,4 +23,21 @@ class PreferencesService {
       return Result.error(error);
     }
   }
+
+  Future<Result<bool?>> getBool(String key) async {
+    try {
+      return Result.ok(await _preferences.getBool(key));
+    } on Exception catch (error) {
+      return Result.error(error);
+    }
+  }
+
+  Future<Result<void>> setBool(String key, bool value) async {
+    try {
+      await _preferences.setBool(key, value);
+      return const Result.ok(null);
+    } on Exception catch (error) {
+      return Result.error(error);
+    }
+  }
 }

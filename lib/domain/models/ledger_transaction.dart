@@ -23,4 +23,16 @@ abstract class LedgerTransaction with _$LedgerTransaction {
     String? code,
     required List<Posting> postings,
   }) = _LedgerTransaction;
+
+  const LedgerTransaction._();
+
+  /// Whether the postings sum to zero in every currency.
+  bool get isBalanced {
+    final totals = <String, BigInt>{};
+    for (final p in postings) {
+      final code = p.amount.currency.isoCode;
+      totals[code] = (totals[code] ?? BigInt.zero) + p.amount.minorUnits;
+    }
+    return totals.values.every((total) => total == BigInt.zero);
+  }
 }

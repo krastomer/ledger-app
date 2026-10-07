@@ -104,4 +104,43 @@ void main() {
 
     expect(result, isA<Error<IncomeStatement>>());
   });
+
+  test('totals spending per day and averages it up to today', () async {
+    final daily = (await statementFor(null)).dailySpend;
+
+    expect(daily.days, hasLength(30));
+    expect(daily.days[27], thb(825000));
+    expect(daily.days[28], thb(0));
+    expect(daily.today, 29);
+    expect(daily.elapsedDays, 29);
+    expect(daily.average, thb(28448));
+    expect(daily.isFuture(30), isTrue);
+  });
+
+  test('names the category that took most of the peak day', () async {
+    final daily = (await statementFor(null)).dailySpend;
+
+    expect(daily.peakDay, 28);
+    expect(daily.peakAmount, thb(825000));
+    expect(daily.peakCategory, 'Rent');
+  });
+
+  test('averages a past month over all of its days', () async {
+    final daily = (await statementFor(DateTime(2026, 8))).dailySpend;
+
+    expect(daily.days, hasLength(31));
+    expect(daily.today, isNull);
+    expect(daily.elapsedDays, 31);
+    expect(daily.average, thb(1613));
+    expect(daily.isFuture(31), isFalse);
+    expect(daily.peakCategory, 'Food');
+  });
+
+  test('has no peak in a month without spending', () async {
+    final daily = (await statementFor(DateTime(2026, 7))).dailySpend;
+
+    expect(daily.average, thb(0));
+    expect(daily.peakDay, isNull);
+    expect(daily.peakAmount, isNull);
+  });
 }

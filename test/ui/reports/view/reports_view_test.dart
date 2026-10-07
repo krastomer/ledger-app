@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
+import 'package:ledger_app/domain/models/daily_spend.dart';
 import 'package:ledger_app/domain/models/income_statement.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/l10n/app_localizations.dart';
@@ -71,6 +72,18 @@ void main() {
         ownEntryCount: 0,
         children: empty ? [] : [leaf('Income:Salary', 5000000)],
       ),
+      dailySpend: DailySpend(
+        month: DateTime(2026, 9),
+        days: [
+          for (var day = 1; day <= 30; day++)
+            thb(!empty && day == 28 ? 820000 : 0),
+        ],
+        elapsedDays: 29,
+        today: 29,
+        average: thb(empty ? 0 : 28276),
+        peakDay: empty ? null : 28,
+        peakCategory: empty ? null : 'Rent',
+      ),
     );
   }
 
@@ -118,7 +131,7 @@ void main() {
     );
 
     expect(find.text('income statement'), findsOneWidget);
-    expect(find.text('Sep 2026'), findsOneWidget);
+    expect(find.text('Sep 2026'), findsNWidgets(2));
     expect(find.text('+50,000.00'), findsOneWidget);
     expect(find.text('−8,200.00'), findsOneWidget);
     expect(find.text('16.4% of Income'), findsOneWidget);
@@ -129,6 +142,45 @@ void main() {
     expect(find.text('Income/'), findsOneWidget);
     expect(find.text('50,000.00'), findsOneWidget);
     expect(find.text('2 subcategories'), findsOneWidget);
+  });
+
+  testWidgets('shows daily spend with the average and the peak day', (
+    tester,
+  ) async {
+    await pumpView(
+      tester,
+      ReportsState(status: ReportsStatus.success, statement: statement()),
+    );
+
+    expect(find.text('daily spend'), findsOneWidget);
+    expect(
+      find.bySemanticsLabel('Daily spending calendar for September 2026'),
+      findsOneWidget,
+    );
+    expect(find.text('mo'), findsOneWidget);
+    expect(find.text('30'), findsOneWidget);
+    expect(find.text('<1.2k'), findsOneWidget);
+    expect(find.text('1.2k+'), findsOneWidget);
+    expect(
+      find.text(
+        'avg 282.76/day · peak 09-28 8,200.00 Rent',
+        findRichText: true,
+      ),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets('leaves daily spend off the income side', (tester) async {
+    await pumpView(
+      tester,
+      ReportsState(
+        status: ReportsStatus.success,
+        statement: statement(),
+        side: ReportSide.income,
+      ),
+    );
+
+    expect(find.text('daily spend'), findsNothing);
   });
 
   testWidgets('the income row opens the income side', (tester) async {

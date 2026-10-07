@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
-import 'package:ledger_app/ui/core/widgets/tui_button.dart';
 import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:money2/money2.dart';
 
@@ -13,7 +12,6 @@ class NetWorthCard extends StatelessWidget {
     required this.assets,
     required this.liabilities,
     required this.amountsHidden,
-    required this.onToggleHidden,
     required this.onTap,
   });
 
@@ -21,7 +19,6 @@ class NetWorthCard extends StatelessWidget {
   final Money assets;
   final Money liabilities;
   final bool amountsHidden;
-  final VoidCallback onToggleHidden;
   final VoidCallback onTap;
 
   @override
@@ -35,39 +32,26 @@ class NetWorthCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Semantics(
-                  button: true,
-                  hint: l10n.accountsTitle,
-                  child: InkWell(
-                    onTap: onTap,
-                    child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        minHeight: Dimens.tapTarget,
-                      ),
-                      child: Align(
-                        alignment: AlignmentDirectional.centerStart,
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: AmountText(
-                            netWorth,
-                            hidden: amountsHidden,
-                            style: theme.textTheme.displaySmall,
-                          ),
-                        ),
-                      ),
+          Semantics(
+            button: true,
+            hint: l10n.accountsTitle,
+            child: InkWell(
+              onTap: onTap,
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
+                child: Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: AmountText(
+                      netWorth,
+                      hidden: amountsHidden,
+                      style: theme.textTheme.displaySmall,
                     ),
                   ),
                 ),
               ),
-              TuiButton(
-                label: '[${amountsHidden ? l10n.showAction : l10n.hideAction}]',
-                tooltip: amountsHidden ? l10n.showAmounts : l10n.hideAmounts,
-                onPressed: onToggleHidden,
-              ),
-            ],
+            ),
           ),
           _Line(label: l10n.assets, amount: assets, hidden: amountsHidden),
           _Line(

@@ -221,8 +221,8 @@ return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_t
 /// @nodoc
 
 
-class _LedgerTransaction implements LedgerTransaction {
-  const _LedgerTransaction({required this.id, required this.date, this.time, required this.description, this.status = TransactionStatus.unmarked, this.code, required  List<Posting> postings}): _postings = postings;
+class _LedgerTransaction extends LedgerTransaction {
+  const _LedgerTransaction({required this.id, required this.date, this.time, required this.description, this.status = TransactionStatus.unmarked, this.code, required  List<Posting> postings}): _postings = postings,super._();
   
 
 @override final  String id;

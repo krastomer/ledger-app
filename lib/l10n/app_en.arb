@@ -134,5 +134,190 @@
     }
   },
   "configFileTitle": "~/.ledgerrc",
-  "dataStaysOnDevice": "All data stays on this device"
+  "dataStaysOnDevice": "All data stays on this device",
+  "dailySpendTitle": "Daily spend",
+  "dailySpendCalendar": "Daily spending calendar for {month}",
+  "@dailySpendCalendar": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyAverage": "avg {amount}/day",
+  "@dailyAverage": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyPeak": "peak",
+  "settingsDisplay": "Display",
+  "settingsHideOnLaunch": "Hide on launch",
+  "settingsHideOnLaunchHint": "amounts on home start hidden",
+  "settingsShowZeroBalance": "Show zero balance",
+  "settingsHiddenAccounts": "Hidden accounts",
+  "settingsHomeCards": "Home cards",
+  "settingsStorage": "Storage",
+  "settingsKeepSlipImages": "Keep slip images",
+  "settingsKeepSlipImagesHint": "false = keep only the extracted data",
+  "settingsLastBackup": "backup.last",
+  "backupNever": "never",
+  "backUpAction": "Back up",
+  "restoreAction": "Restore",
+  "restoreReplacesData": "restore replaces all data",
+  "bootHeader": "ledger · tty0",
+  "bootOnDevice": "on-device",
+  "bootOpened": "Opened ledger: {count} entries",
+  "@bootOpened": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "bootParsed": "Read {from}..{to}",
+  "@bootParsed": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "bootBalanced": "Checked balances",
+  "bootUnbalanced": "{count} entries don't balance",
+  "@bootUnbalanced": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "bootOcr": "Started OCR ({engine})",
+  "@bootOcr": {
+    "placeholders": {
+      "engine": {
+        "type": "String"
+      }
+    }
+  },
+  "bootFailed": "Couldn't open the ledger",
+  "nothingToReview": "Nothing to review",
+  "continueAction": "Continue",
+  "newSlipsTitle": "New slips",
+  "newSlipsHint": "Pick slip images from your photos. They're read on this phone.",
+  "pickSlipsAction": "Pick slips",
+  "queueTitle": "Queue",
+  "openCount": "{count} open",
+  "@openCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewTagPending": "CONFIRM",
+  "reviewTagDuplicate": "DUP?",
+  "reviewTagUncategorized": "NO CAT",
+  "duplicateHint": "same day and postings as another entry",
+  "confirmAction": "Confirm",
+  "keepAction": "Keep",
+  "dropOneAction": "Drop one",
+  "categorizeAction": "Categorize",
+  "categoryTitle": "Category",
+  "accountTitle": "Account",
+  "slipsReadOnDevice": "slips are read on-device; nothing leaves this phone",
+  "changeFailed": "Couldn't save the change",
+  "photosFailed": "Couldn't open your photos",
+  "transactionTitle": "Transaction",
+  "statusCleared": "cleared",
+  "kindExpense": "expense",
+  "kindIncome": "income",
+  "kindTransfer": "transfer",
+  "codeLabel": "code {code}",
+  "@codeLabel": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "postingsTitle": "Postings",
+  "balanced": "balanced",
+  "notBalanced": "not balanced",
+  "slipTitle": "Slip",
+  "refLabel": "ref",
+  "journalEntryTitle": "Journal",
+  "copyAction": "Copy",
+  "deleteAction": "Delete",
+  "deleteTransaction": "Delete transaction",
+  "copied": "Copied",
+  "deleteConfirm": "Delete this entry?",
+  "transactionNotFound": "This entry no longer exists",
+  "closeAction": "Close",
+  "slipProgress": "Slip {index} of {count}",
+  "@slipProgress": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "slipKindTransfer": "transfer",
+  "slipKindPayment": "payment",
+  "slipKindBuy": "buy",
+  "slipKindSell": "sell",
+  "amountLabel": "amount",
+  "dateLabel": "date",
+  "engineLabel": "engine",
+  "dupLabel": "dup",
+  "dupNone": "none",
+  "dupFound": "saved {date}",
+  "@dupFound": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldsTitle": "Fields",
+  "fromLabel": "from",
+  "toLabel": "to",
+  "feeLabel": "fee",
+  "notOnSlip": "not on slip",
+  "unclearCheck": "unclear, please check",
+  "willWriteTitle": "Will write",
+  "hintFromHistory": "used before for this payee",
+  "hintPickCategory": "pick a category",
+  "hintFromSlip": "from {source}",
+  "@hintFromSlip": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "skipAction": "Skip",
+  "saveNextAction": "Save & next",
+  "slipUnreadable": "Couldn't read this slip",
+  "slipNoAmount": "No amount on this slip",
+  "readingSlip": "reading slip",
+  "slipsSaved": "{count, plural, =1{1 slip saved} other{{count} slips saved}}",
+  "@slipsSaved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "descriptionTitle": "Description",
+  "viewSlipImage": "View slip image",
+  "bootOpening": "Opening ledger"
 }

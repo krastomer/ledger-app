@@ -8,9 +8,14 @@ import 'package:ledger_app/utils/date_format.dart';
 import 'transaction_tile.dart';
 
 class TransactionDaySection extends StatelessWidget {
-  const TransactionDaySection({super.key, required this.day});
+  const TransactionDaySection({
+    super.key,
+    required this.day,
+    required this.onOpen,
+  });
 
   final TransactionDay day;
+  final ValueChanged<String> onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,10 @@ class TransactionDaySection extends StatelessWidget {
           ),
         ),
         for (final transaction in day.transactions)
-          TransactionTile(transaction: transaction),
+          TransactionTile(
+            transaction: transaction,
+            onTap: () => onOpen(transaction.id),
+          ),
       ],
     );
   }

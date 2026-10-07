@@ -17,6 +17,9 @@ class MonthTransactionsUseCase {
   final LedgerRepository _ledgerRepository;
   final DateTime Function() _now;
 
+  /// Fires when the ledger changes, so screens can reload.
+  Stream<void> get changes => _ledgerRepository.changes;
+
   Future<Result<MonthTransactions>> call({
     DateTime? month,
     TransactionFilter filter = const TransactionFilter(),

@@ -511,6 +511,576 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All data stays on this device'**
   String get dataStaysOnDevice;
+
+  /// No description provided for @dailySpendTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily spend'**
+  String get dailySpendTitle;
+
+  /// No description provided for @dailySpendCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily spending calendar for {month}'**
+  String dailySpendCalendar(String month);
+
+  /// No description provided for @dailyAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'avg {amount}/day'**
+  String dailyAverage(String amount);
+
+  /// No description provided for @dailyPeak.
+  ///
+  /// In en, this message translates to:
+  /// **'peak'**
+  String get dailyPeak;
+
+  /// No description provided for @settingsDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get settingsDisplay;
+
+  /// No description provided for @settingsHideOnLaunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide on launch'**
+  String get settingsHideOnLaunch;
+
+  /// No description provided for @settingsHideOnLaunchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'amounts on home start hidden'**
+  String get settingsHideOnLaunchHint;
+
+  /// No description provided for @settingsShowZeroBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Show zero balance'**
+  String get settingsShowZeroBalance;
+
+  /// No description provided for @settingsHiddenAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden accounts'**
+  String get settingsHiddenAccounts;
+
+  /// No description provided for @settingsHomeCards.
+  ///
+  /// In en, this message translates to:
+  /// **'Home cards'**
+  String get settingsHomeCards;
+
+  /// No description provided for @settingsStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage'**
+  String get settingsStorage;
+
+  /// No description provided for @settingsKeepSlipImages.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep slip images'**
+  String get settingsKeepSlipImages;
+
+  /// No description provided for @settingsKeepSlipImagesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'false = keep only the extracted data'**
+  String get settingsKeepSlipImagesHint;
+
+  /// No description provided for @settingsLastBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'backup.last'**
+  String get settingsLastBackup;
+
+  /// No description provided for @backupNever.
+  ///
+  /// In en, this message translates to:
+  /// **'never'**
+  String get backupNever;
+
+  /// No description provided for @backUpAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Back up'**
+  String get backUpAction;
+
+  /// No description provided for @restoreAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restoreAction;
+
+  /// No description provided for @restoreReplacesData.
+  ///
+  /// In en, this message translates to:
+  /// **'restore replaces all data'**
+  String get restoreReplacesData;
+
+  /// No description provided for @bootHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'ledger · tty0'**
+  String get bootHeader;
+
+  /// No description provided for @bootOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'on-device'**
+  String get bootOnDevice;
+
+  /// No description provided for @bootOpened.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened ledger: {count} entries'**
+  String bootOpened(int count);
+
+  /// No description provided for @bootParsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Read {from}..{to}'**
+  String bootParsed(String from, String to);
+
+  /// No description provided for @bootBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Checked balances'**
+  String get bootBalanced;
+
+  /// No description provided for @bootUnbalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} entries don\'t balance'**
+  String bootUnbalanced(int count);
+
+  /// No description provided for @bootOcr.
+  ///
+  /// In en, this message translates to:
+  /// **'Started OCR ({engine})'**
+  String bootOcr(String engine);
+
+  /// No description provided for @bootFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the ledger'**
+  String get bootFailed;
+
+  /// No description provided for @nothingToReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to review'**
+  String get nothingToReview;
+
+  /// No description provided for @continueAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueAction;
+
+  /// No description provided for @newSlipsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New slips'**
+  String get newSlipsTitle;
+
+  /// No description provided for @newSlipsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick slip images from your photos. They\'re read on this phone.'**
+  String get newSlipsHint;
+
+  /// No description provided for @pickSlipsAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick slips'**
+  String get pickSlipsAction;
+
+  /// No description provided for @queueTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get queueTitle;
+
+  /// No description provided for @openCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} open'**
+  String openCount(int count);
+
+  /// No description provided for @reviewTagPending.
+  ///
+  /// In en, this message translates to:
+  /// **'CONFIRM'**
+  String get reviewTagPending;
+
+  /// No description provided for @reviewTagDuplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'DUP?'**
+  String get reviewTagDuplicate;
+
+  /// No description provided for @reviewTagUncategorized.
+  ///
+  /// In en, this message translates to:
+  /// **'NO CAT'**
+  String get reviewTagUncategorized;
+
+  /// No description provided for @duplicateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'same day and postings as another entry'**
+  String get duplicateHint;
+
+  /// No description provided for @confirmAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirmAction;
+
+  /// No description provided for @keepAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep'**
+  String get keepAction;
+
+  /// No description provided for @dropOneAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Drop one'**
+  String get dropOneAction;
+
+  /// No description provided for @categorizeAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Categorize'**
+  String get categorizeAction;
+
+  /// No description provided for @categoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get categoryTitle;
+
+  /// No description provided for @accountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get accountTitle;
+
+  /// No description provided for @slipsReadOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'slips are read on-device; nothing leaves this phone'**
+  String get slipsReadOnDevice;
+
+  /// No description provided for @changeFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save the change'**
+  String get changeFailed;
+
+  /// No description provided for @photosFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open your photos'**
+  String get photosFailed;
+
+  /// No description provided for @transactionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction'**
+  String get transactionTitle;
+
+  /// No description provided for @statusCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'cleared'**
+  String get statusCleared;
+
+  /// No description provided for @kindExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'expense'**
+  String get kindExpense;
+
+  /// No description provided for @kindIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'income'**
+  String get kindIncome;
+
+  /// No description provided for @kindTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'transfer'**
+  String get kindTransfer;
+
+  /// No description provided for @codeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'code {code}'**
+  String codeLabel(String code);
+
+  /// No description provided for @postingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Postings'**
+  String get postingsTitle;
+
+  /// No description provided for @balanced.
+  ///
+  /// In en, this message translates to:
+  /// **'balanced'**
+  String get balanced;
+
+  /// No description provided for @notBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'not balanced'**
+  String get notBalanced;
+
+  /// No description provided for @slipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Slip'**
+  String get slipTitle;
+
+  /// No description provided for @refLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'ref'**
+  String get refLabel;
+
+  /// No description provided for @journalEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal'**
+  String get journalEntryTitle;
+
+  /// No description provided for @copyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get copyAction;
+
+  /// No description provided for @deleteAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get deleteAction;
+
+  /// No description provided for @deleteTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete transaction'**
+  String get deleteTransaction;
+
+  /// No description provided for @copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get copied;
+
+  /// No description provided for @deleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this entry?'**
+  String get deleteConfirm;
+
+  /// No description provided for @transactionNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This entry no longer exists'**
+  String get transactionNotFound;
+
+  /// No description provided for @closeAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get closeAction;
+
+  /// No description provided for @slipProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Slip {index} of {count}'**
+  String slipProgress(int index, int count);
+
+  /// No description provided for @slipKindTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'transfer'**
+  String get slipKindTransfer;
+
+  /// No description provided for @slipKindPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'payment'**
+  String get slipKindPayment;
+
+  /// No description provided for @slipKindBuy.
+  ///
+  /// In en, this message translates to:
+  /// **'buy'**
+  String get slipKindBuy;
+
+  /// No description provided for @slipKindSell.
+  ///
+  /// In en, this message translates to:
+  /// **'sell'**
+  String get slipKindSell;
+
+  /// No description provided for @amountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'amount'**
+  String get amountLabel;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'date'**
+  String get dateLabel;
+
+  /// No description provided for @engineLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'engine'**
+  String get engineLabel;
+
+  /// No description provided for @dupLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'dup'**
+  String get dupLabel;
+
+  /// No description provided for @dupNone.
+  ///
+  /// In en, this message translates to:
+  /// **'none'**
+  String get dupNone;
+
+  /// No description provided for @dupFound.
+  ///
+  /// In en, this message translates to:
+  /// **'saved {date}'**
+  String dupFound(String date);
+
+  /// No description provided for @fieldsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Fields'**
+  String get fieldsTitle;
+
+  /// No description provided for @fromLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'from'**
+  String get fromLabel;
+
+  /// No description provided for @toLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'to'**
+  String get toLabel;
+
+  /// No description provided for @feeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'fee'**
+  String get feeLabel;
+
+  /// No description provided for @notOnSlip.
+  ///
+  /// In en, this message translates to:
+  /// **'not on slip'**
+  String get notOnSlip;
+
+  /// No description provided for @unclearCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'unclear, please check'**
+  String get unclearCheck;
+
+  /// No description provided for @willWriteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Will write'**
+  String get willWriteTitle;
+
+  /// No description provided for @hintFromHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'used before for this payee'**
+  String get hintFromHistory;
+
+  /// No description provided for @hintPickCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'pick a category'**
+  String get hintPickCategory;
+
+  /// No description provided for @hintFromSlip.
+  ///
+  /// In en, this message translates to:
+  /// **'from {source}'**
+  String hintFromSlip(String source);
+
+  /// No description provided for @skipAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skipAction;
+
+  /// No description provided for @saveNextAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & next'**
+  String get saveNextAction;
+
+  /// No description provided for @slipUnreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read this slip'**
+  String get slipUnreadable;
+
+  /// No description provided for @slipNoAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'No amount on this slip'**
+  String get slipNoAmount;
+
+  /// No description provided for @readingSlip.
+  ///
+  /// In en, this message translates to:
+  /// **'reading slip'**
+  String get readingSlip;
+
+  /// No description provided for @slipsSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 slip saved} other{{count} slips saved}}'**
+  String slipsSaved(int count);
+
+  /// No description provided for @descriptionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get descriptionTitle;
+
+  /// No description provided for @viewSlipImage.
+  ///
+  /// In en, this message translates to:
+  /// **'View slip image'**
+  String get viewSlipImage;
+
+  /// No description provided for @bootOpening.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening ledger'**
+  String get bootOpening;
 }
 
 class _AppLocalizationsDelegate

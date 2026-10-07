@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:ledger_app/ui/core/widgets/tui_cell.dart';
 import 'package:money2/money2.dart';
 
 /// A `█████░░░` bar that fills the width it gets in steps of one character
@@ -20,15 +21,7 @@ class TuiBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final style = DefaultTextStyle.of(context).style;
-    final painter = TextPainter(
-      text: TextSpan(text: '█', style: style),
-      textScaler: MediaQuery.textScalerOf(context),
-      textDirection: TextDirection.ltr,
-      maxLines: 1,
-    )..layout();
-    final cell = painter.size;
-    painter.dispose();
+    final cell = measureTuiCell(context);
     return ExcludeSemantics(
       child: SizedBox(
         height: cell.height,

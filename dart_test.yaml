@@ -1,0 +1,3 @@
+tags:
+  golden:
+    description: Screen screenshots compared against PNGs in test/goldens.

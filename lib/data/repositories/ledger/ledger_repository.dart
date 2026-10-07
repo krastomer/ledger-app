@@ -6,4 +6,13 @@ abstract interface class LedgerRepository {
   Future<Result<List<Account>>> getAccounts();
 
   Future<Result<List<LedgerTransaction>>> getTransactions();
+
+  /// Adds [transaction], or replaces the one with the same id. Fails when
+  /// its postings don't balance.
+  Future<Result<void>> save(LedgerTransaction transaction);
+
+  Future<Result<void>> delete(String id);
+
+  /// Fires after every [save] and [delete], so screens can reload.
+  Stream<void> get changes;
 }

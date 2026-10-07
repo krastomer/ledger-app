@@ -53,7 +53,7 @@ void main() {
         hasSlip: false,
       ),
     ],
-    pendingCount: 2,
+    reviewCount: 2,
   );
 
   setUp(() {
@@ -120,19 +120,7 @@ void main() {
     );
 
     expect(find.text('140,250.00'), findsNothing);
-    expect(find.text('[show]'), findsOneWidget);
     expect(find.text(hiddenAmount), findsWidgets);
-  });
-
-  testWidgets('tapping the eye toggles hidden amounts', (tester) async {
-    await pumpView(
-      tester,
-      HomeState(status: HomeStatus.success, summary: summary),
-    );
-
-    await tester.tap(find.byTooltip('Hide amounts'));
-
-    verify(() => cubit.toggleAmountsHidden()).called(1);
   });
 
   testWidgets('shows retry on failure', (tester) async {

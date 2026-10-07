@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ledger_app/app.dart';
 import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.dart';
 import 'package:ledger_app/data/repositories/settings/preferences_settings_repository.dart';
+import 'package:ledger_app/data/repositories/slip/ocr_slip_repository.dart';
 import 'package:ledger_app/data/services/ledger_asset_service.dart';
 import 'package:ledger_app/data/services/preferences_service.dart';
+import 'package:ledger_app/data/services/slip_image_service.dart';
 import 'package:ledger_app/data/services/slip_ocr_service.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
 import 'package:ledger_app/routing/router.dart';
@@ -32,8 +34,12 @@ Future<void> main() async {
         source: LedgerAssetService(path: _ledgerAsset),
       ),
       settingsRepository: settingsRepository,
+      slipRepository: OcrSlipRepository(
+        ocr: SlipOcrService(),
+        images: SlipImageService(),
+      ),
       initialSettings: settings,
-      router: createRouter(ocrService: SlipOcrService()),
+      router: createRouter(),
     ),
   );
 }

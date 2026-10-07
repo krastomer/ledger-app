@@ -65,4 +65,17 @@ void main() {
   test('formats month and day as numbers', () {
     expect(formatMonthDay(date), '09-29');
   });
+
+  test('lists weekday initials from Monday', () {
+    expect(formatWeekdayInitials('en'), [
+      'Mo',
+      'Tu',
+      'We',
+      'Th',
+      'Fr',
+      'Sa',
+      'Su',
+    ]);
+    expect(formatWeekdayInitials('th'), ['จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส', 'อา']);
+  });
 }

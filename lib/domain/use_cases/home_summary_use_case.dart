@@ -6,7 +6,6 @@ import 'package:ledger_app/domain/models/home_summary.dart';
 import 'package:ledger_app/domain/models/ledger_book.dart';
 import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/domain/models/posting.dart';
-import 'package:ledger_app/domain/models/transaction_status.dart';
 import 'package:ledger_app/utils/result.dart';
 import 'package:money2/money2.dart';
 
@@ -21,6 +20,9 @@ class HomeSummaryUseCase {
 
   final LedgerRepository _ledgerRepository;
   final DateTime Function() _now;
+
+  /// Fires when the ledger changes, so screens can reload.
+  Stream<void> get changes => _ledgerRepository.changes;
 
   Future<Result<HomeSummary>> call() async {
     final accounts = await _ledgerRepository.getAccounts();
@@ -64,9 +66,7 @@ class _Ledger {
           .take(HomeSummaryUseCase.recentCount)
           .map(_book.summarize)
           .toList(),
-      pendingCount: transactions
-          .where((t) => t.status == TransactionStatus.pending)
-          .length,
+      reviewCount: _book.reviewItems().length,
     );
   }
 
@@ -76,12 +76,8 @@ class _Ledger {
   ) {
     final byCategory = <String, Money>{};
     for (final p in _book.postings(monthTransactions, AccountType.expense)) {
-      final category = p.account
-          .split(accountSeparator)
-          .take(2)
-          .join(accountSeparator);
-      byCategory[category] =
-          (byCategory[category] ?? LedgerBook.zero) + p.amount;
+      byCategory[p.category] =
+          (byCategory[p.category] ?? LedgerBook.zero) + p.amount;
     }
     final sorted = byCategory.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));

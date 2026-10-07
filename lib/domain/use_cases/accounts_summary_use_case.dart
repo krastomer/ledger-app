@@ -16,6 +16,9 @@ class AccountsSummaryUseCase {
   final LedgerRepository _ledgerRepository;
   final DateTime Function() _now;
 
+  /// Fires when the ledger changes, so screens can reload.
+  Stream<void> get changes => _ledgerRepository.changes;
+
   Future<Result<AccountsSummary>> call() async {
     final accounts = await _ledgerRepository.getAccounts();
     final transactions = await _ledgerRepository.getTransactions();

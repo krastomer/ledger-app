@@ -43,3 +43,28 @@ String formatMonthShortYear(DateTime date, String locale, YearEra era) =>
     '${formatMonthShort(date, locale)} ${era.yearOf(date)}';
 
 String formatMonthDay(DateTime date) => DateFormat('MM-dd').format(date);
+
+/// Monday first: "Mo" … "Su" in English, "จ" … "อา" in Thai.
+List<String> formatWeekdayInitials(String locale) {
+  final isThai = locale.startsWith('th');
+  final format = isThai ? DateFormat('EEEEE', locale) : DateFormat.E(locale);
+  return [
+    for (var day = 1; day <= DateTime.daysPerWeek; day++)
+      switch (format.format(DateTime(2024, 1, day))) {
+        final name when isThai => name,
+        final name => name.substring(0, 2),
+      },
+  ];
+}
+
+/// `2026-09-29`, as the journal and the terminal screens write dates.
+String formatIsoDate(DateTime date) => DateFormat('yyyy-MM-dd').format(date);
+
+/// `2026-09`.
+String formatIsoMonth(DateTime date) => DateFormat('yyyy-MM').format(date);
+
+/// `tue` in English, `อ.` in Thai.
+String formatWeekdayShort(DateTime date, String locale) =>
+    locale.startsWith('th')
+    ? DateFormat('EEEEE.', locale).format(date)
+    : DateFormat.E(locale).format(date).toLowerCase();

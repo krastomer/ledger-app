@@ -5,8 +5,8 @@ import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/themes/money_colors.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
 import 'package:ledger_app/ui/core/widgets/tui_bar.dart';
-import 'package:ledger_app/ui/core/widgets/tui_button.dart';
 import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
+import 'package:ledger_app/ui/core/widgets/tui_link_footer.dart';
 import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:ledger_app/utils/date_format.dart';
 import 'package:ledger_app/utils/percent_format.dart';
@@ -44,50 +44,40 @@ class MonthSummaryCard extends StatelessWidget {
     final scale = income > expenses ? income : expenses;
     return TuiPanel(
       title: formatMonthShortYear(month, context.localeName, context.yearEra),
-      padding: const EdgeInsets.fromLTRB(
-        Dimens.panelPadding,
-        Dimens.panelPadding,
-        Dimens.panelPadding,
-        0,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          _FlowRow(
-            label: l10n.income,
-            amount: income,
-            showPlus: true,
-            hidden: amountsHidden,
-            bar: TuiBar.share(income, scale),
-            barColor: moneyColors.income,
-          ),
-          _FlowRow(
-            label: l10n.expenses,
-            amount: -expenses,
-            hidden: amountsHidden,
-            bar: TuiBar.share(expenses, scale),
-            barColor: moneyColors.expense,
-          ),
-          _FlowRow(
-            label: l10n.net,
-            amount: net,
-            showPlus: true,
-            hidden: amountsHidden,
-          ),
-          if (topSpending.isNotEmpty) ...[
-            _RuleHeading(label: l10n.topSpending),
-            for (final category in topSpending)
-              _SpendingRow(category: category, hidden: amountsHidden),
-          ],
-          Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: TuiButton(
-              label: '${l10n.seeReports} →',
-              padding: 0,
-              onPressed: onSeeReports,
+      child: TuiLinkFooter(
+        label: l10n.seeReports,
+        onPressed: onSeeReports,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _FlowRow(
+              label: l10n.income,
+              amount: income,
+              showPlus: true,
+              hidden: amountsHidden,
+              bar: TuiBar.share(income, scale),
+              barColor: moneyColors.income,
             ),
-          ),
-        ],
+            _FlowRow(
+              label: l10n.expenses,
+              amount: -expenses,
+              hidden: amountsHidden,
+              bar: TuiBar.share(expenses, scale),
+              barColor: moneyColors.expense,
+            ),
+            _FlowRow(
+              label: l10n.net,
+              amount: net,
+              showPlus: true,
+              hidden: amountsHidden,
+            ),
+            if (topSpending.isNotEmpty) ...[
+              _RuleHeading(label: l10n.topSpending),
+              for (final category in topSpending)
+                _SpendingRow(category: category, hidden: amountsHidden),
+            ],
+          ],
+        ),
       ),
     );
   }

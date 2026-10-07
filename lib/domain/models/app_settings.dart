@@ -10,5 +10,10 @@ abstract class AppSettings with _$AppSettings {
   const factory AppSettings({
     @Default(AppLanguage.th) AppLanguage language,
     @Default(YearEra.buddhist) YearEra yearEra,
+
+    /// Start with amounts masked on Home.
+    @Default(false) bool hideOnLaunch,
+    @Default(false) bool showZeroBalance,
+    @Default(true) bool keepSlipImages,
   }) = _AppSettings;
 }

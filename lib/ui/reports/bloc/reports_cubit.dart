@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
@@ -9,9 +11,12 @@ part 'reports_cubit.freezed.dart';
 part 'reports_state.dart';
 
 class ReportsCubit extends Cubit<ReportsState> {
-  ReportsCubit({required this._incomeStatement}) : super(const ReportsState());
+  ReportsCubit({required this._incomeStatement}) : super(const ReportsState()) {
+    _changes = _incomeStatement.changes.listen((_) => load());
+  }
 
   final IncomeStatementUseCase _incomeStatement;
+  late final StreamSubscription<void> _changes;
 
   Future<void> load() => _load(state.statement?.month);
 
@@ -75,5 +80,11 @@ class ReportsCubit extends Cubit<ReportsState> {
           ),
         );
     }
+  }
+
+  @override
+  Future<void> close() async {
+    await _changes.cancel();
+    return super.close();
   }
 }

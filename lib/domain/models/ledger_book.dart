@@ -2,6 +2,7 @@ import 'package:ledger_app/domain/models/account.dart';
 import 'package:ledger_app/domain/models/account_type.dart';
 import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/domain/models/posting.dart';
+import 'package:ledger_app/domain/models/review_item.dart';
 import 'package:ledger_app/domain/models/transaction_kind.dart';
 import 'package:ledger_app/domain/models/transaction_status.dart';
 import 'package:ledger_app/domain/models/transaction_summary.dart';
@@ -20,6 +21,13 @@ class LedgerBook {
                 (whole.minorUnits * BigInt.two))
             .toInt()
       : 0;
+
+  /// [amount] split [parts] ways, rounded half up to the nearest satang.
+  static Money divide(Money amount, int parts) => Money.fromBigInt(
+    (amount.minorUnits * BigInt.two + BigInt.from(parts)) ~/
+        BigInt.from(parts * 2),
+    isoCode: amount.currency.isoCode,
+  );
 
   final List<LedgerTransaction> transactions;
   final Map<String, AccountType> _types;
@@ -102,6 +110,77 @@ class LedgerBook {
       hasSlip: t.code != null,
     );
   }
+
+  /// Accounts of [type] that postings use, sorted.
+  List<String> accountsOf(AccountType type) => ({
+    for (final t in transactions)
+      for (final p in t.postings)
+        if (_types[p.rootAccount] == type) p.account,
+  }.toList()..sort());
+
+  /// Entries the user should look at, one item each: pending entries,
+  /// later copies of an earlier entry (same day and postings), and entries
+  /// booked to an uncategorized account. Newest first within each reason.
+  List<ReviewItem> reviewItems() {
+    final firstByKey = <String, LedgerTransaction>{};
+    final duplicateOf = <String, String>{};
+    for (final t in transactions) {
+      final key = _duplicateKey(t);
+      final first = firstByKey[key];
+      if (first == null) {
+        firstByKey[key] = t;
+      } else {
+        duplicateOf[t.id] = first.id;
+      }
+    }
+    final items = <ReviewItem>[
+      for (final t in newestFirst())
+        if (t.status == TransactionStatus.pending)
+          ReviewItem(reason: ReviewReason.pending, transaction: summarize(t))
+        else if (duplicateOf[t.id] case final original?)
+          ReviewItem(
+            reason: ReviewReason.duplicate,
+            transaction: summarize(t),
+            duplicateOf: original,
+          )
+        else if (t.postings.where(_isUncategorized).firstOrNull
+            case final posting?)
+          ReviewItem(
+            reason: ReviewReason.uncategorized,
+            transaction: summarize(t),
+            uncategorizedAccount: posting.account,
+            categoryChoices: _categoryChoices(posting),
+          ),
+    ];
+    return items..sort((a, b) => a.reason.index.compareTo(b.reason.index));
+  }
+
+  static String _duplicateKey(LedgerTransaction t) {
+    final postings = [
+      for (final p in t.postings)
+        '${p.account}=${p.amount.minorUnits}${p.amount.currency.isoCode}',
+    ]..sort();
+    return '${t.date.toIso8601String()}|${postings.join('|')}';
+  }
+
+  bool _isUncategorized(Posting p) =>
+      (_types[p.rootAccount] == AccountType.expense ||
+          _types[p.rootAccount] == AccountType.income) &&
+      _isUncategorizedName(p.account);
+
+  List<String> _categoryChoices(Posting posting) =>
+      switch (_types[posting.rootAccount]) {
+        final type? => [
+          for (final account in accountsOf(type))
+            if (!_isUncategorizedName(account)) account,
+        ],
+        null => const [],
+      };
+
+  static bool _isUncategorizedName(String account) => const {
+    'uncategorized',
+    'unknown',
+  }.contains(account.split(accountSeparator).last.toLowerCase());
 
   bool _isCounted(Posting p) => p.amount.currency.isoCode == currency;
 }

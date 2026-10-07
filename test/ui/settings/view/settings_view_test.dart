@@ -24,6 +24,7 @@ void main() {
     cubit = _MockSettingsCubit();
     when(() => cubit.setLanguage(any())).thenAnswer((_) async {});
     when(() => cubit.setYearEra(any())).thenAnswer((_) async {});
+    when(() => cubit.setHideOnLaunch(any())).thenAnswer((_) async {});
   });
 
   setUpAll(() {
@@ -113,5 +114,40 @@ void main() {
     await tester.pump();
 
     expect(find.text('บันทึกการตั้งค่าไม่สำเร็จ'), findsOneWidget);
+  });
+
+  testWidgets('lists the display and storage settings', (tester) async {
+    await pumpView(tester, locale: const Locale('en'));
+
+    expect(find.text('# display'), findsOneWidget);
+    expect(find.text('hide_on_launch = false'), findsOneWidget);
+    expect(find.text('# amounts on home start hidden'), findsOneWidget);
+    expect(find.text('show_zero_balance = false'), findsOneWidget);
+    expect(find.text('hidden_accounts = 0'), findsOneWidget);
+    expect(
+      find.text('home_cards = [net_worth, inbox, month, recent]'),
+      findsOneWidget,
+    );
+    await tester.scrollUntilVisible(find.text('< restore >'), 100);
+    expect(find.text('# storage'), findsOneWidget);
+    expect(find.text('keep_slip_images = true'), findsOneWidget);
+    expect(find.text('backup.last = "never"'), findsOneWidget);
+  });
+
+  testWidgets('tapping a switch flips the setting', (tester) async {
+    await pumpView(tester, locale: const Locale('en'));
+
+    await tester.tap(find.text('hide_on_launch = false'));
+
+    verify(() => cubit.setHideOnLaunch(true)).called(1);
+  });
+
+  testWidgets('settings that are not built yet say so', (tester) async {
+    await pumpView(tester, locale: const Locale('en'));
+
+    await tester.tap(find.text('hidden_accounts = 0'));
+    await tester.pump();
+
+    expect(find.text('Coming soon'), findsOneWidget);
   });
 }
