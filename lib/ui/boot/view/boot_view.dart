@@ -7,6 +7,7 @@ import 'package:ledger_app/routing/routes.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/tui_button.dart';
+import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 import 'package:ledger_app/utils/date_format.dart';
 
 import '../bloc/boot_cubit.dart';
@@ -28,6 +29,9 @@ class BootView extends StatelessWidget {
     final scheme = theme.colorScheme;
     final l10n = context.l10n;
     final status = context.select((BootCubit cubit) => cubit.state.status);
+    final setupComplete = context.select(
+      (SettingsCubit cubit) => cubit.state.settings.setupComplete,
+    );
     final small = theme.textTheme.bodySmall?.copyWith(
       color: scheme.onSurfaceVariant,
     );
@@ -90,7 +94,9 @@ class BootView extends StatelessWidget {
                   label: l10n.continueAction,
                   onPressed: status == BootStatus.checking
                       ? null
-                      : () => context.go(Routes.home),
+                      : () => context.go(
+                          setupComplete ? Routes.home : Routes.setup,
+                        ),
                 ),
               ),
               const SizedBox(height: Dimens.gapS),

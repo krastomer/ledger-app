@@ -12,6 +12,9 @@ import 'package:ledger_app/ui/inbox/bloc/inbox_cubit.dart';
 import 'package:ledger_app/ui/inbox/view/inbox_view.dart';
 import 'package:ledger_app/ui/reports/view/reports_page.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_import_page.dart';
+import 'package:ledger_app/ui/setup/view/setup_new_page.dart';
+import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
 import 'package:ledger_app/ui/slip_review/view/slip_review_page.dart';
 import 'package:ledger_app/ui/transaction_detail/view/transaction_detail_page.dart';
 import 'package:ledger_app/ui/transactions/view/transactions_page.dart';
@@ -25,6 +28,20 @@ GoRouter createRouter() {
     initialLocation: Routes.boot,
     routes: [
       GoRoute(path: Routes.boot, builder: (context, state) => const BootPage()),
+      GoRoute(
+        path: Routes.setup,
+        builder: (context, state) => const SetupWelcomeView(),
+        routes: [
+          GoRoute(
+            path: 'new',
+            builder: (context, state) => const SetupNewPage(),
+          ),
+          GoRoute(
+            path: 'import',
+            builder: (context, state) => const SetupImportPage(),
+          ),
+        ],
+      ),
       GoRoute(
         path: Routes.transaction,
         parentNavigatorKey: rootKey,

@@ -73,6 +73,26 @@ class HledgerLedgerRepository implements LedgerRepository {
     return const Result.ok(null);
   }
 
+  @override
+  Future<Result<void>> replaceAll({
+    required List<Account> accounts,
+    required List<LedgerTransaction> transactions,
+  }) async {
+    _saved.clear();
+    _deleted.clear();
+    _ledger = Future.value(
+      Result.ok(
+        ParsedLedger(
+          accounts: accounts,
+          transactions: transactions,
+          issues: const [],
+        ),
+      ),
+    );
+    _changes.add(null);
+    return const Result.ok(null);
+  }
+
   List<LedgerTransaction> _withEdits(List<LedgerTransaction> imported) {
     final ids = {for (final t in imported) t.id};
     return [

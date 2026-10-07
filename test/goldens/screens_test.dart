@@ -12,6 +12,7 @@ import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.da
 import 'package:ledger_app/data/services/ledger_asset_service.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
+import 'package:ledger_app/domain/models/ledger_import_draft.dart';
 import 'package:ledger_app/domain/models/transaction_status.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/data/parsers/slip/parsed_slip.dart';
@@ -40,6 +41,10 @@ import 'package:ledger_app/ui/reports/bloc/reports_cubit.dart';
 import 'package:ledger_app/ui/reports/view/reports_view.dart';
 import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
+import 'package:ledger_app/ui/setup/bloc/setup_cubit.dart';
+import 'package:ledger_app/ui/setup/view/setup_import_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_new_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
 import 'package:ledger_app/ui/slip_review/bloc/slip_review_bloc.dart';
 import 'package:ledger_app/ui/slip_review/view/slip_review_view.dart';
 import 'package:ledger_app/ui/transaction_detail/bloc/transaction_detail_cubit.dart';
@@ -48,6 +53,7 @@ import 'package:ledger_app/ui/transactions/bloc/transactions_cubit.dart';
 import 'package:ledger_app/ui/transactions/view/transactions_view.dart';
 import 'package:ledger_app/utils/result.dart';
 
+import '../../testing/fakes/fake_ledger_import_repository.dart';
 import '../../testing/fakes/fake_ledger_repository.dart';
 import '../../testing/fakes/fake_settings_repository.dart';
 import '../../testing/fakes/fake_slip_repository.dart';
@@ -266,6 +272,49 @@ void main() {
           child: const BootView(),
         );
         await expectScreen('boot', language);
+      }, variant: ios);
+
+      testWidgets('setup_welcome', (tester) async {
+        await pumpScreen(tester, language, child: const SetupWelcomeView());
+        await expectScreen('setup_welcome', language);
+      }, variant: ios);
+
+      testWidgets('setup_new', (tester) async {
+        final cubit = SetupCubit(
+          importRepository: FakeLedgerImportRepository(),
+          ledgerRepository: ledger,
+        );
+        addTearDown(cubit.close);
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<SetupCubit>.value(value: cubit),
+          child: const SetupNewView(),
+        );
+        await expectScreen('setup_new', language);
+      }, variant: ios);
+
+      testWidgets('setup_import', (tester) async {
+        final cubit = SetupCubit(
+          importRepository: FakeLedgerImportRepository(
+            draft: LedgerImportDraft(
+              fileName: 'ledger.json',
+              sizeBytes: 84 * 1024,
+              accounts: ledger.accounts,
+              transactions: ledger.transactions,
+            ),
+          ),
+          ledgerRepository: ledger,
+        );
+        addTearDown(cubit.close);
+        await cubit.pickFile();
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<SetupCubit>.value(value: cubit),
+          child: const SetupImportView(),
+        );
+        await expectScreen('setup_import', language);
       }, variant: ios);
 
       testWidgets('inbox', (tester) async {

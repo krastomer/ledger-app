@@ -14,6 +14,7 @@ class PreferencesSettingsRepository implements SettingsRepository {
   static const _hideOnLaunchKey = 'settings.hideOnLaunch';
   static const _showJournalKey = 'settings.showJournal';
   static const _keepSlipImagesKey = 'settings.keepSlipImages';
+  static const _setupCompleteKey = 'settings.setupComplete';
   static const _defaults = AppSettings();
 
   final PreferencesService _preferences;
@@ -30,7 +31,12 @@ class PreferencesSettingsRepository implements SettingsRepository {
       }
     }
     final flags = <String, bool?>{};
-    for (final key in [_hideOnLaunchKey, _showJournalKey, _keepSlipImagesKey]) {
+    for (final key in [
+      _hideOnLaunchKey,
+      _showJournalKey,
+      _keepSlipImagesKey,
+      _setupCompleteKey,
+    ]) {
       switch (await _preferences.getBool(key)) {
         case Ok(:final value):
           flags[key] = value;
@@ -48,6 +54,7 @@ class PreferencesSettingsRepository implements SettingsRepository {
         hideOnLaunch: flags[_hideOnLaunchKey] ?? _defaults.hideOnLaunch,
         showJournal: flags[_showJournalKey] ?? _defaults.showJournal,
         keepSlipImages: flags[_keepSlipImagesKey] ?? _defaults.keepSlipImages,
+        setupComplete: flags[_setupCompleteKey] ?? _defaults.setupComplete,
       ),
     );
   }
@@ -60,6 +67,7 @@ class PreferencesSettingsRepository implements SettingsRepository {
       () => _preferences.setBool(_hideOnLaunchKey, settings.hideOnLaunch),
       () => _preferences.setBool(_showJournalKey, settings.showJournal),
       () => _preferences.setBool(_keepSlipImagesKey, settings.keepSlipImages),
+      () => _preferences.setBool(_setupCompleteKey, settings.setupComplete),
     ];
     for (final write in writes) {
       final result = await write();

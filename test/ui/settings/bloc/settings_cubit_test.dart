@@ -35,6 +35,17 @@ void main() {
   );
 
   blocTest<SettingsCubit, SettingsState>(
+    'remembers that setup is complete',
+    build: () =>
+        SettingsCubit(repository: repository, initial: const AppSettings()),
+    act: (cubit) => cubit.completeSetup(),
+    expect: () => [
+      const SettingsState(settings: AppSettings(setupComplete: true)),
+    ],
+    verify: (_) => expect(repository.saved.setupComplete, isTrue),
+  );
+
+  blocTest<SettingsCubit, SettingsState>(
     'does nothing when the value is unchanged',
     build: () =>
         SettingsCubit(repository: repository, initial: const AppSettings()),

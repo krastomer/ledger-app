@@ -13,6 +13,12 @@ abstract interface class LedgerRepository {
 
   Future<Result<void>> delete(String id);
 
+  /// Starts over with [accounts] and [transactions], dropping what was there.
+  Future<Result<void>> replaceAll({
+    required List<Account> accounts,
+    required List<LedgerTransaction> transactions,
+  });
+
   /// Fires after every [save] and [delete], so screens can reload.
   Stream<void> get changes;
 }

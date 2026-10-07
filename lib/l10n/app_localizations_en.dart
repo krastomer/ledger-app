@@ -588,4 +588,88 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bootOpening => 'Opening ledger';
+
+  @override
+  String get setupHeader => 'ledger · setup';
+
+  @override
+  String get setupNoLedger => 'No ledger on this device yet.';
+
+  @override
+  String get setupTitle => 'Setup';
+
+  @override
+  String get setupStartNew => 'Start new ledger';
+
+  @override
+  String get setupStartNewHint => 'Empty books, filled from your slips';
+
+  @override
+  String get setupImport => 'Import hledger';
+
+  @override
+  String get setupImportHint => 'A file from hledger print -O json';
+
+  @override
+  String get setupNewTitle => 'New ledger';
+
+  @override
+  String get setupCurrency => 'Currency';
+
+  @override
+  String get setupAccountsHint => 'Sub-accounts appear as you record entries';
+
+  @override
+  String get setupCreate => 'Create ledger';
+
+  @override
+  String get setupSourceTitle => 'Source';
+
+  @override
+  String get setupChooseFile => 'Choose file';
+
+  @override
+  String get setupChooseAnother => 'Choose another file';
+
+  @override
+  String get setupPickHint => 'Pick the file made by hledger print -O json';
+
+  @override
+  String get setupFile => 'File';
+
+  @override
+  String get setupSize => 'Size';
+
+  @override
+  String get setupFoundTitle => 'Found';
+
+  @override
+  String get setupTransactions => 'Transactions';
+
+  @override
+  String get setupRange => 'Range';
+
+  @override
+  String get setupAllBalanced => 'All balanced';
+
+  @override
+  String setupUnbalanced(int count) {
+    return '$count don\'t balance';
+  }
+
+  @override
+  String setupImportAction(int count) {
+    return 'Import $count';
+  }
+
+  @override
+  String setupUnreadable(int count) {
+    return 'Can\'t read $count entries in this file';
+  }
+
+  @override
+  String get setupFileFailed => 'Couldn\'t open the file';
+
+  @override
+  String get setupSaveFailed => 'Couldn\'t set up the ledger';
 }

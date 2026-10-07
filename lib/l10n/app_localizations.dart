@@ -1111,6 +1111,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Opening ledger'**
   String get bootOpening;
+
+  /// No description provided for @setupHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'ledger · setup'**
+  String get setupHeader;
+
+  /// No description provided for @setupNoLedger.
+  ///
+  /// In en, this message translates to:
+  /// **'No ledger on this device yet.'**
+  String get setupNoLedger;
+
+  /// No description provided for @setupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup'**
+  String get setupTitle;
+
+  /// No description provided for @setupStartNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Start new ledger'**
+  String get setupStartNew;
+
+  /// No description provided for @setupStartNewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty books, filled from your slips'**
+  String get setupStartNewHint;
+
+  /// No description provided for @setupImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import hledger'**
+  String get setupImport;
+
+  /// No description provided for @setupImportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A file from hledger print -O json'**
+  String get setupImportHint;
+
+  /// No description provided for @setupNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New ledger'**
+  String get setupNewTitle;
+
+  /// No description provided for @setupCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get setupCurrency;
+
+  /// No description provided for @setupAccountsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub-accounts appear as you record entries'**
+  String get setupAccountsHint;
+
+  /// No description provided for @setupCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create ledger'**
+  String get setupCreate;
+
+  /// No description provided for @setupSourceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get setupSourceTitle;
+
+  /// No description provided for @setupChooseFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose file'**
+  String get setupChooseFile;
+
+  /// No description provided for @setupChooseAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another file'**
+  String get setupChooseAnother;
+
+  /// No description provided for @setupPickHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the file made by hledger print -O json'**
+  String get setupPickHint;
+
+  /// No description provided for @setupFile.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get setupFile;
+
+  /// No description provided for @setupSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get setupSize;
+
+  /// No description provided for @setupFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Found'**
+  String get setupFoundTitle;
+
+  /// No description provided for @setupTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions'**
+  String get setupTransactions;
+
+  /// No description provided for @setupRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Range'**
+  String get setupRange;
+
+  /// No description provided for @setupAllBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'All balanced'**
+  String get setupAllBalanced;
+
+  /// No description provided for @setupUnbalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} don\'t balance'**
+  String setupUnbalanced(int count);
+
+  /// No description provided for @setupImportAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {count}'**
+  String setupImportAction(int count);
+
+  /// No description provided for @setupUnreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t read {count} entries in this file'**
+  String setupUnreadable(int count);
+
+  /// No description provided for @setupFileFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the file'**
+  String get setupFileFailed;
+
+  /// No description provided for @setupSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t set up the ledger'**
+  String get setupSaveFailed;
 }
 
 class _AppLocalizationsDelegate

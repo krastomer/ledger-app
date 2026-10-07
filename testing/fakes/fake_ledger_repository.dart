@@ -12,7 +12,7 @@ class FakeLedgerRepository implements LedgerRepository {
     this.error,
   }) : transactions = [...transactions];
 
-  final List<Account> accounts;
+  List<Account> accounts;
   final List<LedgerTransaction> transactions;
   final Exception? error;
   final _changes = StreamController<void>.broadcast();
@@ -50,6 +50,20 @@ class FakeLedgerRepository implements LedgerRepository {
   Future<Result<void>> delete(String id) async {
     if (error case final error?) return Result.error(error);
     transactions.removeWhere((t) => t.id == id);
+    _changes.add(null);
+    return const Result.ok(null);
+  }
+
+  @override
+  Future<Result<void>> replaceAll({
+    required List<Account> accounts,
+    required List<LedgerTransaction> transactions,
+  }) async {
+    if (error case final error?) return Result.error(error);
+    this.accounts = accounts;
+    this.transactions
+      ..clear()
+      ..addAll(transactions);
     _changes.add(null);
     return const Result.ok(null);
   }

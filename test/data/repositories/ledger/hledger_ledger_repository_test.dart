@@ -154,4 +154,20 @@ void main() {
       await subscription.cancel();
     });
   });
+
+  test('replaceAll swaps the ledger, drops edits and notifies', () async {
+    final repository = HledgerLedgerRepository(
+      source: _FakeLedgerSource(Result.ok(export)),
+    );
+    await repository.getTransactions();
+    final changes = expectLater(repository.changes, emits(null));
+
+    await repository.replaceAll(accounts: const [], transactions: const []);
+
+    await changes;
+    expect(
+      (await repository.getTransactions() as Ok<List<LedgerTransaction>>).value,
+      isEmpty,
+    );
+  });
 }

@@ -17,5 +17,8 @@ abstract class AppSettings with _$AppSettings {
     /// Show each entry's hledger text on its detail screen.
     @Default(true) bool showJournal,
     @Default(true) bool keepSlipImages,
+
+    /// False until the first-run setup has created or imported a ledger.
+    @Default(false) bool setupComplete,
   }) = _AppSettings;
 }

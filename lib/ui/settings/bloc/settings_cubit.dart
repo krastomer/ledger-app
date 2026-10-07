@@ -30,6 +30,9 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> setKeepSlipImages(bool value) =>
       _save(state.settings.copyWith(keepSlipImages: value));
 
+  Future<void> completeSetup() =>
+      _save(state.settings.copyWith(setupComplete: true));
+
   Future<void> _save(AppSettings settings) async {
     final previous = state.settings;
     if (settings == previous) return;

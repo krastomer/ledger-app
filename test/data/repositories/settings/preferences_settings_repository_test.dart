@@ -29,6 +29,7 @@ void main() {
       hideOnLaunch: true,
       showJournal: false,
       keepSlipImages: false,
+      setupComplete: true,
     );
 
     await repository.save(settings);

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ledger_app/data/repositories/ledger/ledger_repository.dart';
+import 'package:ledger_app/data/repositories/ledger_import/ledger_import_repository.dart';
 import 'package:ledger_app/data/repositories/settings/settings_repository.dart';
 import 'package:ledger_app/data/repositories/slip/slip_repository.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
@@ -15,6 +16,7 @@ class App extends StatelessWidget {
   const App({
     super.key,
     required this.ledgerRepository,
+    required this.ledgerImportRepository,
     required this.settingsRepository,
     required this.slipRepository,
     required this.initialSettings,
@@ -22,6 +24,7 @@ class App extends StatelessWidget {
   });
 
   final LedgerRepository ledgerRepository;
+  final LedgerImportRepository ledgerImportRepository;
   final SettingsRepository settingsRepository;
   final SlipRepository slipRepository;
   final AppSettings initialSettings;
@@ -32,6 +35,9 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<LedgerRepository>.value(value: ledgerRepository),
+        RepositoryProvider<LedgerImportRepository>.value(
+          value: ledgerImportRepository,
+        ),
         RepositoryProvider<SettingsRepository>.value(value: settingsRepository),
         RepositoryProvider<SlipRepository>.value(value: slipRepository),
       ],

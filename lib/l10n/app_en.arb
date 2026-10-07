@@ -324,5 +324,52 @@
   "viewSlipImage": "View slip image",
   "viewImageAction": "View image",
   "slipImageMissing": "This slip image is no longer on the device",
-  "bootOpening": "Opening ledger"
+  "bootOpening": "Opening ledger",
+  "setupHeader": "ledger · setup",
+  "setupNoLedger": "No ledger on this device yet.",
+  "setupTitle": "Setup",
+  "setupStartNew": "Start new ledger",
+  "setupStartNewHint": "Empty books, filled from your slips",
+  "setupImport": "Import hledger",
+  "setupImportHint": "A file from hledger print -O json",
+  "setupNewTitle": "New ledger",
+  "setupCurrency": "Currency",
+  "setupAccountsHint": "Sub-accounts appear as you record entries",
+  "setupCreate": "Create ledger",
+  "setupSourceTitle": "Source",
+  "setupChooseFile": "Choose file",
+  "setupChooseAnother": "Choose another file",
+  "setupPickHint": "Pick the file made by hledger print -O json",
+  "setupFile": "File",
+  "setupSize": "Size",
+  "setupFoundTitle": "Found",
+  "setupTransactions": "Transactions",
+  "setupRange": "Range",
+  "setupAllBalanced": "All balanced",
+  "setupUnbalanced": "{count} don't balance",
+  "@setupUnbalanced": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setupImportAction": "Import {count}",
+  "@setupImportAction": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setupUnreadable": "Can't read {count} entries in this file",
+  "@setupUnreadable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setupFileFailed": "Couldn't open the file",
+  "setupSaveFailed": "Couldn't set up the ledger"
 }

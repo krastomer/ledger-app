@@ -577,4 +577,88 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get bootOpening => 'กำลังเปิดสมุดบัญชี';
+
+  @override
+  String get setupHeader => 'ledger · setup';
+
+  @override
+  String get setupNoLedger => 'ยังไม่มีสมุดบัญชีในเครื่องนี้';
+
+  @override
+  String get setupTitle => 'ตั้งค่าเริ่มต้น';
+
+  @override
+  String get setupStartNew => 'เริ่มสมุดบัญชีใหม่';
+
+  @override
+  String get setupStartNewHint => 'สมุดเปล่า เติมจากสลิปของคุณ';
+
+  @override
+  String get setupImport => 'นำเข้าจาก hledger';
+
+  @override
+  String get setupImportHint => 'ไฟล์จาก hledger print -O json';
+
+  @override
+  String get setupNewTitle => 'สมุดบัญชีใหม่';
+
+  @override
+  String get setupCurrency => 'สกุลเงิน';
+
+  @override
+  String get setupAccountsHint => 'บัญชีย่อยจะเกิดขึ้นเมื่อบันทึกรายการ';
+
+  @override
+  String get setupCreate => 'สร้างสมุดบัญชี';
+
+  @override
+  String get setupSourceTitle => 'ไฟล์ต้นทาง';
+
+  @override
+  String get setupChooseFile => 'เลือกไฟล์';
+
+  @override
+  String get setupChooseAnother => 'เลือกไฟล์อื่น';
+
+  @override
+  String get setupPickHint => 'เลือกไฟล์ที่ได้จาก hledger print -O json';
+
+  @override
+  String get setupFile => 'ไฟล์';
+
+  @override
+  String get setupSize => 'ขนาด';
+
+  @override
+  String get setupFoundTitle => 'ที่พบ';
+
+  @override
+  String get setupTransactions => 'รายการ';
+
+  @override
+  String get setupRange => 'ช่วงเวลา';
+
+  @override
+  String get setupAllBalanced => 'สมดุลทุกรายการ';
+
+  @override
+  String setupUnbalanced(int count) {
+    return '$count รายการไม่สมดุล';
+  }
+
+  @override
+  String setupImportAction(int count) {
+    return 'นำเข้า $count';
+  }
+
+  @override
+  String setupUnreadable(int count) {
+    return 'อ่านไม่ได้ $count รายการในไฟล์นี้';
+  }
+
+  @override
+  String get setupFileFailed => 'เปิดไฟล์ไม่ได้';
+
+  @override
+  String get setupSaveFailed => 'ตั้งค่าสมุดบัญชีไม่ได้';
 }

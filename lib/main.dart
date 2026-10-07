@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ledger_app/app.dart';
 import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.dart';
+import 'package:ledger_app/data/repositories/ledger_import/file_ledger_import_repository.dart';
 import 'package:ledger_app/data/repositories/settings/preferences_settings_repository.dart';
 import 'package:ledger_app/data/repositories/slip/ocr_slip_repository.dart';
 import 'package:ledger_app/data/services/ledger_asset_service.dart';
+import 'package:ledger_app/data/services/ledger_file_service.dart';
 import 'package:ledger_app/data/services/preferences_service.dart';
 import 'package:ledger_app/data/services/slip_image_service.dart';
 import 'package:ledger_app/data/services/slip_ocr_service.dart';
@@ -32,6 +34,9 @@ Future<void> main() async {
       // TODO(kasama): replace with the SQLite repository (sync.md).
       ledgerRepository: HledgerLedgerRepository(
         source: LedgerAssetService(path: _ledgerAsset),
+      ),
+      ledgerImportRepository: FileLedgerImportRepository(
+        files: LedgerFileService(),
       ),
       settingsRepository: settingsRepository,
       slipRepository: OcrSlipRepository(
