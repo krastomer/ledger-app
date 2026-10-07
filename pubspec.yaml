@@ -1,5 +1,6 @@
 name: ledger_app
-description: "A new Flutter project."
+description: "Personal double-entry ledger that turns Thai bank transfer slips into entries using on-device OCR."
+repository: https://github.com/krastomer/ledger-app
 publish_to: 'none'
 version: 0.1.0+1
 
