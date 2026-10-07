@@ -26,4 +26,7 @@ abstract class MonthTransactions with _$MonthTransactions {
   bool get isLatestMonth => !month.isBefore(latestMonth);
 
   bool get isEmpty => days.isEmpty;
+
+  int get transactionCount =>
+      days.fold(0, (count, day) => count + day.transactions.length);
 }

@@ -46,4 +46,23 @@ void main() {
     expect(formatTime(const Duration(hours: 9, minutes: 5)), '09:05');
     expect(formatTime(const Duration(hours: 18, minutes: 30)), '18:30');
   });
+
+  test('formats a plain date in both languages', () {
+    expect(formatDate(date, 'th', YearEra.buddhist), '29 ก.ย. 2569');
+    expect(formatDate(date, 'en', YearEra.gregorian), 'Sep 29, 2026');
+  });
+
+  test('abbreviates the month', () {
+    expect(formatMonthShort(date, 'th'), 'ก.ย.');
+    expect(formatMonthShort(date, 'en'), 'Sep');
+  });
+
+  test('abbreviates the month with the chosen era', () {
+    expect(formatMonthShortYear(date, 'th', YearEra.buddhist), 'ก.ย. 2569');
+    expect(formatMonthShortYear(date, 'en', YearEra.gregorian), 'Sep 2026');
+  });
+
+  test('formats month and day as numbers', () {
+    expect(formatMonthDay(date), '09-29');
+  });
 }

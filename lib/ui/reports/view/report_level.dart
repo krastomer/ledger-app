@@ -1,23 +1,18 @@
 import 'dart:math' as math;
 
-import 'package:flutter/painting.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
 import 'package:ledger_app/domain/models/income_statement.dart';
 import 'package:ledger_app/l10n/app_localizations.dart';
-import 'package:ledger_app/ui/core/themes/money_colors.dart';
 import 'package:ledger_app/utils/percent_format.dart';
 import 'package:money2/money2.dart';
 
 import '../bloc/reports_cubit.dart';
-
-enum CenterKind { hint, badge, saved }
 
 class ChartSlice {
   const ChartSlice({
     required this.label,
     required this.amount,
     required this.perMille,
-    required this.color,
     required this.subtitle,
     this.drillAccount,
     this.opensSide,
@@ -26,7 +21,6 @@ class ChartSlice {
   final String label;
   final Money amount;
   final int perMille;
-  final Color color;
   final String subtitle;
   final String? drillAccount;
   final ReportSide? opensSide;
@@ -49,12 +43,6 @@ class ParentRowData {
 class ReportLevel {
   const ReportLevel({
     required this.title,
-    required this.total,
-    required this.showPlus,
-    required this.center,
-    required this.centerLabel,
-    required this.centerValue,
-    required this.centerColor,
     required this.slices,
     this.parent,
     this.incomeLink,
@@ -62,13 +50,7 @@ class ReportLevel {
   });
 
   final String title;
-  final Money total;
-  final bool showPlus;
   final String? caption;
-  final CenterKind center;
-  final String? centerLabel;
-  final String? centerValue;
-  final Color centerColor;
   final List<ChartSlice> slices;
 
   /// The row that goes back up a level; null at the net overview.
@@ -80,40 +62,28 @@ class ReportLevel {
 
 ReportLevel buildReportLevel({
   required AppLocalizations l10n,
-  required MoneyColors colors,
   required IncomeStatement statement,
   required ReportSide? side,
   required List<AccountNode> trail,
 }) {
-  if (side == null || trail.isEmpty) return _net(l10n, colors, statement);
-  return _node(l10n, colors, statement, side, trail);
+  if (side == null || trail.isEmpty) return _net(l10n, statement);
+  return _node(l10n, statement, side, trail);
 }
 
 String _subtitle(AppLocalizations l10n, AccountNode node) => node.hasChildren
     ? l10n.subcategoriesCount(node.children.length)
     : l10n.entriesCount(node.entryCount);
 
-ReportLevel _net(
-  AppLocalizations l10n,
-  MoneyColors colors,
-  IncomeStatement statement,
-) {
+ReportLevel _net(AppLocalizations l10n, IncomeStatement statement) {
   final saved = statement.savingsPerMille;
   return ReportLevel(
     title: l10n.netLabel,
-    total: statement.net,
-    showPlus: true,
-    center: saved != null ? CenterKind.saved : CenterKind.hint,
-    centerLabel: l10n.savedLabel,
-    centerValue: saved != null ? formatPerMille(saved) : null,
-    centerColor: colors.saved,
     slices: [
       if (statement.expenses.isPositive)
         ChartSlice(
           label: l10n.expenses,
           amount: statement.expenses,
           perMille: math.min(statement.expensesPerMille ?? 1000, 1000),
-          color: colors.expense,
           subtitle: _subtitle(l10n, statement.expenseTree),
           opensSide: ReportSide.expense,
         ),
@@ -122,7 +92,6 @@ ReportLevel _net(
           label: l10n.leftOver,
           amount: statement.net,
           perMille: saved ?? 0,
-          color: colors.saved,
           subtitle: '',
           opensSide: ReportSide.income,
         ),
@@ -138,7 +107,6 @@ ReportLevel _net(
 
 ReportLevel _node(
   AppLocalizations l10n,
-  MoneyColors colors,
   IncomeStatement statement,
   ReportSide side,
   List<AccountNode> trail,
@@ -148,7 +116,6 @@ ReportLevel _node(
   final isExpense = side == ReportSide.expense;
   final sideTitle = isExpense ? l10n.expenses : l10n.income;
   final name = depth == 0 ? sideTitle : node.name;
-  final palette = isExpense ? colors.expensePalette : colors.incomePalette;
   final int? share;
   final String? parentName;
   if (depth == 0) {
@@ -166,22 +133,15 @@ ReportLevel _node(
   }
   return ReportLevel(
     title: name,
-    total: node.amount,
-    showPlus: false,
     caption: share != null && parentName != null
         ? l10n.shareOfParent(formatPerMille(share), parentName)
         : null,
-    center: CenterKind.badge,
-    centerLabel: name,
-    centerValue: share != null ? formatPerMille(share) : null,
-    centerColor: isExpense ? colors.expense : colors.income,
     slices: [
-      for (final (index, a) in node.allocations.indexed)
+      for (final a in node.allocations)
         ChartSlice(
           label: a.account == null ? l10n.generalCategory : a.name,
           amount: a.amount,
           perMille: a.perMille,
-          color: palette[index % palette.length],
           subtitle: a.childCount > 0
               ? l10n.subcategoriesCount(a.childCount)
               : l10n.entriesCount(a.entryCount),

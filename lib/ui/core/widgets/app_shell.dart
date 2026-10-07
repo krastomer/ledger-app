@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
+import 'package:ledger_app/ui/core/themes/dimens.dart';
 
 class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.navigationShell});
@@ -10,40 +11,92 @@ class AppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+    final current = navigationShell.currentIndex;
+    final labels = [
+      l10n.navHome,
+      l10n.navTransactions,
+      l10n.navInbox,
+      l10n.navSettings,
+    ];
     return Scaffold(
       body: navigationShell,
       bottomNavigationBar: DecoratedBox(
         decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context).colorScheme.outlineVariant,
+          color: scheme.surfaceContainer,
+          border: Border(top: BorderSide(color: scheme.outlineVariant)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: SizedBox(
+            height: Dimens.tapTarget,
+            child: Row(
+              children: [
+                for (final (index, label) in labels.indexed)
+                  Expanded(
+                    child: _Tab(
+                      index: index,
+                      label: label,
+                      isSelected: index == current,
+                      onTap: () => navigationShell.goBranch(
+                        index,
+                        initialLocation: index == current,
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
         ),
-        child: NavigationBar(
-          selectedIndex: navigationShell.currentIndex,
-          onDestinationSelected: (index) => navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
+      ),
+    );
+  }
+}
+
+class _Tab extends StatelessWidget {
+  const _Tab({
+    required this.index,
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final int index;
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
+    return Semantics(
+      button: true,
+      selected: isSelected,
+      label: label,
+      excludeSemantics: true,
+      child: InkWell(
+        onTap: onTap,
+        child: ColoredBox(
+          color: isSelected ? scheme.primary : Colors.transparent,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: Dimens.gapXS),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  '$index:${label.toLowerCase()}${isSelected ? '*' : ''}',
+                  maxLines: 1,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: isSelected
+                        ? scheme.onPrimary
+                        : scheme.onSurfaceVariant,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                  ),
+                ),
+              ),
+            ),
           ),
-          destinations: [
-            NavigationDestination(
-              icon: const Icon(Icons.home_outlined),
-              label: l10n.navHome,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.list),
-              label: l10n.navTransactions,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.inbox_outlined),
-              label: l10n.navInbox,
-            ),
-            NavigationDestination(
-              icon: const Icon(Icons.settings_outlined),
-              label: l10n.navSettings,
-            ),
-          ],
         ),
       ),
     );

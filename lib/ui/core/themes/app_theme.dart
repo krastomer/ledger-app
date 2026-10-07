@@ -1,108 +1,120 @@
 import 'package:flutter/material.dart';
 
-import 'dimens.dart';
 import 'money_colors.dart';
 
 abstract final class AppTheme {
-  static const fontFamily = 'IBMPlexSansThai';
-  static const monoFontFamily = 'IBMPlexMono';
+  static const fontFamily = 'IBMPlexMono';
+  static const thaiFontFamily = 'IBMPlexSansThai';
 
-  static const _seed = Color(0xFF2E5B4E);
+  static const _amber = Color(0xFFFFB547);
 
-  static ThemeData get light => _build(
-    ColorScheme.fromSeed(seedColor: _seed).copyWith(
-      primary: _seed,
-      onPrimary: const Color(0xFFFFFFFF),
-      primaryContainer: const Color(0xFFD5E7DF),
-      onPrimaryContainer: const Color(0xFF0F2D24),
-      secondaryContainer: const Color(0xFFD5E7DF),
-      onSecondaryContainer: const Color(0xFF0F2D24),
-      tertiaryContainer: const Color(0xFFFBEBC8),
-      onTertiaryContainer: const Color(0xFF3D2A00),
-      error: const Color(0xFFB3261E),
-      surface: const Color(0xFFF6F5EF),
-      onSurface: const Color(0xFF1C1D19),
-      onSurfaceVariant: const Color(0xFF585A52),
-      surfaceContainerLowest: const Color(0xFFFFFFFF),
-      surfaceContainerLow: const Color(0xFFF1F0EA),
-      surfaceContainer: const Color(0xFFEFEEE7),
-      surfaceContainerHigh: const Color(0xFFEAE8E0),
-      surfaceContainerHighest: const Color(0xFFEEECE5),
-      outline: const Color(0xFF797B72),
-      outlineVariant: const Color(0xFFE4E2D9),
-    ),
-    MoneyColors.light,
-    divider: const Color(0xFFEEECE5),
-  );
-
-  static ThemeData get dark {
-    final scheme = ColorScheme.fromSeed(
-      seedColor: _seed,
+  static ThemeData get dark => _build(
+    ColorScheme.fromSeed(
+      seedColor: _amber,
       brightness: Brightness.dark,
-    );
-    return _build(scheme, MoneyColors.dark, divider: scheme.outlineVariant);
-  }
-
-  /// The design's type scale. Material's default letter spacing is dropped:
-  /// it spreads Thai text and the monospaced amounts.
-  static const _textTheme = TextTheme(
-    displayLarge: _TextStyle(57, 64, FontWeight.w400),
-    displayMedium: _TextStyle(45, 52, FontWeight.w400),
-    displaySmall: _TextStyle(30, 36, FontWeight.w600),
-    headlineLarge: _TextStyle(32, 40, FontWeight.w400),
-    headlineMedium: _TextStyle(28, 36, FontWeight.w700),
-    headlineSmall: _TextStyle(24, 32, FontWeight.w400),
-    titleLarge: _TextStyle(22, 28, FontWeight.w600),
-    titleMedium: _TextStyle(15, 22, FontWeight.w600),
-    titleSmall: _TextStyle(13, 18, FontWeight.w600),
-    bodyLarge: _TextStyle(15, 22, FontWeight.w400),
-    bodyMedium: _TextStyle(14, 20, FontWeight.w400),
-    bodySmall: _TextStyle(13, 18, FontWeight.w400),
-    labelLarge: _TextStyle(13, 18, FontWeight.w600),
-    labelMedium: _TextStyle(12, 16, FontWeight.w600),
-    labelSmall: _TextStyle(12, 16, FontWeight.w400),
+    ).copyWith(
+      primary: _amber,
+      onPrimary: const Color(0xFF0B0C0B),
+      primaryContainer: const Color(0xFF3A2C12),
+      onPrimaryContainer: _amber,
+      tertiary: const Color(0xFF7BD88F),
+      onTertiary: const Color(0xFF0B0C0B),
+      error: const Color(0xFFFF6B5E),
+      onError: const Color(0xFF0B0C0B),
+      surface: const Color(0xFF0B0C0B),
+      onSurface: const Color(0xFFD9DDD3),
+      onSurfaceVariant: const Color(0xFF858C82),
+      surfaceContainerLowest: const Color(0xFF0B0C0B),
+      surfaceContainerLow: const Color(0xFF111311),
+      surfaceContainer: const Color(0xFF141714),
+      surfaceContainerHigh: const Color(0xFF232723),
+      surfaceContainerHighest: const Color(0xFF232723),
+      outline: const Color(0xFF4F564F),
+      outlineVariant: const Color(0xFF343A34),
+    ),
+    MoneyColors.dark,
   );
 
-  static ThemeData _build(
-    ColorScheme scheme,
-    MoneyColors moneyColors, {
-    required Color divider,
-  }) => ThemeData(
-    colorScheme: scheme,
-    fontFamily: fontFamily,
-    textTheme: _textTheme,
-    scaffoldBackgroundColor: scheme.surface,
-    extensions: [moneyColors],
-    dividerTheme: DividerThemeData(color: divider, space: 1, thickness: 1),
-    appBarTheme: AppBarTheme(
-      backgroundColor: scheme.surface,
-      surfaceTintColor: Colors.transparent,
-    ),
-    navigationBarTheme: NavigationBarThemeData(
-      backgroundColor: scheme.surfaceContainer,
-      indicatorColor: scheme.primaryContainer,
-      surfaceTintColor: Colors.transparent,
-      labelTextStyle: WidgetStateProperty.resolveWith(
-        (states) => _textTheme.labelMedium?.copyWith(
-          fontFamily: fontFamily,
+  /// 13/20 body text like the design. Material's default letter spacing is
+  /// dropped: it breaks the monospaced grid.
+  static const _textTheme = TextTheme(
+    displaySmall: _TextStyle(30, 36, FontWeight.w500),
+    headlineSmall: _TextStyle(26, 30, FontWeight.w600),
+    titleLarge: _TextStyle(18, 26, FontWeight.w500),
+    titleMedium: _TextStyle(15, 22, FontWeight.w500),
+    titleSmall: _TextStyle(13, 20, FontWeight.w600),
+    bodyLarge: _TextStyle(13, 20, FontWeight.w400),
+    bodyMedium: _TextStyle(13, 20, FontWeight.w400),
+    bodySmall: _TextStyle(12, 18, FontWeight.w400),
+    labelLarge: _TextStyle(13, 20, FontWeight.w500),
+    labelMedium: _TextStyle(12, 18, FontWeight.w500),
+    labelSmall: _TextStyle(11, 14, FontWeight.w400),
+  );
+
+  static ThemeData _build(ColorScheme scheme, MoneyColors moneyColors) {
+    const square = RoundedRectangleBorder();
+    final line = BorderSide(color: scheme.outlineVariant);
+    return ThemeData(
+      colorScheme: scheme,
+      fontFamily: fontFamily,
+      fontFamilyFallback: const [thaiFontFamily],
+      textTheme: _textTheme,
+      scaffoldBackgroundColor: scheme.surface,
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: scheme.primary.withValues(alpha: 0.12),
+      hoverColor: scheme.primary.withValues(alpha: 0.08),
+      extensions: [moneyColors],
+      dividerTheme: DividerThemeData(
+        color: scheme.outlineVariant,
+        space: 1,
+        thickness: 1,
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: scheme.primary,
+        refreshBackgroundColor: scheme.surfaceContainer,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: scheme.surface,
+        surfaceTintColor: Colors.transparent,
+      ),
+      cardTheme: CardThemeData(
+        color: scheme.surface,
+        elevation: 0,
+        margin: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(side: line),
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: scheme.surfaceContainer,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(side: line),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: scheme.surfaceContainerHigh,
+        contentTextStyle: _textTheme.bodyMedium?.copyWith(
           color: scheme.onSurface,
-          fontWeight: states.contains(WidgetState.selected)
-              ? FontWeight.w600
-              : FontWeight.w500,
+        ),
+        shape: square,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: scheme.primary,
+          shape: square,
+          textStyle: _textTheme.bodyMedium,
         ),
       ),
-    ),
-    cardTheme: CardThemeData(
-      color: scheme.surfaceContainerLowest,
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Dimens.radiusM),
-        side: BorderSide(color: scheme.outlineVariant),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          shape: square,
+          textStyle: _textTheme.labelLarge,
+        ),
       ),
-    ),
-  );
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: scheme.primary,
+        selectionColor: scheme.primary.withValues(alpha: 0.3),
+        selectionHandleColor: scheme.primary,
+      ),
+    );
+  }
 }
 
 class _TextStyle extends TextStyle {
@@ -110,6 +122,7 @@ class _TextStyle extends TextStyle {
     : super(
         fontSize: size,
         height: lineHeight / size,
+        leadingDistribution: TextLeadingDistribution.even,
         fontWeight: weight,
         letterSpacing: 0,
       );

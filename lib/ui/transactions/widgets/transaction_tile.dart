@@ -15,137 +15,79 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final moneyColors = theme.moneyColors;
-    final (amount, color, icon) = switch (transaction.kind) {
-      TransactionKind.expense => (
-        -transaction.amount,
-        moneyColors.expense,
-        Icons.arrow_upward,
-      ),
-      TransactionKind.income => (
-        transaction.amount,
-        moneyColors.income,
-        Icons.arrow_downward,
-      ),
-      TransactionKind.transfer => (
-        transaction.amount,
-        moneyColors.transfer,
-        Icons.swap_horiz,
-      ),
+    final scheme = theme.colorScheme;
+    final l10n = context.l10n;
+    final small = theme.textTheme.bodySmall?.copyWith(
+      color: scheme.onSurfaceVariant,
+    );
+    final (amount, color) = switch (transaction.kind) {
+      TransactionKind.expense => (-transaction.amount, null),
+      TransactionKind.income => (transaction.amount, theme.moneyColors.income),
+      TransactionKind.transfer => (transaction.amount, null),
     };
+    final time = transaction.time;
     return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 64),
+      constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Dimens.cardPadding,
-          vertical: 10,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 2),
         child: Row(
-          spacing: Dimens.gapM,
+          spacing: Dimens.gapS,
           children: [
-            CircleAvatar(
-              backgroundColor: color.withValues(alpha: 0.12),
-              foregroundColor: color,
-              child: Icon(icon, size: 20),
+            SizedBox(
+              width: 12,
+              child: transaction.isPending
+                  ? Text(
+                      '!',
+                      semanticsLabel: l10n.filterPending,
+                      style: TextStyle(
+                        color: scheme.error,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  : null,
+            ),
+            Text(
+              time == null ? '--:--' : formatTime(time),
+              style: TextStyle(color: scheme.onSurfaceVariant),
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    spacing: 6,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          transaction.description,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      if (transaction.hasSlip)
-                        Icon(
-                          Icons.receipt_long_outlined,
-                          size: 14,
-                          semanticLabel: context.l10n.slipAttached,
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                    ],
+                  Text(
+                    transaction.description,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     '${transaction.from} → ${transaction.to}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
+                    style: small,
                   ),
                 ],
               ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              spacing: 2,
               children: [
                 AmountText(
                   amount,
                   showPlus: transaction.kind == TransactionKind.income,
                   color: color,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
-                _Meta(transaction: transaction),
+                if (transaction.hasSlip)
+                  Text(
+                    '[slip]',
+                    semanticsLabel: l10n.slipAttached,
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
               ],
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _Meta extends StatelessWidget {
-  const _Meta({required this.transaction});
-
-  final TransactionSummary transaction;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    final l10n = context.l10n;
-    final time = transaction.time;
-    final label = transaction.kind == TransactionKind.transfer
-        ? l10n.transferLabel
-        : time == null
-        ? null
-        : formatTime(time);
-    if (transaction.isPending) {
-      return DecoratedBox(
-        decoration: BoxDecoration(
-          color: scheme.tertiaryContainer,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Dimens.gapS),
-          child: Text(
-            l10n.filterPending,
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: scheme.onTertiaryContainer,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      );
-    }
-    if (label == null) return const SizedBox.shrink();
-    return Text(
-      label,
-      style: theme.textTheme.bodySmall?.copyWith(
-        color: scheme.onSurfaceVariant,
       ),
     );
   }

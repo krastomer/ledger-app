@@ -33,7 +33,7 @@ void main() {
 
   Future<void> pumpApp(WidgetTester tester, Locale locale) => tester.pumpWidget(
     MaterialApp(
-      theme: AppTheme.light,
+      theme: AppTheme.dark,
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -56,11 +56,9 @@ void main() {
   testWidgets('shows the current language and year format', (tester) async {
     await pumpView(tester);
 
-    expect(find.text('ทั่วไป'), findsOneWidget);
-    expect(find.text('ภาษา'), findsOneWidget);
-    expect(find.text('ไทย'), findsOneWidget);
-    expect(find.text('การแสดงปี'), findsOneWidget);
-    expect(find.text('พ.ศ. $buddhistYear'), findsOneWidget);
+    expect(find.text('# ทั่วไป'), findsOneWidget);
+    expect(find.text('ภาษา = "ไทย"'), findsOneWidget);
+    expect(find.text('การแสดงปี = "พ.ศ. $buddhistYear"'), findsOneWidget);
   });
 
   testWidgets('shows English labels', (tester) async {
@@ -73,15 +71,14 @@ void main() {
       locale: const Locale('en'),
     );
 
-    expect(find.text('Language'), findsOneWidget);
-    expect(find.text('English'), findsOneWidget);
-    expect(find.text('A.D. $gregorianYear'), findsOneWidget);
+    expect(find.text('language = "English"'), findsOneWidget);
+    expect(find.text('year_format = "A.D. $gregorianYear"'), findsOneWidget);
   });
 
   testWidgets('picking a language updates the setting', (tester) async {
     await pumpView(tester);
 
-    await tester.tap(find.text('ภาษา'));
+    await tester.tap(find.textContaining('ภาษา'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('English'));
     await tester.pumpAndSettle();
@@ -92,7 +89,7 @@ void main() {
   testWidgets('picking a year format updates the setting', (tester) async {
     await pumpView(tester);
 
-    await tester.tap(find.text('การแสดงปี'));
+    await tester.tap(find.textContaining('การแสดงปี'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('ค.ศ. $gregorianYear'));
     await tester.pumpAndSettle();

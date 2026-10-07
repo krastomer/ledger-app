@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
+import 'package:ledger_app/ui/core/widgets/tui_button.dart';
+import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:money2/money2.dart';
 
 class NetWorthCard extends StatelessWidget {
@@ -11,6 +13,7 @@ class NetWorthCard extends StatelessWidget {
     required this.assets,
     required this.liabilities,
     required this.amountsHidden,
+    required this.onToggleHidden,
     required this.onTap,
   });
 
@@ -18,66 +21,68 @@ class NetWorthCard extends StatelessWidget {
   final Money assets;
   final Money liabilities;
   final bool amountsHidden;
+  final VoidCallback onToggleHidden;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
     final l10n = context.l10n;
-    final muted = scheme.primaryContainer;
-    final small = theme.textTheme.bodySmall?.copyWith(color: muted);
-    return Material(
-      color: scheme.primary,
-      borderRadius: BorderRadius.circular(Dimens.radiusL),
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(Dimens.gapL),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: Dimens.gapS,
+    return TuiPanel(
+      title: l10n.netWorth,
+      trailing: netWorth.currency.isoCode,
+      accent: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  Expanded(child: Text(l10n.netWorth, style: small)),
-                  Text(l10n.seeAccounts, style: small),
-                  Icon(Icons.chevron_right, size: 18, color: muted),
-                ],
-              ),
-              AmountText(
-                netWorth,
-                hidden: amountsHidden,
-                color: scheme.onPrimary,
-                style: theme.textTheme.displaySmall,
-              ),
-              Wrap(
-                spacing: Dimens.gapXL,
-                runSpacing: Dimens.gapXS,
-                children: [
-                  _LabeledAmount(
-                    label: l10n.assets,
-                    amount: assets,
-                    hidden: amountsHidden,
+              Expanded(
+                child: Semantics(
+                  button: true,
+                  hint: l10n.accountsTitle,
+                  child: InkWell(
+                    onTap: onTap,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minHeight: Dimens.tapTarget,
+                      ),
+                      child: Align(
+                        alignment: AlignmentDirectional.centerStart,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: AmountText(
+                            netWorth,
+                            hidden: amountsHidden,
+                            style: theme.textTheme.displaySmall,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  _LabeledAmount(
-                    label: l10n.liabilities,
-                    amount: liabilities,
-                    hidden: amountsHidden,
-                  ),
-                ],
+                ),
+              ),
+              TuiButton(
+                label: '[${amountsHidden ? l10n.showAction : l10n.hideAction}]',
+                tooltip: amountsHidden ? l10n.showAmounts : l10n.hideAmounts,
+                onPressed: onToggleHidden,
               ),
             ],
           ),
-        ),
+          _Line(label: l10n.assets, amount: assets, hidden: amountsHidden),
+          _Line(
+            label: l10n.liabilities,
+            amount: -liabilities,
+            hidden: amountsHidden,
+          ),
+        ],
       ),
     );
   }
 }
 
-class _LabeledAmount extends StatelessWidget {
-  const _LabeledAmount({
+class _Line extends StatelessWidget {
+  const _Line({
     required this.label,
     required this.amount,
     required this.hidden,
@@ -89,19 +94,17 @@ class _LabeledAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final scheme = theme.colorScheme;
-    final style = theme.textTheme.bodySmall;
     return Row(
-      mainAxisSize: MainAxisSize.min,
-      spacing: Dimens.gapXS,
+      spacing: Dimens.gapL,
       children: [
-        Text(label, style: style?.copyWith(color: scheme.primaryContainer)),
-        AmountText(
-          amount,
-          hidden: hidden,
-          color: scheme.onPrimary,
-          style: style,
+        Text(
+          label.toLowerCase(),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+        ),
+        Expanded(
+          child: AmountText(amount, hidden: hidden, textAlign: TextAlign.end),
         ),
       ],
     );

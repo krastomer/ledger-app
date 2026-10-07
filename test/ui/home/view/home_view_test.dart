@@ -65,7 +65,7 @@ void main() {
     when(() => cubit.state).thenReturn(state);
     await tester.pumpWidget(
       MaterialApp(
-        theme: AppTheme.light,
+        theme: AppTheme.dark,
         locale: const Locale('en'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -97,14 +97,16 @@ void main() {
       HomeState(status: HomeStatus.success, summary: summary),
     );
 
-    expect(find.text('Overview'), findsOneWidget);
-    expect(find.text('Tue, Sep 29, 2026'), findsOneWidget);
-    expect(find.text('฿140,250.00'), findsOneWidget);
-    expect(find.text('2 items to review'), findsOneWidget);
-    expect(find.text('September'), findsOneWidget);
+    expect(find.text('net worth'), findsOneWidget);
+    expect(find.text('140,250.00'), findsOneWidget);
+    expect(find.text('−1,050.00'), findsOneWidget);
+    expect(find.text('2'), findsOneWidget);
+    expect(find.text('items need review'), findsOneWidget);
+    expect(find.text('sep 2026'), findsOneWidget);
     expect(find.text('Rent'), findsOneWidget);
+    expect(find.text('09-29'), findsOneWidget);
     expect(find.text('BTS'), findsOneWidget);
-    expect(find.text('−฿50.00'), findsOneWidget);
+    expect(find.text('−50.00'), findsOneWidget);
   });
 
   testWidgets('masks amounts when hidden', (tester) async {
@@ -117,7 +119,8 @@ void main() {
       ),
     );
 
-    expect(find.text('฿140,250.00'), findsNothing);
+    expect(find.text('140,250.00'), findsNothing);
+    expect(find.text('[show]'), findsOneWidget);
     expect(find.text(hiddenAmount), findsWidgets);
   });
 
@@ -138,7 +141,7 @@ void main() {
       const HomeState(status: HomeStatus.failure, error: HomeError.loadFailed),
     );
 
-    await tester.tap(find.text('Try again'));
+    await tester.tap(find.text('< try again >'));
 
     verify(() => cubit.load()).called(1);
   });

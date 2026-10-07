@@ -16,16 +16,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navHome => 'Home';
 
   @override
-  String get navTransactions => 'Transactions';
+  String get navTransactions => 'Journal';
 
   @override
   String get navInbox => 'Inbox';
 
   @override
-  String get navSettings => 'Settings';
-
-  @override
-  String get homeTitle => 'Overview';
+  String get navSettings => 'Config';
 
   @override
   String get hideAmounts => 'Hide amounts';
@@ -37,24 +34,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get netWorth => 'Net worth';
 
   @override
-  String get seeAccounts => 'Accounts';
-
-  @override
   String get assets => 'Assets';
 
   @override
   String get liabilities => 'Liabilities';
-
-  @override
-  String reviewBannerTitle(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count items to review',
-      one: '1 item to review',
-    );
-    return '$_temp0';
-  }
 
   @override
   String get income => 'Income';
@@ -91,9 +74,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountsTitle => 'Accounts';
-
-  @override
-  String get reportsTitle => 'Reports';
 
   @override
   String get settingsGeneral => 'General';
@@ -145,13 +125,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterPending => 'To review';
 
   @override
-  String get filterWithSlip => 'Has slip';
-
-  @override
   String get today => 'Today';
-
-  @override
-  String get transferLabel => 'Transfer';
 
   @override
   String get slipAttached => 'Slip attached';
@@ -163,13 +137,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get netLabel => 'Net';
 
   @override
-  String get tapSliceToDrill => 'Tap a slice to drill down';
-
-  @override
   String get generalCategory => 'General';
-
-  @override
-  String get savedLabel => 'Saved';
 
   @override
   String get leftOver => 'Left over';
@@ -209,4 +177,82 @@ class AppLocalizationsEn extends AppLocalizations {
   String shareOfParent(String percent, String parent) {
     return '$percent of $parent';
   }
+
+  @override
+  String accountsAsOf(String date) {
+    return 'As of $date';
+  }
+
+  @override
+  String get balanceView => 'Balance';
+
+  @override
+  String get monthChangeView => 'This month\'s change';
+
+  @override
+  String expandAccount(String name) {
+    return 'Expand $name';
+  }
+
+  @override
+  String collapseAccount(String name) {
+    return 'Collapse $name';
+  }
+
+  @override
+  String get noAccounts => 'No accounts yet';
+
+  @override
+  String itemsNeedReview(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'items need review',
+      one: 'item needs review',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get openAction => 'Open';
+
+  @override
+  String get hideAction => 'Hide';
+
+  @override
+  String get showAction => 'Show';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get filterPendingFlag => '--pending';
+
+  @override
+  String get filterSlipFlag => '--slip';
+
+  @override
+  String get registerTitle => 'Register';
+
+  @override
+  String shownCount(int count) {
+    return '$count shown';
+  }
+
+  @override
+  String get balanceSheetTitle => 'Balance sheet';
+
+  @override
+  String get incomeStatementTitle => 'Income statement';
+
+  @override
+  String savedPercent(String percent) {
+    return '$percent saved';
+  }
+
+  @override
+  String get configFileTitle => '~/.ledgerrc';
+
+  @override
+  String get dataStaysOnDevice => 'All data stays on this device';
 }

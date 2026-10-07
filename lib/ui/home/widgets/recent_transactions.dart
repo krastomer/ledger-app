@@ -5,7 +5,10 @@ import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/themes/money_colors.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
-import 'package:ledger_app/ui/core/widgets/see_more_button.dart';
+import 'package:ledger_app/ui/core/widgets/tui_button.dart';
+import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
+import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
+import 'package:ledger_app/utils/date_format.dart';
 
 class RecentTransactions extends StatelessWidget {
   const RecentTransactions({
@@ -21,41 +24,37 @@ class RecentTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final l10n = context.l10n;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          children: [
-            const SizedBox(width: Dimens.gapXS),
-            Expanded(
-              child: Text(l10n.recent, style: theme.textTheme.titleMedium),
+    return TuiPanel(
+      title: l10n.recent,
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.panelPadding,
+        Dimens.gapS,
+        Dimens.panelPadding,
+        0,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (transactions.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: Dimens.gapS),
+              child: Text(l10n.noTransactions),
             ),
-            SeeMoreButton(label: l10n.seeAll, onPressed: onSeeAll),
-            const SizedBox(width: Dimens.gapXS),
+          for (final (index, transaction) in transactions.indexed) ...[
+            if (index > 0) const TuiDashedLine(),
+            _TransactionRow(transaction: transaction, hidden: amountsHidden),
           ],
-        ),
-        Card(
-          child: transactions.isEmpty
-              ? Padding(
-                  padding: const EdgeInsets.all(Dimens.gapL),
-                  child: Text(l10n.noTransactions),
-                )
-              : Column(
-                  children: [
-                    for (final (index, transaction)
-                        in transactions.indexed) ...[
-                      if (index > 0) const Divider(height: 1),
-                      _TransactionRow(
-                        transaction: transaction,
-                        hidden: amountsHidden,
-                      ),
-                    ],
-                  ],
-                ),
-        ),
-      ],
+          Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: TuiButton(
+              label: '${l10n.seeAll} →',
+              padding: 0,
+              onPressed: onSeeAll,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -69,56 +68,48 @@ class _TransactionRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final moneyColors = theme.moneyColors;
+    final scheme = theme.colorScheme;
     final (amount, color) = switch (transaction.kind) {
-      TransactionKind.expense => (-transaction.amount, moneyColors.expense),
-      TransactionKind.income => (transaction.amount, moneyColors.income),
-      TransactionKind.transfer => (transaction.amount, moneyColors.transfer),
+      TransactionKind.expense => (-transaction.amount, null),
+      TransactionKind.income => (transaction.amount, theme.moneyColors.income),
+      TransactionKind.transfer => (transaction.amount, null),
     };
     return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 60),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Dimens.cardPadding,
-          vertical: 10,
-        ),
-        child: Row(
-          spacing: Dimens.gapM,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    transaction.description,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    '${transaction.from} → ${transaction.to}',
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                ],
-              ),
+      constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
+      child: Row(
+        spacing: Dimens.gapS,
+        children: [
+          Text(
+            formatMonthDay(transaction.date),
+            style: TextStyle(color: scheme.onSurfaceVariant),
+          ),
+          Expanded(
+            child: Text(
+              transaction.description,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            AmountText(
-              amount,
-              hidden: hidden,
-              showPlus: transaction.kind == TransactionKind.income,
-              color: color,
-              style: theme.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
+          ),
+          AmountText(
+            amount,
+            hidden: hidden,
+            showPlus: transaction.kind == TransactionKind.income,
+            color: color,
+          ),
+          SizedBox(
+            width: 10,
+            child: transaction.isPending
+                ? Text(
+                    '!',
+                    semanticsLabel: context.l10n.filterPending,
+                    style: TextStyle(
+                      color: scheme.error,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                : null,
+          ),
+        ],
       ),
     );
   }

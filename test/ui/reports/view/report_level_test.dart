@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
 import 'package:ledger_app/domain/models/income_statement.dart';
 import 'package:ledger_app/l10n/app_localizations_en.dart';
-import 'package:ledger_app/ui/core/themes/money_colors.dart';
 import 'package:ledger_app/ui/reports/bloc/reports_cubit.dart';
 import 'package:ledger_app/ui/reports/view/report_level.dart';
 
@@ -34,7 +33,6 @@ void main() {
   ReportLevel level(ReportSide? side, List<AccountNode> trail) =>
       buildReportLevel(
         l10n: AppLocalizationsEn(),
-        colors: MoneyColors.light,
         statement: statement,
         side: side,
         trail: trail,

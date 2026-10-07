@@ -25,9 +25,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get navSettings => 'ตั้งค่า';
 
   @override
-  String get homeTitle => 'ภาพรวม';
-
-  @override
   String get hideAmounts => 'ซ่อนยอดเงิน';
 
   @override
@@ -37,23 +34,10 @@ class AppLocalizationsTh extends AppLocalizations {
   String get netWorth => 'มูลค่าสุทธิ';
 
   @override
-  String get seeAccounts => 'ดูบัญชี';
-
-  @override
   String get assets => 'สินทรัพย์';
 
   @override
   String get liabilities => 'หนี้สิน';
-
-  @override
-  String reviewBannerTitle(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count รายการรอตรวจ',
-    );
-    return '$_temp0';
-  }
 
   @override
   String get income => 'รายรับ';
@@ -90,9 +74,6 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get accountsTitle => 'บัญชี';
-
-  @override
-  String get reportsTitle => 'รายงาน';
 
   @override
   String get settingsGeneral => 'ทั่วไป';
@@ -144,13 +125,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get filterPending => 'รอตรวจ';
 
   @override
-  String get filterWithSlip => 'มีสลิป';
-
-  @override
   String get today => 'วันนี้';
-
-  @override
-  String get transferLabel => 'โอน';
 
   @override
   String get slipAttached => 'มีสลิป';
@@ -162,13 +137,7 @@ class AppLocalizationsTh extends AppLocalizations {
   String get netLabel => 'สุทธิ';
 
   @override
-  String get tapSliceToDrill => 'แตะที่ชิ้นของกราฟเพื่อดูหมวดย่อย';
-
-  @override
   String get generalCategory => 'ทั่วไป';
-
-  @override
-  String get savedLabel => 'ออมได้';
 
   @override
   String get leftOver => 'คงเหลือ';
@@ -206,4 +175,81 @@ class AppLocalizationsTh extends AppLocalizations {
   String shareOfParent(String percent, String parent) {
     return '$percent ของ$parent';
   }
+
+  @override
+  String accountsAsOf(String date) {
+    return 'ณ $date';
+  }
+
+  @override
+  String get balanceView => 'ยอดคงเหลือ';
+
+  @override
+  String get monthChangeView => 'เปลี่ยนแปลงเดือนนี้';
+
+  @override
+  String expandAccount(String name) {
+    return 'ขยาย $name';
+  }
+
+  @override
+  String collapseAccount(String name) {
+    return 'ย่อ $name';
+  }
+
+  @override
+  String get noAccounts => 'ยังไม่มีบัญชี';
+
+  @override
+  String itemsNeedReview(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'รายการรอตรวจ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get openAction => 'เปิด';
+
+  @override
+  String get hideAction => 'ซ่อน';
+
+  @override
+  String get showAction => 'แสดง';
+
+  @override
+  String get back => 'กลับ';
+
+  @override
+  String get filterPendingFlag => '--รอตรวจ';
+
+  @override
+  String get filterSlipFlag => '--มีสลิป';
+
+  @override
+  String get registerTitle => 'รายการเดินบัญชี';
+
+  @override
+  String shownCount(int count) {
+    return 'แสดง $count รายการ';
+  }
+
+  @override
+  String get balanceSheetTitle => 'งบดุล';
+
+  @override
+  String get incomeStatementTitle => 'งบกำไรขาดทุน';
+
+  @override
+  String savedPercent(String percent) {
+    return 'ออมได้ $percent';
+  }
+
+  @override
+  String get configFileTitle => '~/.ledgerrc';
+
+  @override
+  String get dataStaysOnDevice => 'ข้อมูลทั้งหมดอยู่ในเครื่องนี้';
 }

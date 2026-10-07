@@ -147,4 +147,21 @@ void main() {
       expect(cubit.state.statement?.month, DateTime(2026, 8));
     },
   );
+
+  blocTest<ReportsCubit, ReportsState>(
+    'jumps from a drilled level straight to the overview',
+    build: () => buildCubit(repository),
+    act: (cubit) async {
+      await cubit.load();
+      cubit.openSide(ReportSide.expense);
+      cubit.drillInto('Expenses:Food');
+      cubit.showOverview();
+    },
+    skip: 4,
+    expect: () => [
+      isA<ReportsState>()
+          .having((s) => s.side, 'side', isNull)
+          .having((s) => s.drill, 'drill', <String>[]),
+    ],
+  );
 }

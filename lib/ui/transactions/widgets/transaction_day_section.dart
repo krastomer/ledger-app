@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ledger_app/domain/models/transaction_day.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
+import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
 import 'package:ledger_app/utils/date_format.dart';
 
 import 'transaction_tile.dart';
@@ -19,30 +20,28 @@ class TransactionDaySection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(
-            Dimens.gapXS,
-            Dimens.gapL,
-            Dimens.gapXS,
-            Dimens.gapS,
-          ),
-          child: Text(
-            day.isToday ? '$heading · ${context.l10n.today}' : heading,
-            style: theme.textTheme.labelLarge?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+          padding: const EdgeInsets.only(top: Dimens.gapXS),
+          child: SizedBox(
+            height: 24,
+            child: Row(
+              spacing: Dimens.gapS,
+              children: [
+                Semantics(
+                  header: true,
+                  child: Text(
+                    day.isToday ? '$heading · ${context.l10n.today}' : heading,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ),
+                const Expanded(child: TuiDashedLine()),
+              ],
             ),
           ),
         ),
-        Card(
-          clipBehavior: Clip.antiAlias,
-          child: Column(
-            children: [
-              for (final (index, transaction) in day.transactions.indexed) ...[
-                if (index > 0) const Divider(height: 1),
-                TransactionTile(transaction: transaction),
-              ],
-            ],
-          ),
-        ),
+        for (final transaction in day.transactions)
+          TransactionTile(transaction: transaction),
       ],
     );
   }

@@ -28,3 +28,18 @@ String formatTime(Duration time) {
   final minutes = (time.inMinutes % 60).toString().padLeft(2, '0');
   return '$hours:$minutes';
 }
+
+String formatDate(DateTime date, String locale, YearEra era) {
+  final year = era.yearOf(date);
+  return locale.startsWith('th')
+      ? '${DateFormat('d MMM', locale).format(date)} $year'
+      : '${DateFormat.MMMd(locale).format(date)}, $year';
+}
+
+String formatMonthShort(DateTime date, String locale) =>
+    DateFormat.MMM(locale).format(date);
+
+String formatMonthShortYear(DateTime date, String locale, YearEra era) =>
+    '${formatMonthShort(date, locale)} ${era.yearOf(date)}';
+
+String formatMonthDay(DateTime date) => DateFormat('MM-dd').format(date);

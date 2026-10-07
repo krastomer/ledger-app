@@ -1,9 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:ledger_app/data/parsers/slip/slip_parser.dart';
 import 'package:ledger_app/data/services/slip_ocr_service.dart';
-import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/widgets/app_shell.dart';
-import 'package:ledger_app/ui/core/widgets/coming_soon_page.dart';
+import 'package:ledger_app/ui/accounts/view/accounts_page.dart';
 import 'package:ledger_app/ui/dev/ocr_test_page.dart';
 import 'package:ledger_app/ui/home/view/home_page.dart';
 import 'package:ledger_app/ui/reports/view/reports_page.dart';
@@ -27,8 +26,7 @@ GoRouter createRouter({required SlipOcrService ocrService}) => GoRouter(
               routes: [
                 GoRoute(
                   path: Routes.accounts.substring(1),
-                  builder: (context, state) =>
-                      ComingSoonPage(title: context.l10n.accountsTitle),
+                  builder: (context, state) => const AccountsPage(),
                 ),
                 GoRoute(
                   path: Routes.reports.substring(1),

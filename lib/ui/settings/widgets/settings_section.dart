@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ledger_app/ui/core/themes/dimens.dart';
+import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
 
 class SettingsSection extends StatelessWidget {
   const SettingsSection({
@@ -14,34 +14,25 @@ class SettingsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: Dimens.gapS,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(
-            Dimens.gapXS,
-            Dimens.gapS,
-            Dimens.gapXS,
-            0,
-          ),
+        Semantics(
+          header: true,
           child: Text(
-            title,
-            style: theme.textTheme.titleSmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+            '# ${title.toLowerCase()}',
+            style: theme.textTheme.bodySmall?.copyWith(
+              height: 22 / 12,
+              fontStyle: FontStyle.italic,
+              color: scheme.onSurfaceVariant,
             ),
           ),
         ),
-        Card(
-          child: Column(
-            children: [
-              for (final (index, child) in children.indexed) ...[
-                if (index > 0) const Divider(),
-                child,
-              ],
-            ],
-          ),
-        ),
+        for (final (index, child) in children.indexed) ...[
+          if (index > 0) TuiDashedLine(color: scheme.surfaceContainerHigh),
+          child,
+        ],
       ],
     );
   }

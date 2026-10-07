@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ledger_app/data/repositories/ledger/ledger_repository.dart';
@@ -37,8 +38,11 @@ class App extends StatelessWidget {
           builder: (context, locale) => MaterialApp.router(
             debugShowCheckedModeBanner: false,
             onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
-            theme: AppTheme.light,
-            darkTheme: AppTheme.dark,
+            theme: AppTheme.dark,
+            builder: (context, child) => AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.light,
+              child: child ?? const SizedBox.shrink(),
+            ),
             locale: locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ledger_app/routing/routes.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
-import 'package:ledger_app/utils/date_format.dart';
+import 'package:ledger_app/ui/core/widgets/tui_button.dart';
 
 import '../bloc/home_cubit.dart';
 import '../widgets/month_summary_card.dart';
@@ -49,26 +49,27 @@ class _HomeContent extends StatelessWidget {
       (HomeCubit cubit) => cubit.state.amountsHidden,
     );
     if (summary == null) return const SizedBox.shrink();
+    final cubit = context.read<HomeCubit>();
     return RefreshIndicator(
-      onRefresh: () => context.read<HomeCubit>().load(),
+      onRefresh: cubit.load,
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.fromLTRB(
           Dimens.pagePadding,
-          Dimens.gapS,
+          Dimens.gapL,
           Dimens.pagePadding,
           Dimens.pagePadding,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: Dimens.gapM,
+          spacing: Dimens.panelGap,
           children: [
-            _Header(date: summary.asOf, amountsHidden: hidden),
             NetWorthCard(
               netWorth: summary.netWorth,
               assets: summary.assets,
               liabilities: summary.liabilities,
               amountsHidden: hidden,
+              onToggleHidden: cubit.toggleAmountsHidden,
               onTap: () => context.go(Routes.accounts),
             ),
             if (summary.pendingCount > 0)
@@ -97,48 +98,6 @@ class _HomeContent extends StatelessWidget {
   }
 }
 
-class _Header extends StatelessWidget {
-  const _Header({required this.date, required this.amountsHidden});
-
-  final DateTime date;
-  final bool amountsHidden;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final l10n = context.l10n;
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                formatLongDate(date, context.localeName, context.yearEra),
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-              Text(l10n.homeTitle, style: theme.textTheme.headlineMedium),
-            ],
-          ),
-        ),
-        IconButton(
-          tooltip: amountsHidden ? l10n.showAmounts : l10n.hideAmounts,
-          onPressed: () => context.read<HomeCubit>().toggleAmountsHidden(),
-          color: theme.colorScheme.onSurface,
-          icon: Icon(
-            amountsHidden
-                ? Icons.visibility_off_outlined
-                : Icons.visibility_outlined,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class _LoadFailure extends StatelessWidget {
   const _LoadFailure();
 
@@ -148,12 +107,12 @@ class _LoadFailure extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        spacing: Dimens.gapM,
+        spacing: Dimens.gapS,
         children: [
           Text(l10n.loadFailed),
-          FilledButton.tonal(
+          TuiButton.action(
+            label: l10n.retry,
             onPressed: () => context.read<HomeCubit>().load(),
-            child: Text(l10n.retry),
           ),
         ],
       ),

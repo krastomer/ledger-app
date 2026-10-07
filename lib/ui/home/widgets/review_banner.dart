@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
+import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 
 class ReviewBanner extends StatelessWidget {
   const ReviewBanner({super.key, required this.count, required this.onTap});
@@ -12,29 +13,30 @@ class ReviewBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    return Material(
-      color: scheme.tertiaryContainer,
-      borderRadius: BorderRadius.circular(Dimens.radiusM),
-      clipBehavior: Clip.antiAlias,
+    final l10n = context.l10n;
+    return Semantics(
+      button: true,
       child: InkWell(
         onTap: onTap,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: 56),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: Dimens.gapL),
+        child: TuiPanel(
+          title: '! ${l10n.navInbox}',
+          borderColor: scheme.error,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 34),
             child: Row(
               spacing: Dimens.gapM,
               children: [
-                Icon(Icons.inbox_outlined, color: scheme.onTertiaryContainer),
-                Expanded(
-                  child: Text(
-                    context.l10n.reviewBannerTitle(count),
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: scheme.onTertiaryContainer,
-                    ),
+                Text(
+                  '$count',
+                  style: theme.textTheme.headlineSmall?.copyWith(
+                    color: scheme.error,
                   ),
                 ),
-                Icon(Icons.chevron_right, color: scheme.onTertiaryContainer),
+                Expanded(child: Text(l10n.itemsNeedReview(count))),
+                Text(
+                  '${l10n.openAction.toLowerCase()} →',
+                  style: TextStyle(color: scheme.primary),
+                ),
               ],
             ),
           ),

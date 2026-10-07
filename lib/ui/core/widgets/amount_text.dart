@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ledger_app/ui/core/themes/app_theme.dart';
 import 'package:ledger_app/utils/money_format.dart';
 import 'package:money2/money2.dart';
 
@@ -9,9 +8,10 @@ class AmountText extends StatelessWidget {
     super.key,
     this.hidden = false,
     this.showPlus = false,
-    this.showSymbol = true,
+    this.showSymbol = false,
     this.style,
     this.color,
+    this.textAlign,
   });
 
   final Money amount;
@@ -20,6 +20,7 @@ class AmountText extends StatelessWidget {
   final bool showSymbol;
   final TextStyle? style;
   final Color? color;
+  final TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,10 @@ class AmountText extends StatelessWidget {
           ? hiddenAmount
           : formatMoney(amount, showPlus: showPlus, showSymbol: showSymbol),
       maxLines: 1,
+      softWrap: false,
+      textAlign: textAlign,
       style: base.copyWith(
         color: color,
-        fontFamily: AppTheme.monoFontFamily,
-        fontFamilyFallback: const [AppTheme.fontFamily],
         fontFeatures: const [FontFeature.tabularFigures()],
       ),
     );

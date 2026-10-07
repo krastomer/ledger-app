@@ -1,11 +1,11 @@
 import 'package:ledger_app/data/repositories/ledger/ledger_repository.dart';
 import 'package:ledger_app/domain/models/account_type.dart';
 import 'package:ledger_app/domain/models/account_node.dart';
+import 'package:ledger_app/domain/models/account_tree_builder.dart';
 import 'package:ledger_app/domain/models/income_statement.dart';
 import 'package:ledger_app/domain/models/ledger_book.dart';
 import 'package:ledger_app/domain/models/posting.dart';
 import 'package:ledger_app/utils/result.dart';
-import 'package:money2/money2.dart';
 
 class IncomeStatementUseCase {
   IncomeStatementUseCase({
@@ -66,50 +66,13 @@ class IncomeStatementUseCase {
   }
 
   AccountNode _tree(Iterable<Posting> postings, {bool negate = false}) {
-    final root = _Draft('', '');
+    final builder = AccountTreeBuilder();
     for (final p in postings) {
-      var node = root;
-      for (final segment in p.account.split(accountSeparator)) {
-        final parent = node;
-        node = parent.children.putIfAbsent(
-          segment,
-          () => _Draft(
-            parent.account.isEmpty
-                ? segment
-                : '${parent.account}$accountSeparator$segment',
-            segment,
-          ),
-        );
-      }
-      node.own += negate ? -p.amount : p.amount;
-      node.ownEntries++;
+      builder.add(p, negate: negate);
     }
-    final top = root.children.length == 1 && root.ownEntries == 0
-        ? root.children.values.single
+    final root = builder.build();
+    return root.children.length == 1 && root.ownEntryCount == 0
+        ? root.children.single
         : root;
-    return top.build();
-  }
-}
-
-class _Draft {
-  _Draft(this.account, this.name);
-
-  final String account;
-  final String name;
-  final children = <String, _Draft>{};
-  Money own = LedgerBook.zero;
-  int ownEntries = 0;
-
-  AccountNode build() {
-    final built = [for (final child in children.values) child.build()]
-      ..sort((a, b) => b.amount.compareTo(a.amount));
-    return AccountNode(
-      account: account,
-      name: name,
-      amount: built.fold(own, (total, child) => total + child.amount),
-      ownAmount: own,
-      ownEntryCount: ownEntries,
-      children: built,
-    );
   }
 }

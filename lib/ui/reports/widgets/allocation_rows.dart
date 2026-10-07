@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
+import 'package:ledger_app/ui/core/widgets/tui_bar.dart';
 import 'package:ledger_app/utils/percent_format.dart';
 import 'package:money2/money2.dart';
 
-const _shareWidth = 64.0;
-const _amountWidth = 104.0;
+const _barWidth = 72.0;
+const _shareWidth = 48.0;
+const _gap = 6.0;
 
 class AllocationHeader extends StatelessWidget {
   const AllocationHeader({super.key});
@@ -14,29 +16,30 @@ class AllocationHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final style = Theme.of(context).textTheme.labelSmall
-        ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant);
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Dimens.cardPadding,
-        vertical: Dimens.gapS,
-      ),
+    final theme = Theme.of(context);
+    final style = theme.textTheme.labelSmall?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
+    return ExcludeSemantics(
       child: Row(
-        spacing: Dimens.gapS,
+        spacing: _gap,
         children: [
-          Expanded(child: Text(l10n.allocationItem, style: style)),
+          Expanded(
+            child: Text(l10n.allocationItem.toLowerCase(), style: style),
+          ),
+          const SizedBox(width: _barWidth),
           SizedBox(
             width: _shareWidth,
             child: Text(
-              l10n.allocationShare,
-              textAlign: TextAlign.center,
+              l10n.allocationShare.toLowerCase(),
+              textAlign: TextAlign.end,
               style: style,
             ),
           ),
           SizedBox(
-            width: _amountWidth,
+            width: Dimens.amountColumn,
             child: Text(
-              l10n.allocationAmount,
+              l10n.allocationAmount.toLowerCase(),
               textAlign: TextAlign.end,
               style: style,
             ),
@@ -47,6 +50,7 @@ class AllocationHeader extends StatelessWidget {
   }
 }
 
+/// The current level's own total, marked `..`; tapping it goes up.
 class ParentAllocationRow extends StatelessWidget {
   const ParentAllocationRow({
     super.key,
@@ -65,29 +69,18 @@ class ParentAllocationRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Material(
-      color: scheme.surfaceContainerLow,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Dimens.radiusM - 4),
-        side: BorderSide(color: scheme.primary, width: 1.5),
-      ),
-      clipBehavior: Clip.antiAlias,
+    return Semantics(
+      button: true,
+      hint: context.l10n.back,
       child: InkWell(
         onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Dimens.gapM,
-            vertical: Dimens.gapM,
-          ),
-          child: _RowContent(
-            leading: Icon(Icons.arrow_back, size: 20, color: scheme.primary),
-            label: label,
-            subtitle: subtitle,
-            perMille: perMille,
-            amount: amount,
-            emphasis: true,
-          ),
+        child: _RowContent(
+          prefix: '.. ',
+          label: label,
+          subtitle: subtitle,
+          perMille: perMille,
+          amount: amount,
+          isParent: true,
         ),
       ),
     );
@@ -97,7 +90,6 @@ class ParentAllocationRow extends StatelessWidget {
 class AllocationRow extends StatelessWidget {
   const AllocationRow({
     super.key,
-    required this.color,
     required this.label,
     required this.subtitle,
     required this.perMille,
@@ -105,7 +97,6 @@ class AllocationRow extends StatelessWidget {
     this.onTap,
   });
 
-  final Color color;
   final String label;
   final String subtitle;
   final int? perMille;
@@ -114,23 +105,13 @@ class AllocationRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final row = Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: Dimens.cardPadding,
-        vertical: Dimens.gapM,
-      ),
-      child: _RowContent(
-        leading: Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        label: label,
-        subtitle: subtitle,
-        perMille: perMille,
-        amount: amount,
-        opensDetail: onTap != null,
-      ),
+    final onTap = this.onTap;
+    final row = _RowContent(
+      label: onTap == null ? label : '$label/',
+      subtitle: subtitle,
+      perMille: perMille,
+      amount: amount,
+      showBar: true,
     );
     return onTap == null ? row : InkWell(onTap: onTap, child: row);
   }
@@ -138,96 +119,91 @@ class AllocationRow extends StatelessWidget {
 
 class _RowContent extends StatelessWidget {
   const _RowContent({
-    required this.leading,
     required this.label,
     required this.subtitle,
     required this.perMille,
     required this.amount,
-    this.emphasis = false,
-    this.opensDetail = false,
+    this.prefix,
+    this.isParent = false,
+    this.showBar = false,
   });
 
-  final bool opensDetail;
-  final Widget leading;
+  final String? prefix;
   final String label;
   final String subtitle;
   final int? perMille;
   final Money amount;
-  final bool emphasis;
+  final bool isParent;
+  final bool showBar;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final scheme = theme.colorScheme;
     final share = perMille;
-    return Row(
-      spacing: Dimens.gapS,
-      children: [
-        Expanded(
-          child: Row(
-            spacing: Dimens.gapM,
-            children: [
-              SizedBox(width: 20, child: Center(child: leading)),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Text(
-                            label,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              fontWeight: emphasis ? FontWeight.w600 : null,
-                            ),
-                          ),
+    final prefix = this.prefix;
+    final weight = isParent ? FontWeight.w600 : null;
+    return ConstrainedBox(
+      constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
+      child: Row(
+        spacing: _gap,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      if (prefix != null)
+                        TextSpan(
+                          text: prefix,
+                          style: TextStyle(color: scheme.primary),
                         ),
-                        if (opensDetail)
-                          Icon(
-                            Icons.chevron_right,
-                            size: 18,
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                      ],
-                    ),
-                    if (subtitle.isNotEmpty)
-                      Text(
-                        subtitle,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                  ],
+                      TextSpan(text: label),
+                    ],
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontWeight: weight),
                 ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          width: _shareWidth,
-          child: Text(
-            share == null ? '' : formatPerMille(share),
-            textAlign: TextAlign.center,
-            style: theme.textTheme.bodySmall,
-          ),
-        ),
-        SizedBox(
-          width: _amountWidth,
-          child: Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: AmountText(
-              amount,
-              showSymbol: false,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: emphasis ? FontWeight.w600 : null,
-              ),
+                if (subtitle.isNotEmpty)
+                  Text(
+                    subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
+              ],
             ),
           ),
-        ),
-      ],
+          SizedBox(
+            width: _barWidth,
+            child: showBar && share != null
+                ? TuiBar(fraction: share / 1000)
+                : null,
+          ),
+          SizedBox(
+            width: _shareWidth,
+            child: Text(
+              share == null ? '' : formatPerMille(share),
+              textAlign: TextAlign.end,
+              style: TextStyle(color: scheme.onSurfaceVariant),
+            ),
+          ),
+          SizedBox(
+            width: Dimens.amountColumn,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerEnd,
+              child: AmountText(amount, style: TextStyle(fontWeight: weight)),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

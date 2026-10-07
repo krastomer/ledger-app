@@ -5,6 +5,7 @@ import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/l10n/app_localizations.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
+import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 
 import '../bloc/settings_cubit.dart';
 import '../widgets/choice_dialog.dart';
@@ -17,6 +18,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final theme = Theme.of(context);
     return BlocListener<SettingsCubit, SettingsState>(
       listenWhen: (previous, current) =>
           current.error != null && previous.error != current.error,
@@ -35,19 +37,31 @@ class SettingsView extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(
               Dimens.pagePadding,
-              Dimens.gapS,
+              Dimens.gapL,
               Dimens.pagePadding,
               Dimens.pagePadding,
             ),
             children: [
-              Text(
-                l10n.navSettings,
-                style: Theme.of(context).textTheme.headlineMedium,
+              TuiPanel(
+                title: l10n.configFileTitle,
+                accent: true,
+                padding: const EdgeInsets.fromLTRB(
+                  Dimens.panelPadding,
+                  Dimens.gapS,
+                  Dimens.panelPadding,
+                  Dimens.gapXS,
+                ),
+                child: SettingsSection(
+                  title: l10n.settingsGeneral,
+                  children: const [_LanguageTile(), _YearEraTile()],
+                ),
               ),
-              const SizedBox(height: Dimens.gapS),
-              SettingsSection(
-                title: l10n.settingsGeneral,
-                children: const [_LanguageTile(), _YearEraTile()],
+              const SizedBox(height: Dimens.gapM),
+              Text(
+                '# ${l10n.dataStaysOnDevice.toLowerCase()}',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
+import 'package:ledger_app/ui/core/widgets/tui_button.dart';
+import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:ledger_app/utils/date_format.dart';
 
 import '../bloc/transactions_cubit.dart';
 import '../widgets/filter_bar.dart';
 import '../widgets/month_totals_card.dart';
+import '../widgets/search_field.dart';
 import '../widgets/transaction_day_section.dart';
 
 class TransactionsView extends StatelessWidget {
@@ -14,31 +17,15 @@ class TransactionsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasData = context.select(
-      (TransactionsCubit cubit) => cubit.state.data != null,
-    );
-    final status = context.select(
-      (TransactionsCubit cubit) => cubit.state.status,
-    );
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         bottom: false,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const _Header(),
-            const FilterBar(),
-            Expanded(
-              child: hasData
-                  ? const _Content()
-                  : switch (status) {
-                      TransactionsStatus.initial ||
-                      TransactionsStatus.loading ||
-                      TransactionsStatus.success => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      TransactionsStatus.failure => const _LoadFailure(),
-                    },
-            ),
+            _Header(),
+            _Totals(),
+            Expanded(child: _Register()),
           ],
         ),
       ),
@@ -51,57 +38,117 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final l10n = context.l10n;
     final data = context.select((TransactionsCubit cubit) => cubit.state.data);
     final cubit = context.read<TransactionsCubit>();
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(
-        Dimens.gapXL,
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.pagePadding,
         Dimens.gapS,
-        Dimens.gapS,
-        Dimens.gapS,
+        Dimens.pagePadding,
+        0,
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: 6,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (data != null)
-                  Text(
-                    formatMonthYear(
-                      data.month,
-                      context.localeName,
-                      context.yearEra,
-                    ),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
+          Row(
+            children: [
+              TuiButton(
+                label: '<',
+                tooltip: l10n.previousMonth,
+                minWidth: 36,
+                padding: 0,
+                onPressed: data == null || data.isEarliestMonth
+                    ? null
+                    : cubit.previousMonth,
+              ),
+              if (data != null)
                 Text(
-                  l10n.navTransactions,
-                  style: theme.textTheme.headlineMedium,
+                  formatMonthShortYear(
+                    data.month,
+                    context.localeName,
+                    context.yearEra,
+                  ),
                 ),
-              ],
-            ),
+              TuiButton(
+                label: '>',
+                tooltip: l10n.nextMonth,
+                minWidth: 36,
+                padding: 0,
+                onPressed: data == null || data.isLatestMonth
+                    ? null
+                    : cubit.nextMonth,
+              ),
+              const SizedBox(width: Dimens.gapXS),
+              const Expanded(child: SearchField()),
+            ],
           ),
-          IconButton(
-            tooltip: l10n.previousMonth,
-            onPressed: data == null || data.isEarliestMonth
-                ? null
-                : cubit.previousMonth,
-            icon: const Icon(Icons.chevron_left),
-          ),
-          IconButton(
-            tooltip: l10n.nextMonth,
-            onPressed: data == null || data.isLatestMonth
-                ? null
-                : cubit.nextMonth,
-            icon: const Icon(Icons.chevron_right),
-          ),
+          const FilterBar(),
         ],
+      ),
+    );
+  }
+}
+
+class _Totals extends StatelessWidget {
+  const _Totals();
+
+  @override
+  Widget build(BuildContext context) {
+    final data = context.select((TransactionsCubit cubit) => cubit.state.data);
+    if (data == null) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.pagePadding,
+        Dimens.gapS,
+        Dimens.pagePadding,
+        0,
+      ),
+      child: MonthTotalsCard(
+        income: data.income,
+        expenses: data.expenses,
+        net: data.net,
+      ),
+    );
+  }
+}
+
+class _Register extends StatelessWidget {
+  const _Register();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final count = context.select(
+      (TransactionsCubit cubit) => cubit.state.data?.transactionCount,
+    );
+    final status = context.select(
+      (TransactionsCubit cubit) => cubit.state.status,
+    );
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.pagePadding,
+        Dimens.panelGap,
+        Dimens.pagePadding,
+        0,
+      ),
+      child: TuiPanel(
+        title: l10n.registerTitle,
+        trailing: count == null ? null : l10n.shownCount(count),
+        accent: true,
+        openBottom: true,
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        child: count != null
+            ? const _Content()
+            : switch (status) {
+                TransactionsStatus.initial ||
+                TransactionsStatus.loading ||
+                TransactionsStatus.success => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                TransactionsStatus.failure => const _LoadFailure(),
+              },
       ),
     );
   }
@@ -121,22 +168,11 @@ class _Content extends StatelessWidget {
       onRefresh: () => context.read<TransactionsCubit>().load(),
       child: ListView.builder(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(
-          Dimens.pagePadding,
-          Dimens.gapS,
-          Dimens.pagePadding,
-          Dimens.pagePadding,
-        ),
-        itemCount: data.isEmpty ? 2 : data.days.length + 1,
-        itemBuilder: (context, index) => switch (index) {
-          0 => MonthTotalsCard(
-            income: data.income,
-            expenses: data.expenses,
-            net: data.net,
-          ),
-          _ when data.isEmpty => _EmptyMessage(isFiltered: isFiltered),
-          _ => TransactionDaySection(day: data.days[index - 1]),
-        },
+        padding: const EdgeInsets.only(bottom: Dimens.pagePadding),
+        itemCount: data.isEmpty ? 1 : data.days.length,
+        itemBuilder: (context, index) => data.isEmpty
+            ? _EmptyMessage(isFiltered: isFiltered)
+            : TransactionDaySection(day: data.days[index]),
       ),
     );
   }
@@ -151,13 +187,11 @@ class _EmptyMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Padding(
-      padding: const EdgeInsets.all(Dimens.gapXL),
-      child: Center(
-        child: Text(
-          isFiltered
-              ? l10n.noMatchingTransactions
-              : l10n.noTransactionsThisMonth,
-        ),
+      padding: const EdgeInsets.symmetric(vertical: Dimens.gapXL),
+      child: Text(
+        isFiltered ? l10n.noMatchingTransactions : l10n.noTransactionsThisMonth,
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
     );
   }
@@ -172,12 +206,12 @@ class _LoadFailure extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        spacing: Dimens.gapM,
+        spacing: Dimens.gapS,
         children: [
           Text(l10n.loadFailed),
-          FilledButton.tonal(
+          TuiButton.action(
+            label: l10n.retry,
             onPressed: () => context.read<TransactionsCubit>().load(),
-            child: Text(l10n.retry),
           ),
         ],
       ),

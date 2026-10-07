@@ -19,6 +19,8 @@ class ReportsCubit extends Cubit<ReportsState> {
 
   Future<void> nextMonth() => _shiftMonth(1);
 
+  void showOverview() => emit(state.copyWith(side: null, drill: const []));
+
   void openSide(ReportSide side) =>
       emit(state.copyWith(side: side, drill: const []));
 

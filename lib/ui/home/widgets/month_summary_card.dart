@@ -4,9 +4,17 @@ import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/themes/money_colors.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
-import 'package:ledger_app/ui/core/widgets/see_more_button.dart';
+import 'package:ledger_app/ui/core/widgets/tui_bar.dart';
+import 'package:ledger_app/ui/core/widgets/tui_button.dart';
+import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
+import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:ledger_app/utils/date_format.dart';
+import 'package:ledger_app/utils/percent_format.dart';
 import 'package:money2/money2.dart';
+
+const _flowLabelWidth = 64.0;
+const _nameWidth = 84.0;
+const _shareWidth = 52.0;
 
 class MonthSummaryCard extends StatelessWidget {
   const MonthSummaryCard({
@@ -33,119 +41,50 @@ class MonthSummaryCard extends StatelessWidget {
     final theme = Theme.of(context);
     final moneyColors = theme.moneyColors;
     final l10n = context.l10n;
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(
-          Dimens.cardPadding,
-          Dimens.gapXS,
-          Dimens.cardPadding,
-          Dimens.cardPadding,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    formatMonthName(month, context.localeName),
-                    style: theme.textTheme.titleMedium,
-                  ),
-                ),
-                SeeMoreButton(label: l10n.seeReports, onPressed: onSeeReports),
-              ],
-            ),
-            // The link's 48dp tap target already spaces the header.
-            const SizedBox(height: Dimens.gapXS),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              spacing: Dimens.gapM,
-              children: [
-                Row(
-                  spacing: Dimens.gapS,
-                  children: [
-                    _Stat(
-                      label: l10n.income,
-                      amount: income,
-                      color: moneyColors.income,
-                      hidden: amountsHidden,
-                      showPlus: true,
-                    ),
-                    _Stat(
-                      label: l10n.expenses,
-                      amount: -expenses,
-                      color: moneyColors.expense,
-                      hidden: amountsHidden,
-                    ),
-                    _Stat(
-                      label: l10n.net,
-                      amount: net,
-                      hidden: amountsHidden,
-                      showPlus: true,
-                    ),
-                  ],
-                ),
-                if (topSpending.isNotEmpty) ...[
-                  const Divider(height: 1),
-                  Text(
-                    l10n.topSpending,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
-                  for (final category in topSpending)
-                    _SpendingBar(category: category, hidden: amountsHidden),
-                ],
-              ],
-            ),
-          ],
-        ),
+    final scale = income > expenses ? income : expenses;
+    return TuiPanel(
+      title: formatMonthShortYear(month, context.localeName, context.yearEra),
+      padding: const EdgeInsets.fromLTRB(
+        Dimens.panelPadding,
+        Dimens.panelPadding,
+        Dimens.panelPadding,
+        0,
       ),
-    );
-  }
-}
-
-class _Stat extends StatelessWidget {
-  const _Stat({
-    required this.label,
-    required this.amount,
-    required this.hidden,
-    this.color,
-    this.showPlus = false,
-  });
-
-  final String label;
-  final Money amount;
-  final bool hidden;
-  final Color? color;
-  final bool showPlus;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Expanded(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 2,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            label,
-            style: theme.textTheme.labelSmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+          _FlowRow(
+            label: l10n.income,
+            amount: income,
+            showPlus: true,
+            hidden: amountsHidden,
+            bar: TuiBar.share(income, scale),
+            barColor: moneyColors.income,
           ),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: AmountText(
-              amount,
-              hidden: hidden,
-              showPlus: showPlus,
-              showSymbol: false,
-              color: color,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+          _FlowRow(
+            label: l10n.expenses,
+            amount: -expenses,
+            hidden: amountsHidden,
+            bar: TuiBar.share(expenses, scale),
+            barColor: moneyColors.expense,
+          ),
+          _FlowRow(
+            label: l10n.net,
+            amount: net,
+            showPlus: true,
+            hidden: amountsHidden,
+          ),
+          if (topSpending.isNotEmpty) ...[
+            _RuleHeading(label: l10n.topSpending),
+            for (final category in topSpending)
+              _SpendingRow(category: category, hidden: amountsHidden),
+          ],
+          Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: TuiButton(
+              label: '${l10n.seeReports} →',
+              padding: 0,
+              onPressed: onSeeReports,
             ),
           ),
         ],
@@ -154,39 +93,120 @@ class _Stat extends StatelessWidget {
   }
 }
 
-class _SpendingBar extends StatelessWidget {
-  const _SpendingBar({required this.category, required this.hidden});
+class _FlowRow extends StatelessWidget {
+  const _FlowRow({
+    required this.label,
+    required this.amount,
+    required this.hidden,
+    this.showPlus = false,
+    this.bar,
+    this.barColor,
+  });
+
+  final String label;
+  final Money amount;
+  final bool hidden;
+  final bool showPlus;
+  final double? bar;
+  final Color? barColor;
+
+  @override
+  Widget build(BuildContext context) {
+    final bar = this.bar;
+    return Row(
+      spacing: Dimens.gapS,
+      children: [
+        SizedBox(
+          width: _flowLabelWidth,
+          child: Text(
+            label.toLowerCase(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: Dimens.amountColumn,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerEnd,
+            child: AmountText(amount, hidden: hidden, showPlus: showPlus),
+          ),
+        ),
+        Expanded(
+          child: bar == null
+              ? const SizedBox.shrink()
+              : TuiBar(fraction: bar, color: barColor),
+        ),
+      ],
+    );
+  }
+}
+
+class _RuleHeading extends StatelessWidget {
+  const _RuleHeading({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(top: Dimens.gapS, bottom: Dimens.gapXS),
+      child: Row(
+        spacing: Dimens.gapS,
+        children: [
+          const Expanded(child: TuiDashedLine()),
+          Text(
+            label.toLowerCase(),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const Expanded(child: TuiDashedLine()),
+        ],
+      ),
+    );
+  }
+}
+
+class _SpendingRow extends StatelessWidget {
+  const _SpendingRow({required this.category, required this.hidden});
 
   final CategoryTotal category;
   final bool hidden;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: Dimens.gapXS,
+    final muted = Theme.of(context).colorScheme.onSurfaceVariant;
+    return Row(
+      spacing: 6,
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: Text(category.name, style: theme.textTheme.bodyMedium),
-            ),
-            AmountText(
-              category.amount,
-              hidden: hidden,
-              showSymbol: false,
-              style: theme.textTheme.bodyMedium,
-            ),
-          ],
+        SizedBox(
+          width: _nameWidth,
+          child: Text(
+            category.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(Dimens.barHeight / 2),
-          child: LinearProgressIndicator(
-            value: category.sharePerMille / 1000,
-            minHeight: Dimens.barHeight,
-            color: theme.moneyColors.spendingBar,
-            backgroundColor: theme.colorScheme.surfaceContainerHighest,
+        Expanded(child: TuiBar(fraction: category.sharePerMille / 1000)),
+        SizedBox(
+          width: _shareWidth,
+          child: Text(
+            formatPerMille(category.sharePerMille),
+            textAlign: TextAlign.end,
+            style: TextStyle(color: muted),
+          ),
+        ),
+        SizedBox(
+          width: Dimens.amountColumn,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerEnd,
+            child: AmountText(category.amount, hidden: hidden),
           ),
         ),
       ],

@@ -113,7 +113,7 @@ abstract class AppLocalizations {
   /// No description provided for @navTransactions.
   ///
   /// In en, this message translates to:
-  /// **'Transactions'**
+  /// **'Journal'**
   String get navTransactions;
 
   /// No description provided for @navInbox.
@@ -125,14 +125,8 @@ abstract class AppLocalizations {
   /// No description provided for @navSettings.
   ///
   /// In en, this message translates to:
-  /// **'Settings'**
+  /// **'Config'**
   String get navSettings;
-
-  /// No description provided for @homeTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Overview'**
-  String get homeTitle;
 
   /// No description provided for @hideAmounts.
   ///
@@ -152,12 +146,6 @@ abstract class AppLocalizations {
   /// **'Net worth'**
   String get netWorth;
 
-  /// No description provided for @seeAccounts.
-  ///
-  /// In en, this message translates to:
-  /// **'Accounts'**
-  String get seeAccounts;
-
   /// No description provided for @assets.
   ///
   /// In en, this message translates to:
@@ -169,12 +157,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Liabilities'**
   String get liabilities;
-
-  /// No description provided for @reviewBannerTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{1 item to review} other{{count} items to review}}'**
-  String reviewBannerTitle(int count);
 
   /// No description provided for @income.
   ///
@@ -247,12 +229,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Accounts'**
   String get accountsTitle;
-
-  /// No description provided for @reportsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Reports'**
-  String get reportsTitle;
 
   /// No description provided for @settingsGeneral.
   ///
@@ -344,23 +320,11 @@ abstract class AppLocalizations {
   /// **'To review'**
   String get filterPending;
 
-  /// No description provided for @filterWithSlip.
-  ///
-  /// In en, this message translates to:
-  /// **'Has slip'**
-  String get filterWithSlip;
-
   /// No description provided for @today.
   ///
   /// In en, this message translates to:
   /// **'Today'**
   String get today;
-
-  /// No description provided for @transferLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Transfer'**
-  String get transferLabel;
 
   /// No description provided for @slipAttached.
   ///
@@ -380,23 +344,11 @@ abstract class AppLocalizations {
   /// **'Net'**
   String get netLabel;
 
-  /// No description provided for @tapSliceToDrill.
-  ///
-  /// In en, this message translates to:
-  /// **'Tap a slice to drill down'**
-  String get tapSliceToDrill;
-
   /// No description provided for @generalCategory.
   ///
   /// In en, this message translates to:
   /// **'General'**
   String get generalCategory;
-
-  /// No description provided for @savedLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Saved'**
-  String get savedLabel;
 
   /// No description provided for @leftOver.
   ///
@@ -439,6 +391,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{percent} of {parent}'**
   String shareOfParent(String percent, String parent);
+
+  /// No description provided for @accountsAsOf.
+  ///
+  /// In en, this message translates to:
+  /// **'As of {date}'**
+  String accountsAsOf(String date);
+
+  /// No description provided for @balanceView.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get balanceView;
+
+  /// No description provided for @monthChangeView.
+  ///
+  /// In en, this message translates to:
+  /// **'This month\'s change'**
+  String get monthChangeView;
+
+  /// No description provided for @expandAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand {name}'**
+  String expandAccount(String name);
+
+  /// No description provided for @collapseAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse {name}'**
+  String collapseAccount(String name);
+
+  /// No description provided for @noAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'No accounts yet'**
+  String get noAccounts;
+
+  /// No description provided for @itemsNeedReview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{item needs review} other{items need review}}'**
+  String itemsNeedReview(int count);
+
+  /// No description provided for @openAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get openAction;
+
+  /// No description provided for @hideAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide'**
+  String get hideAction;
+
+  /// No description provided for @showAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Show'**
+  String get showAction;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @filterPendingFlag.
+  ///
+  /// In en, this message translates to:
+  /// **'--pending'**
+  String get filterPendingFlag;
+
+  /// No description provided for @filterSlipFlag.
+  ///
+  /// In en, this message translates to:
+  /// **'--slip'**
+  String get filterSlipFlag;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get registerTitle;
+
+  /// No description provided for @shownCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} shown'**
+  String shownCount(int count);
+
+  /// No description provided for @balanceSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance sheet'**
+  String get balanceSheetTitle;
+
+  /// No description provided for @incomeStatementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Income statement'**
+  String get incomeStatementTitle;
+
+  /// No description provided for @savedPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent} saved'**
+  String savedPercent(String percent);
+
+  /// No description provided for @configFileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'~/.ledgerrc'**
+  String get configFileTitle;
+
+  /// No description provided for @dataStaysOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'All data stays on this device'**
+  String get dataStaysOnDevice;
 }
 
 class _AppLocalizationsDelegate

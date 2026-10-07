@@ -94,7 +94,7 @@ void main() {
     when(() => cubit.state).thenReturn(state);
     await tester.pumpWidget(
       MaterialApp(
-        theme: AppTheme.light,
+        theme: AppTheme.dark,
         locale: const Locale('en'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -129,17 +129,20 @@ void main() {
   testWidgets('renders totals and transactions grouped by day', (tester) async {
     await pumpView(tester, success(data()));
 
-    expect(find.text('September 2026'), findsOneWidget);
+    expect(find.text('Sep 2026'), findsOneWidget);
     expect(find.text('+50,000.00'), findsOneWidget);
+    expect(find.text('4 shown'), findsOneWidget);
     expect(find.text('Tue, Sep 29 · Today'), findsOneWidget);
     expect(find.text('Fri, Sep 25'), findsOneWidget);
     expect(find.text('lunch'), findsOneWidget);
     expect(find.text('KBank → Food'), findsWidgets);
     expect(find.text('12:41'), findsOneWidget);
-    expect(find.text('Transfer'), findsOneWidget);
-    expect(find.text('To review'), findsWidgets);
-    expect(find.text('−฿60.00'), findsWidgets);
-    expect(find.text('+฿60.00'), findsOneWidget);
+    expect(find.text('--:--'), findsNWidgets(3));
+    expect(find.text('!'), findsOneWidget);
+    expect(find.text('[slip]'), findsOneWidget);
+    expect(find.text('−60.00'), findsNWidgets(2));
+    expect(find.text('60.00'), findsOneWidget);
+    expect(find.text('+60.00'), findsOneWidget);
   });
 
   testWidgets('shows an empty message for a month without entries', (
@@ -188,11 +191,14 @@ void main() {
   testWidgets('typing searches and the filter chips toggle', (tester) async {
     await pumpView(tester, success(data()));
 
-    await tester.enterText(find.byType(SearchBar), 'lunch');
-    await tester.tap(find.widgetWithText(FilterChip, 'To review'));
-    await tester.tap(find.widgetWithText(FilterChip, 'Has slip'));
+    await tester.enterText(find.byType(TextField), 'lunch');
+    await tester.pump();
+    await tester.tap(find.text('--pending'));
+    await tester.tap(find.text('--slip'));
+    await tester.tap(find.byTooltip('Clear search'));
 
     verify(() => cubit.setQuery('lunch')).called(1);
+    verify(() => cubit.setQuery('')).called(1);
     verify(() => cubit.togglePendingOnly()).called(1);
     verify(() => cubit.toggleWithSlipOnly()).called(1);
   });
@@ -206,7 +212,7 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('Try again'));
+    await tester.tap(find.text('< try again >'));
 
     verify(() => cubit.load()).called(1);
   });

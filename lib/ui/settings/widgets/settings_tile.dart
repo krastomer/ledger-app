@@ -20,25 +20,31 @@ class SettingsTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(minHeight: 56),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-            Dimens.gapL,
-            Dimens.gapS,
-            Dimens.gapM,
-            Dimens.gapS,
-          ),
-          child: Row(
-            spacing: Dimens.gapS,
-            children: [
-              Expanded(child: Text(label, style: theme.textTheme.bodyLarge)),
-              Text(
-                value,
-                style: theme.textTheme.bodyMedium?.copyWith(color: muted),
+        constraints: const BoxConstraints(minHeight: Dimens.tapTarget),
+        child: Row(
+          spacing: Dimens.gapS,
+          children: [
+            Expanded(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(text: label.toLowerCase().replaceAll(' ', '_')),
+                    TextSpan(
+                      text: ' = ',
+                      style: TextStyle(color: muted),
+                    ),
+                    TextSpan(
+                      text: '"$value"',
+                      style: TextStyle(color: theme.colorScheme.tertiary),
+                    ),
+                  ],
+                ),
               ),
-              Icon(Icons.chevron_right, size: 18, color: muted),
-            ],
-          ),
+            ),
+            ExcludeSemantics(
+              child: Text('>', style: TextStyle(color: muted)),
+            ),
+          ],
         ),
       ),
     );

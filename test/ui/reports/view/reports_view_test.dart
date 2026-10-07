@@ -10,8 +10,8 @@ import 'package:ledger_app/l10n/app_localizations.dart';
 import 'package:ledger_app/ui/core/themes/app_theme.dart';
 import 'package:ledger_app/ui/reports/bloc/reports_cubit.dart';
 import 'package:ledger_app/ui/reports/view/reports_view.dart';
+import 'package:ledger_app/ui/core/widgets/tui_button.dart';
 import 'package:ledger_app/ui/reports/widgets/allocation_rows.dart';
-import 'package:ledger_app/ui/reports/widgets/donut_chart.dart';
 import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -85,7 +85,7 @@ void main() {
     when(() => cubit.state).thenReturn(state);
     await tester.pumpWidget(
       MaterialApp(
-        theme: AppTheme.light,
+        theme: AppTheme.dark,
         locale: const Locale('en'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
@@ -117,13 +117,16 @@ void main() {
       ReportsState(status: ReportsStatus.success, statement: statement()),
     );
 
-    expect(find.text('September 2026'), findsOneWidget);
-    expect(find.text('+฿41,800.00'), findsOneWidget);
-    expect(find.text('83.6%'), findsWidgets);
-    expect(find.text('Saved'), findsOneWidget);
-    expect(find.text('Expenses'), findsOneWidget);
-    expect(find.text('Left over'), findsOneWidget);
-    expect(find.text('Income'), findsOneWidget);
+    expect(find.text('income statement'), findsOneWidget);
+    expect(find.text('Sep 2026'), findsOneWidget);
+    expect(find.text('+50,000.00'), findsOneWidget);
+    expect(find.text('−8,200.00'), findsOneWidget);
+    expect(find.text('16.4% of Income'), findsOneWidget);
+    expect(find.text('+41,800.00'), findsOneWidget);
+    expect(find.text('83.6% saved'), findsOneWidget);
+    expect(find.text('Expenses/'), findsOneWidget);
+    expect(find.text('Left over/'), findsOneWidget);
+    expect(find.text('Income/'), findsOneWidget);
     expect(find.text('50,000.00'), findsOneWidget);
     expect(find.text('2 subcategories'), findsOneWidget);
   });
@@ -134,9 +137,9 @@ void main() {
       ReportsState(status: ReportsStatus.success, statement: statement()),
     );
 
-    await tester.ensureVisible(find.text('Income'));
+    await tester.ensureVisible(find.text('Income/'));
     await tester.pump();
-    await tester.tap(find.text('Income'));
+    await tester.tap(find.text('Income/'));
 
     verify(() => cubit.openSide(ReportSide.income)).called(1);
   });
@@ -152,13 +155,16 @@ void main() {
       ),
     );
 
-    expect(find.text('Expenses · 16.4% of Income'), findsOneWidget);
-    expect(find.text('Rent'), findsWidgets);
-    expect(find.text('97.6%'), findsWidgets);
+    expect(find.text('expenses'), findsWidgets);
+    expect(find.text('16.4% of Income'), findsNWidgets(2));
+    expect(find.text('.. Expenses'), findsOneWidget);
+    expect(find.text('Rent'), findsOneWidget);
+    expect(find.text('Food/'), findsOneWidget);
+    expect(find.text('97.6%'), findsOneWidget);
     expect(find.text('1 entry'), findsOneWidget);
     expect(find.text('1 subcategory'), findsOneWidget);
 
-    await tester.tap(find.byType(BackButton));
+    await tester.tap(find.byTooltip('Back'));
     verify(() => cubit.back()).called(1);
   });
 
@@ -175,14 +181,14 @@ void main() {
       ),
     );
 
-    expect(find.text('Food · 2.4% of Expenses'), findsOneWidget);
-    expect(find.text('Lunch'), findsWidgets);
+    expect(find.text('food'), findsOneWidget);
+    expect(find.text('2.4% of Expenses'), findsOneWidget);
+    expect(find.text('Lunch'), findsOneWidget);
     final parentRow = find.byType(ParentAllocationRow);
     expect(parentRow, findsOneWidget);
 
     await tester.tap(parentRow);
-    await tester.tap(find.byType(DonutChart));
-    verify(() => cubit.back()).called(2);
+    verify(() => cubit.back()).called(1);
   });
 
   testWidgets('shows an empty message for a month without entries', (
@@ -251,8 +257,27 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('Try again'));
+    await tester.tap(find.text('< try again >'));
 
     verify(() => cubit.load()).called(1);
+  });
+
+  testWidgets('the tabs switch between the overview and each side', (
+    tester,
+  ) async {
+    await pumpView(
+      tester,
+      ReportsState(
+        status: ReportsStatus.success,
+        statement: statement(),
+        side: ReportSide.income,
+      ),
+    );
+
+    await tester.tap(find.widgetWithText(TuiButton, 'net'));
+    await tester.tap(find.widgetWithText(TuiButton, 'expenses'));
+
+    verify(() => cubit.showOverview()).called(1);
+    verify(() => cubit.openSide(ReportSide.expense)).called(1);
   });
 }

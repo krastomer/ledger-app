@@ -2,24 +2,14 @@
   "@@locale": "en",
   "appTitle": "Ledger",
   "navHome": "Home",
-  "navTransactions": "Transactions",
+  "navTransactions": "Journal",
   "navInbox": "Inbox",
-  "navSettings": "Settings",
-  "homeTitle": "Overview",
+  "navSettings": "Config",
   "hideAmounts": "Hide amounts",
   "showAmounts": "Show amounts",
   "netWorth": "Net worth",
-  "seeAccounts": "Accounts",
   "assets": "Assets",
   "liabilities": "Liabilities",
-  "reviewBannerTitle": "{count, plural, =1{1 item to review} other{{count} items to review}}",
-  "@reviewBannerTitle": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "income": "Income",
   "expenses": "Expenses",
   "net": "Net",
@@ -32,7 +22,6 @@
   "retry": "Try again",
   "comingSoon": "Coming soon",
   "accountsTitle": "Accounts",
-  "reportsTitle": "Reports",
   "settingsGeneral": "General",
   "settingsLanguage": "Language",
   "settingsYearFormat": "Year format",
@@ -62,15 +51,11 @@
   "searchTransactions": "Search transactions",
   "clearSearch": "Clear search",
   "filterPending": "To review",
-  "filterWithSlip": "Has slip",
   "today": "Today",
-  "transferLabel": "Transfer",
   "slipAttached": "Slip attached",
   "noMatchingTransactions": "No matching transactions",
   "netLabel": "Net",
-  "tapSliceToDrill": "Tap a slice to drill down",
   "generalCategory": "General",
-  "savedLabel": "Saved",
   "leftOver": "Left over",
   "subcategoriesCount": "{count, plural, =1{1 subcategory} other{{count} subcategories}}",
   "entriesCount": "{count, plural, =1{1 entry} other{{count} entries}}",
@@ -87,5 +72,67 @@
         "type": "String"
       }
     }
-  }
+  },
+  "accountsAsOf": "As of {date}",
+  "@accountsAsOf": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "balanceView": "Balance",
+  "monthChangeView": "This month's change",
+  "expandAccount": "Expand {name}",
+  "@expandAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "collapseAccount": "Collapse {name}",
+  "@collapseAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "noAccounts": "No accounts yet",
+  "itemsNeedReview": "{count, plural, =1{item needs review} other{items need review}}",
+  "@itemsNeedReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "openAction": "Open",
+  "hideAction": "Hide",
+  "showAction": "Show",
+  "back": "Back",
+  "filterPendingFlag": "--pending",
+  "filterSlipFlag": "--slip",
+  "registerTitle": "Register",
+  "shownCount": "{count} shown",
+  "@shownCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "balanceSheetTitle": "Balance sheet",
+  "incomeStatementTitle": "Income statement",
+  "savedPercent": "{percent} saved",
+  "@savedPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "configFileTitle": "~/.ledgerrc",
+  "dataStaysOnDevice": "All data stays on this device"
 }
