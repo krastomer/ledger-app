@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ledger_app/domain/models/slip_draft.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
-import 'package:ledger_app/ui/core/widgets/choice_dialog.dart';
+import 'package:ledger_app/ui/core/widgets/choice_page.dart';
 import 'package:ledger_app/ui/core/widgets/text_input_dialog.dart';
 import 'package:ledger_app/ui/core/widgets/tui_bar.dart';
 import 'package:ledger_app/ui/core/widgets/tui_button.dart';
@@ -169,13 +169,12 @@ class _Body extends StatelessWidget {
     final bloc = context.read<SlipReviewBloc>();
     final current = draft.transaction?.postings[index].account;
     if (current == null) return;
-    final picked = await showDialog<String>(
-      context: context,
-      builder: (context) => ChoiceDialog(
-        title: context.l10n.accountTitle,
-        selected: current,
-        options: [for (final account in draft.accounts) (account, account)],
-      ),
+    final picked = await pickChoice<String>(
+      context,
+      title: context.l10n.accountTitle,
+      selected: current,
+      searchable: true,
+      options: [for (final account in draft.accounts) (account, account)],
     );
     if (picked != null) {
       bloc.add(SlipAccountChanged(posting: index, account: picked));

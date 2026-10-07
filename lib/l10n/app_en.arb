@@ -53,6 +53,8 @@
   "filterPending": "To review",
   "today": "Today",
   "slipAttached": "Slip attached",
+  "filterHint": "filter",
+  "noMatches": "no match",
   "noMatchingTransactions": "No matching transactions",
   "netLabel": "Net",
   "generalCategory": "General",
@@ -156,7 +158,8 @@
   "settingsDisplay": "Display",
   "settingsHideOnLaunch": "Hide on launch",
   "settingsHideOnLaunchHint": "amounts on home start hidden",
-  "settingsShowZeroBalance": "Show zero balance",
+  "settingsShowJournal": "Show journal",
+  "settingsShowJournalHint": "hledger text on each entry",
   "settingsHiddenAccounts": "Hidden accounts",
   "settingsHomeCards": "Home cards",
   "settingsStorage": "Storage",
@@ -319,5 +322,7 @@
   },
   "descriptionTitle": "Description",
   "viewSlipImage": "View slip image",
+  "viewImageAction": "View image",
+  "slipImageMissing": "This slip image is no longer on the device",
   "bootOpening": "Opening ledger"
 }

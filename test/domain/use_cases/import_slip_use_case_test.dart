@@ -38,6 +38,7 @@ void main() {
     expect(transaction?.time, const Duration(hours: 9, minutes: 15));
     expect(transaction?.status, TransactionStatus.pending);
     expect(transaction?.code, 'REF-NEW');
+    expect(transaction?.slipImagePath, 'slip.jpg');
     expect(transaction?.description, 'Sample Property Co., Ltd.');
     expect(transaction?.postings, [
       Posting(account: ImportSlipUseCase.uncategorized, amount: thb(850000)),
@@ -45,6 +46,27 @@ void main() {
     ]);
     expect(transaction?.isBalanced, isTrue);
     expect(draft.categoryFromHistory, isFalse);
+  });
+
+  test('saves the slip image path unless images are not kept', () async {
+    Future<String?> savedImage({required bool keepSlipImages}) async {
+      final importSlip = ImportSlipUseCase(
+        slipRepository: FakeSlipRepository({'slip.jpg': transferSlip()}),
+        ledgerRepository: ledger,
+        keepSlipImages: keepSlipImages,
+        now: () => fixtureToday,
+      );
+      final draft = await importSlip.read('slip.jpg');
+      final transaction = (draft as Ok<SlipDraft>).value.transaction;
+      if (transaction == null) fail('no transaction drafted');
+      await importSlip.save(transaction);
+      return ledger.transactions
+          .firstWhere((t) => t.id == transaction.id)
+          .slipImagePath;
+    }
+
+    expect(await savedImage(keepSlipImages: true), 'slip.jpg');
+    expect(await savedImage(keepSlipImages: false), isNull);
   });
 
   test('reuses the category of an earlier entry for the same payee', () async {

@@ -35,6 +35,9 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  void setAmountsHidden(bool hidden) =>
+      emit(state.copyWith(amountsHidden: hidden));
+
   void toggleAmountsHidden() =>
       emit(state.copyWith(amountsHidden: !state.amountsHidden));
 

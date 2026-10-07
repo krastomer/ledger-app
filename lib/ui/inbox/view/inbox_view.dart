@@ -5,7 +5,7 @@ import 'package:ledger_app/domain/models/review_item.dart';
 import 'package:ledger_app/routing/routes.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
-import 'package:ledger_app/ui/core/widgets/choice_dialog.dart';
+import 'package:ledger_app/ui/core/widgets/choice_page.dart';
 import 'package:ledger_app/ui/core/widgets/tui_button.dart';
 import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
 import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
@@ -191,15 +191,12 @@ class _OpenTile extends StatelessWidget {
   Future<void> _categorize(BuildContext context, InboxCubit cubit) async {
     final current = item.uncategorizedAccount;
     if (current == null) return;
-    final picked = await showDialog<String>(
-      context: context,
-      builder: (context) => ChoiceDialog(
-        title: context.l10n.categoryTitle,
-        selected: current,
-        options: [
-          for (final account in item.categoryChoices) (account, account),
-        ],
-      ),
+    final picked = await pickChoice<String>(
+      context,
+      title: context.l10n.categoryTitle,
+      selected: current,
+      searchable: true,
+      options: [for (final account in item.categoryChoices) (account, account)],
     );
     if (picked != null) await cubit.categorize(item, picked);
   }

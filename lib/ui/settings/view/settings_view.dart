@@ -9,7 +9,7 @@ import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 
 import '../bloc/settings_cubit.dart';
 
-import 'package:ledger_app/ui/core/widgets/choice_dialog.dart';
+import 'package:ledger_app/ui/core/widgets/choice_page.dart';
 
 import '../widgets/settings_section.dart';
 import '../widgets/settings_tile.dart';
@@ -65,7 +65,7 @@ class SettingsView extends StatelessWidget {
                       title: l10n.settingsDisplay,
                       children: const [
                         _HideOnLaunchTile(),
-                        _ShowZeroBalanceTile(),
+                        _ShowJournalTile(),
                         _HiddenAccountsTile(),
                         _HomeCardsTile(),
                       ],
@@ -110,16 +110,14 @@ class _LanguageTile extends StatelessWidget {
       value: _languageName(l10n, language),
       onTap: () async {
         final cubit = context.read<SettingsCubit>();
-        final picked = await showDialog<AppLanguage>(
-          context: context,
-          builder: (context) => ChoiceDialog(
-            title: l10n.settingsLanguage,
-            selected: language,
-            options: [
-              for (final option in AppLanguage.values)
-                (option, _languageName(l10n, option)),
-            ],
-          ),
+        final picked = await pickChoice<AppLanguage>(
+          context,
+          title: l10n.settingsLanguage,
+          selected: language,
+          options: [
+            for (final option in AppLanguage.values)
+              (option, _languageName(l10n, option)),
+          ],
         );
         if (picked != null) await cubit.setLanguage(picked);
       },
@@ -148,16 +146,14 @@ class _YearEraTile extends StatelessWidget {
       value: _yearLabel(l10n, yearEra, today),
       onTap: () async {
         final cubit = context.read<SettingsCubit>();
-        final picked = await showDialog<YearEra>(
-          context: context,
-          builder: (context) => ChoiceDialog(
-            title: l10n.settingsYearFormat,
-            selected: yearEra,
-            options: [
-              for (final option in YearEra.values)
-                (option, _yearLabel(l10n, option, today)),
-            ],
-          ),
+        final picked = await pickChoice<YearEra>(
+          context,
+          title: l10n.settingsYearFormat,
+          selected: yearEra,
+          options: [
+            for (final option in YearEra.values)
+              (option, _yearLabel(l10n, option, today)),
+          ],
         );
         if (picked != null) await cubit.setYearEra(picked);
       },
@@ -195,18 +191,20 @@ class _HideOnLaunchTile extends StatelessWidget {
   }
 }
 
-class _ShowZeroBalanceTile extends StatelessWidget {
-  const _ShowZeroBalanceTile();
+class _ShowJournalTile extends StatelessWidget {
+  const _ShowJournalTile();
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final value = context.select(
-      (SettingsCubit cubit) => cubit.state.settings.showZeroBalance,
+      (SettingsCubit cubit) => cubit.state.settings.showJournal,
     );
     return SettingsSwitchTile(
-      label: context.l10n.settingsShowZeroBalance,
+      label: l10n.settingsShowJournal,
+      hint: l10n.settingsShowJournalHint,
       value: value,
-      onChanged: context.read<SettingsCubit>().setShowZeroBalance,
+      onChanged: context.read<SettingsCubit>().setShowJournal,
     );
   }
 }

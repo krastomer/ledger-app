@@ -6,6 +6,7 @@ import 'package:ledger_app/domain/models/transaction_status.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/tui_button.dart';
+import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 import 'package:ledger_app/utils/journal_format.dart';
 
 import '../bloc/transaction_detail_cubit.dart';
@@ -86,6 +87,10 @@ class _Panels extends StatelessWidget {
   Widget build(BuildContext context) {
     final transaction = detail.transaction;
     final code = transaction.code;
+    final imagePath = transaction.slipImagePath;
+    final showJournal = context.select(
+      (SettingsCubit cubit) => cubit.state.settings.showJournal,
+    );
     return ListView(
       padding: const EdgeInsets.fromLTRB(
         Dimens.pagePadding,
@@ -97,12 +102,14 @@ class _Panels extends StatelessWidget {
         EntryHeaderPanel(transaction: transaction, summary: detail.summary),
         const SizedBox(height: Dimens.panelGap),
         PostingsPanel(transaction: transaction),
-        if (code != null) ...[
+        if (code != null || imagePath != null) ...[
           const SizedBox(height: Dimens.panelGap),
-          SlipRefPanel(code: code),
+          SlipPanel(code: code, imagePath: imagePath),
         ],
-        const SizedBox(height: Dimens.panelGap),
-        JournalPanel(transaction: transaction),
+        if (showJournal) ...[
+          const SizedBox(height: Dimens.panelGap),
+          JournalPanel(transaction: transaction),
+        ],
       ],
     );
   }

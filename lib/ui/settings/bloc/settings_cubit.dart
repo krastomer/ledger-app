@@ -24,8 +24,8 @@ class SettingsCubit extends Cubit<SettingsState> {
   Future<void> setHideOnLaunch(bool value) =>
       _save(state.settings.copyWith(hideOnLaunch: value));
 
-  Future<void> setShowZeroBalance(bool value) =>
-      _save(state.settings.copyWith(showZeroBalance: value));
+  Future<void> setShowJournal(bool value) =>
+      _save(state.settings.copyWith(showJournal: value));
 
   Future<void> setKeepSlipImages(bool value) =>
       _save(state.settings.copyWith(keepSlipImages: value));

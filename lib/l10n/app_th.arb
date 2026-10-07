@@ -39,6 +39,8 @@
   "filterPending": "รอตรวจ",
   "today": "วันนี้",
   "slipAttached": "มีสลิป",
+  "filterHint": "กรอง",
+  "noMatches": "ไม่พบ",
   "noMatchingTransactions": "ไม่พบรายการที่ตรงกัน",
   "netLabel": "สุทธิ",
   "generalCategory": "ทั่วไป",
@@ -75,8 +77,9 @@
   "dailyPeak": "สูงสุด",
   "settingsDisplay": "การแสดงผล",
   "settingsHideOnLaunch": "ซ่อนยอดตอนเปิดแอป",
-  "settingsHideOnLaunchHint": "ซ่อนยอดเงินหน้าหลักตอนเปิดแอป",
-  "settingsShowZeroBalance": "แสดงบัญชียอดเป็นศูนย์",
+  "settingsHideOnLaunchHint": "ยอดเงินหน้าหลักจะถูกซ่อนไว้ก่อน",
+  "settingsShowJournal": "แสดงสมุดรายวัน",
+  "settingsShowJournalHint": "ข้อความ hledger ในหน้ารายการ",
   "settingsHiddenAccounts": "บัญชีที่ซ่อน",
   "settingsHomeCards": "การ์ดหน้าหลัก",
   "settingsStorage": "การจัดเก็บ",
@@ -163,5 +166,7 @@
   "slipsSaved": "บันทึก {count} สลิป",
   "descriptionTitle": "รายละเอียด",
   "viewSlipImage": "ดูรูปสลิป",
+  "viewImageAction": "ดูรูป",
+  "slipImageMissing": "ไม่มีรูปสลิปนี้ในเครื่องแล้ว",
   "bootOpening": "กำลังเปิดสมุดบัญชี"
 }

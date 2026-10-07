@@ -19,7 +19,9 @@ mixin _$LedgerTransaction {
 /// of UTC so a transaction at 01:00 doesn't move to the previous day.
  DateTime get date;/// Time of day, when known (e.g. read from a slip).
  Duration? get time; String get description; TransactionStatus get status;/// Slip reference number; hledger's transaction code.
- String? get code; List<Posting> get postings;
+ String? get code;/// The slip image this entry was read from. A path on this device, so
+/// it is never exported.
+ String? get slipImagePath; List<Posting> get postings;
 /// Create a copy of LedgerTransaction
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -31,20 +33,20 @@ $LedgerTransactionCopyWith<LedgerTransaction> get copyWith => _$LedgerTransactio
 @override
 bool operator ==(Object other) {
   final _this = this as LedgerTransaction;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LedgerTransaction&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.date, _this.date) || other.date == _this.date)&&(identical(other.time, _this.time) || other.time == _this.time)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.code, _this.code) || other.code == _this.code)&&const DeepCollectionEquality().equals(other.postings, _this.postings));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LedgerTransaction&&(identical(other.id, _this.id) || other.id == _this.id)&&(identical(other.date, _this.date) || other.date == _this.date)&&(identical(other.time, _this.time) || other.time == _this.time)&&(identical(other.description, _this.description) || other.description == _this.description)&&(identical(other.status, _this.status) || other.status == _this.status)&&(identical(other.code, _this.code) || other.code == _this.code)&&(identical(other.slipImagePath, _this.slipImagePath) || other.slipImagePath == _this.slipImagePath)&&const DeepCollectionEquality().equals(other.postings, _this.postings));
 }
 
 
 @override
 int get hashCode {
   final _this = this as LedgerTransaction;
-  return Object.hash(runtimeType,_this.id,_this.date,_this.time,_this.description,_this.status,_this.code,const DeepCollectionEquality().hash(_this.postings));
+  return Object.hash(runtimeType,_this.id,_this.date,_this.time,_this.description,_this.status,_this.code,_this.slipImagePath,const DeepCollectionEquality().hash(_this.postings));
 }
 
 @override
 String toString() {
   final _this = this as LedgerTransaction;
-  return 'LedgerTransaction(id: ${_this.id}, date: ${_this.date}, time: ${_this.time}, description: ${_this.description}, status: ${_this.status}, code: ${_this.code}, postings: ${_this.postings})';
+  return 'LedgerTransaction(id: ${_this.id}, date: ${_this.date}, time: ${_this.time}, description: ${_this.description}, status: ${_this.status}, code: ${_this.code}, slipImagePath: ${_this.slipImagePath}, postings: ${_this.postings})';
 }
 
 
@@ -55,7 +57,7 @@ abstract mixin class $LedgerTransactionCopyWith<$Res>  {
   factory $LedgerTransactionCopyWith(LedgerTransaction value, $Res Function(LedgerTransaction) _then) = _$LedgerTransactionCopyWithImpl;
 @useResult
 $Res call({
- String id, DateTime date, Duration? time, String description, TransactionStatus status, String? code, List<Posting> postings
+ String id, DateTime date, Duration? time, String description, TransactionStatus status, String? code, String? slipImagePath, List<Posting> postings
 });
 
 
@@ -72,7 +74,7 @@ class _$LedgerTransactionCopyWithImpl<$Res>
 
 /// Create a copy of LedgerTransaction
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? date = null,Object? time = freezed,Object? description = null,Object? status = null,Object? code = freezed,Object? postings = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? date = null,Object? time = freezed,Object? description = null,Object? status = null,Object? code = freezed,Object? slipImagePath = freezed,Object? postings = null,}) {
   return _then(LedgerTransaction(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
@@ -80,6 +82,7 @@ as DateTime,time: freezed == time ? _self.time : time // ignore: cast_nullable_t
 as Duration?,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TransactionStatus,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String?,slipImagePath: freezed == slipImagePath ? _self.slipImagePath : slipImagePath // ignore: cast_nullable_to_non_nullable
 as String?,postings: null == postings ? _self.postings : postings // ignore: cast_nullable_to_non_nullable
 as List<Posting>,
   ));
@@ -166,10 +169,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime date,  Duration? time,  String description,  TransactionStatus status,  String? code,  List<Posting> postings)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  DateTime date,  Duration? time,  String description,  TransactionStatus status,  String? code,  String? slipImagePath,  List<Posting> postings)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LedgerTransaction() when $default != null:
-return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_that.code,_that.postings);case _:
+return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_that.code,_that.slipImagePath,_that.postings);case _:
   return orElse();
 
 }
@@ -187,10 +190,10 @@ return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime date,  Duration? time,  String description,  TransactionStatus status,  String? code,  List<Posting> postings)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  DateTime date,  Duration? time,  String description,  TransactionStatus status,  String? code,  String? slipImagePath,  List<Posting> postings)  $default,) {final _that = this;
 switch (_that) {
 case _LedgerTransaction():
-return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_that.code,_that.postings);case _:
+return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_that.code,_that.slipImagePath,_that.postings);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -207,10 +210,10 @@ return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_t
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime date,  Duration? time,  String description,  TransactionStatus status,  String? code,  List<Posting> postings)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  DateTime date,  Duration? time,  String description,  TransactionStatus status,  String? code,  String? slipImagePath,  List<Posting> postings)?  $default,) {final _that = this;
 switch (_that) {
 case _LedgerTransaction() when $default != null:
-return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_that.code,_that.postings);case _:
+return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_that.code,_that.slipImagePath,_that.postings);case _:
   return null;
 
 }
@@ -222,7 +225,7 @@ return $default(_that.id,_that.date,_that.time,_that.description,_that.status,_t
 
 
 class _LedgerTransaction extends LedgerTransaction {
-  const _LedgerTransaction({required this.id, required this.date, this.time, required this.description, this.status = TransactionStatus.unmarked, this.code, required  List<Posting> postings}): _postings = postings,super._();
+  const _LedgerTransaction({required this.id, required this.date, this.time, required this.description, this.status = TransactionStatus.unmarked, this.code, this.slipImagePath, required  List<Posting> postings}): _postings = postings,super._();
   
 
 @override final  String id;
@@ -235,6 +238,9 @@ class _LedgerTransaction extends LedgerTransaction {
 @override@JsonKey() final  TransactionStatus status;
 /// Slip reference number; hledger's transaction code.
 @override final  String? code;
+/// The slip image this entry was read from. A path on this device, so
+/// it is never exported.
+@override final  String? slipImagePath;
  final  List<Posting> _postings;
 @override List<Posting> get postings {
   if (_postings is EqualUnmodifiableListView) return _postings;
@@ -253,18 +259,18 @@ _$LedgerTransactionCopyWith<_LedgerTransaction> get copyWith => __$LedgerTransac
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _LedgerTransaction&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.time, time) || other.time == time)&&(identical(other.description, description) || other.description == description)&&(identical(other.status, status) || other.status == status)&&(identical(other.code, code) || other.code == code)&&const DeepCollectionEquality().equals(other.postings, _postings));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _LedgerTransaction&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.time, time) || other.time == time)&&(identical(other.description, description) || other.description == description)&&(identical(other.status, status) || other.status == status)&&(identical(other.code, code) || other.code == code)&&(identical(other.slipImagePath, slipImagePath) || other.slipImagePath == slipImagePath)&&const DeepCollectionEquality().equals(other.postings, _postings));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,id,date,time,description,status,code,const DeepCollectionEquality().hash(_postings));
+    return Object.hash(runtimeType,id,date,time,description,status,code,slipImagePath,const DeepCollectionEquality().hash(_postings));
 }
 
 @override
 String toString() {
-    return 'LedgerTransaction(id: $id, date: $date, time: $time, description: $description, status: $status, code: $code, postings: $postings)';
+    return 'LedgerTransaction(id: $id, date: $date, time: $time, description: $description, status: $status, code: $code, slipImagePath: $slipImagePath, postings: $postings)';
 }
 
 
@@ -275,7 +281,7 @@ abstract mixin class _$LedgerTransactionCopyWith<$Res> implements $LedgerTransac
   factory _$LedgerTransactionCopyWith(_LedgerTransaction value, $Res Function(_LedgerTransaction) _then) = __$LedgerTransactionCopyWithImpl;
 @override @useResult
 $Res call({
- String id, DateTime date, Duration? time, String description, TransactionStatus status, String? code, List<Posting> postings
+ String id, DateTime date, Duration? time, String description, TransactionStatus status, String? code, String? slipImagePath, List<Posting> postings
 });
 
 
@@ -292,7 +298,7 @@ class __$LedgerTransactionCopyWithImpl<$Res>
 
 /// Create a copy of LedgerTransaction
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? date = null,Object? time = freezed,Object? description = null,Object? status = null,Object? code = freezed,Object? postings = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? date = null,Object? time = freezed,Object? description = null,Object? status = null,Object? code = freezed,Object? slipImagePath = freezed,Object? postings = null,}) {
   return _then(_LedgerTransaction(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
@@ -300,6 +306,7 @@ as DateTime,time: freezed == time ? _self.time : time // ignore: cast_nullable_t
 as Duration?,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as TransactionStatus,code: freezed == code ? _self.code : code // ignore: cast_nullable_to_non_nullable
+as String?,slipImagePath: freezed == slipImagePath ? _self.slipImagePath : slipImagePath // ignore: cast_nullable_to_non_nullable
 as String?,postings: null == postings ? _self._postings : postings // ignore: cast_nullable_to_non_nullable
 as List<Posting>,
   ));

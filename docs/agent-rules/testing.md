@@ -33,6 +33,10 @@
   (iOS text rendering, safe areas, the launch screen, real gestures).
 - Commit updated PNGs with the change that caused them. Add a golden when
   you add a screen.
+- Real async never finishes on the test's fake clock. Decode image files
+  in `tester.runAsync` before pumping the screen (see `transaction_slip`),
+  and create and close Blocs there too (see `slip_review`). Slip images
+  in goldens are drawn by the test, never real slips.
 - Goldens are rendered on macOS; other platforms draw text slightly
   differently, so run them on macOS or exclude them with
   `flutter test -x golden`.

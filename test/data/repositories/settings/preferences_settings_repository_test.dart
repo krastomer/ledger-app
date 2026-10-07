@@ -27,7 +27,7 @@ void main() {
       language: AppLanguage.en,
       yearEra: YearEra.gregorian,
       hideOnLaunch: true,
-      showZeroBalance: true,
+      showJournal: false,
       keepSlipImages: false,
     );
 

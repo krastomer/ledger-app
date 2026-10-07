@@ -12,7 +12,7 @@ class PreferencesSettingsRepository implements SettingsRepository {
   static const _languageKey = 'settings.language';
   static const _yearEraKey = 'settings.yearEra';
   static const _hideOnLaunchKey = 'settings.hideOnLaunch';
-  static const _showZeroBalanceKey = 'settings.showZeroBalance';
+  static const _showJournalKey = 'settings.showJournal';
   static const _keepSlipImagesKey = 'settings.keepSlipImages';
   static const _defaults = AppSettings();
 
@@ -20,41 +20,36 @@ class PreferencesSettingsRepository implements SettingsRepository {
 
   @override
   Future<Result<AppSettings>> load() async {
-    final language = await _preferences.getString(_languageKey);
-    final yearEra = await _preferences.getString(_yearEraKey);
-    final hideOnLaunch = await _preferences.getBool(_hideOnLaunchKey);
-    final showZeroBalance = await _preferences.getBool(_showZeroBalanceKey);
-    final keepSlipImages = await _preferences.getBool(_keepSlipImagesKey);
-    return switch ((
-      language,
-      yearEra,
-      hideOnLaunch,
-      showZeroBalance,
-      keepSlipImages,
-    )) {
-      (
-        Ok(value: final language),
-        Ok(value: final yearEra),
-        Ok(value: final hideOnLaunch),
-        Ok(value: final showZeroBalance),
-        Ok(value: final keepSlipImages),
-      ) =>
-        Result.ok(
-          AppSettings(
-            language:
-                AppLanguage.values.asNameMap()[language] ?? _defaults.language,
-            yearEra: YearEra.values.asNameMap()[yearEra] ?? _defaults.yearEra,
-            hideOnLaunch: hideOnLaunch ?? _defaults.hideOnLaunch,
-            showZeroBalance: showZeroBalance ?? _defaults.showZeroBalance,
-            keepSlipImages: keepSlipImages ?? _defaults.keepSlipImages,
-          ),
-        ),
-      (Error(:final error), _, _, _, _) ||
-      (_, Error(:final error), _, _, _) ||
-      (_, _, Error(:final error), _, _) ||
-      (_, _, _, Error(:final error), _) ||
-      (_, _, _, _, Error(:final error)) => Result.error(error),
-    };
+    final texts = <String, String?>{};
+    for (final key in [_languageKey, _yearEraKey]) {
+      switch (await _preferences.getString(key)) {
+        case Ok(:final value):
+          texts[key] = value;
+        case Error(:final error):
+          return Result.error(error);
+      }
+    }
+    final flags = <String, bool?>{};
+    for (final key in [_hideOnLaunchKey, _showJournalKey, _keepSlipImagesKey]) {
+      switch (await _preferences.getBool(key)) {
+        case Ok(:final value):
+          flags[key] = value;
+        case Error(:final error):
+          return Result.error(error);
+      }
+    }
+    return Result.ok(
+      AppSettings(
+        language:
+            AppLanguage.values.asNameMap()[texts[_languageKey]] ??
+            _defaults.language,
+        yearEra:
+            YearEra.values.asNameMap()[texts[_yearEraKey]] ?? _defaults.yearEra,
+        hideOnLaunch: flags[_hideOnLaunchKey] ?? _defaults.hideOnLaunch,
+        showJournal: flags[_showJournalKey] ?? _defaults.showJournal,
+        keepSlipImages: flags[_keepSlipImagesKey] ?? _defaults.keepSlipImages,
+      ),
+    );
   }
 
   @override
@@ -63,7 +58,7 @@ class PreferencesSettingsRepository implements SettingsRepository {
       () => _preferences.setString(_languageKey, settings.language.name),
       () => _preferences.setString(_yearEraKey, settings.yearEra.name),
       () => _preferences.setBool(_hideOnLaunchKey, settings.hideOnLaunch),
-      () => _preferences.setBool(_showZeroBalanceKey, settings.showZeroBalance),
+      () => _preferences.setBool(_showJournalKey, settings.showJournal),
       () => _preferences.setBool(_keepSlipImagesKey, settings.keepSlipImages),
     ];
     for (final write in writes) {

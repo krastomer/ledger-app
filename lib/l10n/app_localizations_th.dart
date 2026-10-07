@@ -131,6 +131,12 @@ class AppLocalizationsTh extends AppLocalizations {
   String get slipAttached => 'มีสลิป';
 
   @override
+  String get filterHint => 'กรอง';
+
+  @override
+  String get noMatches => 'ไม่พบ';
+
+  @override
   String get noMatchingTransactions => 'ไม่พบรายการที่ตรงกัน';
 
   @override
@@ -276,10 +282,13 @@ class AppLocalizationsTh extends AppLocalizations {
   String get settingsHideOnLaunch => 'ซ่อนยอดตอนเปิดแอป';
 
   @override
-  String get settingsHideOnLaunchHint => 'ซ่อนยอดเงินหน้าหลักตอนเปิดแอป';
+  String get settingsHideOnLaunchHint => 'ยอดเงินหน้าหลักจะถูกซ่อนไว้ก่อน';
 
   @override
-  String get settingsShowZeroBalance => 'แสดงบัญชียอดเป็นศูนย์';
+  String get settingsShowJournal => 'แสดงสมุดรายวัน';
+
+  @override
+  String get settingsShowJournalHint => 'ข้อความ hledger ในหน้ารายการ';
 
   @override
   String get settingsHiddenAccounts => 'บัญชีที่ซ่อน';
@@ -559,6 +568,12 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get viewSlipImage => 'ดูรูปสลิป';
+
+  @override
+  String get viewImageAction => 'ดูรูป';
+
+  @override
+  String get slipImageMissing => 'ไม่มีรูปสลิปนี้ในเครื่องแล้ว';
 
   @override
   String get bootOpening => 'กำลังเปิดสมุดบัญชี';

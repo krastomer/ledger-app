@@ -131,6 +131,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get slipAttached => 'Slip attached';
 
   @override
+  String get filterHint => 'filter';
+
+  @override
+  String get noMatches => 'no match';
+
+  @override
   String get noMatchingTransactions => 'No matching transactions';
 
   @override
@@ -282,7 +288,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsHideOnLaunchHint => 'amounts on home start hidden';
 
   @override
-  String get settingsShowZeroBalance => 'Show zero balance';
+  String get settingsShowJournal => 'Show journal';
+
+  @override
+  String get settingsShowJournalHint => 'hledger text on each entry';
 
   @override
   String get settingsHiddenAccounts => 'Hidden accounts';
@@ -570,6 +579,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewSlipImage => 'View slip image';
+
+  @override
+  String get viewImageAction => 'View image';
+
+  @override
+  String get slipImageMissing => 'This slip image is no longer on the device';
 
   @override
   String get bootOpening => 'Opening ledger';

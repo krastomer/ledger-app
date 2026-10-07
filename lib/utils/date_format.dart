@@ -44,12 +44,13 @@ String formatMonthShortYear(DateTime date, String locale, YearEra era) =>
 
 String formatMonthDay(DateTime date) => DateFormat('MM-dd').format(date);
 
-/// Monday first: "Mo" … "Su" in English, "จ" … "อา" in Thai.
+/// Sunday first: "Su" … "Sa" in English, "อา" … "ส" in Thai.
 List<String> formatWeekdayInitials(String locale) {
   final isThai = locale.startsWith('th');
   final format = isThai ? DateFormat('EEEEE', locale) : DateFormat.E(locale);
   return [
-    for (var day = 1; day <= DateTime.daysPerWeek; day++)
+    // 2024-01-07 is a Sunday.
+    for (var day = 7; day < 7 + DateTime.daysPerWeek; day++)
       switch (format.format(DateTime(2024, 1, day))) {
         final name when isThai => name,
         final name => name.substring(0, 2),

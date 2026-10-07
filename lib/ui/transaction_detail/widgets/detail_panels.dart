@@ -7,6 +7,9 @@ import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/themes/money_colors.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
+import 'package:ledger_app/ui/core/widgets/slip_image_viewer.dart';
+import 'package:ledger_app/ui/core/widgets/slip_thumbnail.dart';
+import 'package:ledger_app/ui/core/widgets/tui_button.dart';
 import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:ledger_app/utils/date_format.dart';
 import 'package:ledger_app/utils/journal_format.dart';
@@ -153,30 +156,57 @@ class PostingsPanel extends StatelessWidget {
   }
 }
 
-/// The slip reference the entry was saved from.
-class SlipRefPanel extends StatelessWidget {
-  const SlipRefPanel({super.key, required this.code});
+/// The slip the entry was saved from: its reference and image.
+class SlipPanel extends StatelessWidget {
+  const SlipPanel({super.key, this.code, this.imagePath});
 
-  final String code;
+  final String? code;
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final code = this.code;
+    final imagePath = this.imagePath;
     return TuiPanel(
       title: l10n.slipTitle,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         spacing: Dimens.gapM,
         children: [
-          SizedBox(
-            width: 56,
-            child: Text(
-              l10n.refLabel,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (code != null)
+                  Row(
+                    spacing: Dimens.gapM,
+                    children: [
+                      SizedBox(
+                        width: 56,
+                        child: Text(
+                          l10n.refLabel,
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                      Expanded(child: SelectableText(code)),
+                    ],
+                  ),
+                if (imagePath != null)
+                  TuiButton.action(
+                    label: l10n.viewImageAction,
+                    tooltip: l10n.viewSlipImage,
+                    padding: 0,
+                    onPressed: () => showSlipImage(context, imagePath),
+                  ),
+              ],
             ),
           ),
-          Expanded(child: SelectableText(code)),
+          if (imagePath != null) SlipThumbnail(imagePath: imagePath),
         ],
       ),
     );

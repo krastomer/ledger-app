@@ -16,6 +16,7 @@ class ImportSlipUseCase {
   ImportSlipUseCase({
     required this._slipRepository,
     required this._ledgerRepository,
+    this._keepSlipImages = true,
     DateTime Function()? now,
   }) : _now = now ?? DateTime.now;
 
@@ -26,6 +27,7 @@ class ImportSlipUseCase {
 
   final SlipRepository _slipRepository;
   final LedgerRepository _ledgerRepository;
+  final bool _keepSlipImages;
   final DateTime Function() _now;
 
   Future<Result<List<String>>> pickImages() => _slipRepository.pickImages();
@@ -43,7 +45,11 @@ class ImportSlipUseCase {
   }
 
   Future<Result<void>> save(LedgerTransaction transaction) =>
-      _ledgerRepository.save(transaction);
+      _ledgerRepository.save(
+        _keepSlipImages
+            ? transaction
+            : transaction.copyWith(slipImagePath: null),
+      );
 
   SlipDraft _draft(
     String imagePath,
@@ -75,6 +81,7 @@ class ImportSlipUseCase {
           ? null
           : _transaction(
               slip,
+              imagePath: imagePath,
               description: description,
               amount: _money(amount),
               fee: switch (slip.fee) {
@@ -99,6 +106,7 @@ class ImportSlipUseCase {
 
   LedgerTransaction _transaction(
     Slip slip, {
+    required String imagePath,
     required String description,
     required Money amount,
     required Money? fee,
@@ -121,6 +129,7 @@ class ImportSlipUseCase {
       description: description,
       status: TransactionStatus.pending,
       code: slip.reference,
+      slipImagePath: imagePath,
       postings: [
         Posting(account: debit, amount: amount),
         if (fee != null) Posting(account: fees, amount: fee),

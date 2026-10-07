@@ -13,7 +13,9 @@ abstract class AppSettings with _$AppSettings {
 
     /// Start with amounts masked on Home.
     @Default(false) bool hideOnLaunch,
-    @Default(false) bool showZeroBalance,
+
+    /// Show each entry's hledger text on its detail screen.
+    @Default(true) bool showJournal,
     @Default(true) bool keepSlipImages,
   }) = _AppSettings;
 }

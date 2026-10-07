@@ -51,6 +51,13 @@ void main() {
     expect: () => [const HomeState(amountsHidden: true), const HomeState()],
   );
 
+  blocTest<HomeCubit, HomeState>(
+    'sets hidden amounts',
+    build: () => buildCubit(FakeLedgerRepository()),
+    act: (cubit) => cubit.setAmountsHidden(true),
+    expect: () => [const HomeState(amountsHidden: true)],
+  );
+
   test('can start with amounts hidden', () {
     final cubit = HomeCubit(
       homeSummary: HomeSummaryUseCase(ledgerRepository: FakeLedgerRepository()),

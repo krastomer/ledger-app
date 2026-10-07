@@ -64,18 +64,18 @@ void main() {
         SettingsCubit(repository: repository, initial: const AppSettings()),
     act: (cubit) async {
       await cubit.setHideOnLaunch(true);
-      await cubit.setShowZeroBalance(true);
+      await cubit.setShowJournal(false);
       await cubit.setKeepSlipImages(false);
     },
     expect: () => [
       const SettingsState(settings: AppSettings(hideOnLaunch: true)),
       const SettingsState(
-        settings: AppSettings(hideOnLaunch: true, showZeroBalance: true),
+        settings: AppSettings(hideOnLaunch: true, showJournal: false),
       ),
       const SettingsState(
         settings: AppSettings(
           hideOnLaunch: true,
-          showZeroBalance: true,
+          showJournal: false,
           keepSlipImages: false,
         ),
       ),
@@ -84,7 +84,7 @@ void main() {
       repository.saved,
       const AppSettings(
         hideOnLaunch: true,
-        showZeroBalance: true,
+        showJournal: false,
         keepSlipImages: false,
       ),
     ),

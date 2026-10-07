@@ -1,6 +1,10 @@
 @Tags(['golden'])
 library;
 
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,6 +30,8 @@ import 'package:ledger_app/ui/accounts/view/accounts_view.dart';
 import 'package:ledger_app/ui/boot/bloc/boot_cubit.dart';
 import 'package:ledger_app/ui/boot/view/boot_view.dart';
 import 'package:ledger_app/ui/core/themes/app_theme.dart';
+import 'package:ledger_app/ui/core/widgets/choice_page.dart';
+import 'package:ledger_app/ui/core/widgets/slip_thumbnail.dart';
 import 'package:ledger_app/ui/home/bloc/home_cubit.dart';
 import 'package:ledger_app/ui/home/view/home_view.dart';
 import 'package:ledger_app/ui/inbox/bloc/inbox_cubit.dart';
@@ -57,6 +63,7 @@ void main() {
   final today = DateTime(2026, 9, 29, 21);
   late FakeLedgerRepository ledger;
   late String rentId;
+  late String slipImage;
   DateTime now() => today;
   final ios = TargetPlatformVariant.only(TargetPlatform.iOS);
 
@@ -78,6 +85,7 @@ void main() {
     rentId = ledger.transactions
         .firstWhere((t) => t.status == TransactionStatus.pending)
         .id;
+    slipImage = await _fakeSlipImage();
   });
 
   Future<void> pumpScreen(
@@ -207,6 +215,44 @@ void main() {
         await expectScreen('config', language);
       }, variant: ios);
 
+      testWidgets('pick_language', (tester) async {
+        await pumpScreen(
+          tester,
+          language,
+          child: ChoicePage<AppLanguage>(
+            title: language == AppLanguage.th ? 'ภาษา' : 'language',
+            selected: language,
+            options: const [
+              (AppLanguage.en, 'English'),
+              (AppLanguage.th, 'ไทย'),
+            ],
+          ),
+        );
+        await expectScreen('pick_language', language);
+      }, variant: ios);
+
+      testWidgets('pick_category', (tester) async {
+        await pumpScreen(
+          tester,
+          language,
+          child: const ChoicePage<String>(
+            title: 'category',
+            selected: 'expenses:rent',
+            searchable: true,
+            options: [
+              ('expenses:food', 'expenses:food'),
+              ('expenses:transport', 'expenses:transport'),
+              ('expenses:rent', 'expenses:rent'),
+              ('expenses:utilities', 'expenses:utilities'),
+              ('expenses:uncategorized', 'expenses:uncategorized'),
+              ('income:salary', 'income:salary'),
+              ('income:interest', 'income:interest'),
+            ],
+          ),
+        );
+        await expectScreen('pick_category', language);
+      }, variant: ios);
+
       testWidgets('boot', (tester) async {
         final cubit = BootCubit(
           ledgerCheck: LedgerCheckUseCase(ledgerRepository: ledger),
@@ -259,6 +305,55 @@ void main() {
         await expectScreen('transaction', language);
       }, variant: ios);
 
+      testWidgets('transaction_slip', (tester) async {
+        final slipLedger = FakeLedgerRepository(
+          accounts: ledger.accounts,
+          transactions: [
+            for (final t in ledger.transactions)
+              t.id == rentId ? t.copyWith(slipImagePath: slipImage) : t,
+          ],
+        );
+        final cubit = TransactionDetailCubit(
+          id: rentId,
+          transactionDetail: TransactionDetailUseCase(
+            ledgerRepository: slipLedger,
+          ),
+          editTransaction: EditTransactionUseCase(ledgerRepository: slipLedger),
+        );
+        addTearDown(cubit.close);
+        await cubit.load();
+        // Decoded on the real clock first, so the screen finds it cached.
+        await tester.runAsync(() async {
+          final decoded = Completer<void>();
+          FileImage(File(slipImage))
+              .resolve(ImageConfiguration.empty)
+              .addListener(
+                ImageStreamListener(
+                  (_, _) => decoded.complete(),
+                  onError: decoded.completeError,
+                ),
+              );
+          await decoded.future;
+        });
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<TransactionDetailCubit>.value(value: cubit),
+          child: const TransactionDetailView(),
+        );
+        await tester.scrollUntilVisible(
+          find.byType(SlipThumbnail),
+          200,
+          scrollable: find.byType(Scrollable).first,
+        );
+        await tester.pump();
+        await expectScreen('transaction_slip', language);
+
+        await tester.tap(find.byType(SlipThumbnail));
+        await tester.pumpAndSettle();
+        await expectScreen('slip_image', language);
+      }, variant: ios);
+
       testWidgets('slip_review', (tester) async {
         // A Bloc only closes on the real clock, so it lives there.
         final bloc = await tester.runAsync(() async {
@@ -298,4 +393,32 @@ void main() {
       }, variant: ios);
     });
   }
+}
+
+/// A made-up bank slip: a header band and grey bars for text.
+Future<String> _fakeSlipImage() async {
+  const size = Size(600, 960);
+  final recorder = ui.PictureRecorder();
+  final canvas = Canvas(recorder);
+  final paint = Paint();
+  canvas
+    ..drawRect(Offset.zero & size, paint..color = const Color(0xFFF4F6F2))
+    ..drawRect(
+      const Rect.fromLTWH(0, 0, 600, 140),
+      paint..color = const Color(0xFF138F2D),
+    );
+  paint.color = const Color(0xFFB9BEB6);
+  for (var row = 0; row < 9; row++) {
+    canvas.drawRect(
+      Rect.fromLTWH(48, 200 + row * 72.0, row.isEven ? 360 : 260, 28),
+      paint,
+    );
+  }
+  final image = await recorder.endRecording().toImage(600, 960);
+  final png = await image.toByteData(format: ui.ImageByteFormat.png);
+  if (png == null) throw StateError('could not encode the slip image');
+  final file = File(
+    '${Directory.systemTemp.createTempSync('slip').path}/slip.png',
+  )..writeAsBytesSync(png.buffer.asUint8List());
+  return file.path;
 }

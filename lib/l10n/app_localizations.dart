@@ -332,6 +332,18 @@ abstract class AppLocalizations {
   /// **'Slip attached'**
   String get slipAttached;
 
+  /// No description provided for @filterHint.
+  ///
+  /// In en, this message translates to:
+  /// **'filter'**
+  String get filterHint;
+
+  /// No description provided for @noMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'no match'**
+  String get noMatches;
+
   /// No description provided for @noMatchingTransactions.
   ///
   /// In en, this message translates to:
@@ -554,11 +566,17 @@ abstract class AppLocalizations {
   /// **'amounts on home start hidden'**
   String get settingsHideOnLaunchHint;
 
-  /// No description provided for @settingsShowZeroBalance.
+  /// No description provided for @settingsShowJournal.
   ///
   /// In en, this message translates to:
-  /// **'Show zero balance'**
-  String get settingsShowZeroBalance;
+  /// **'Show journal'**
+  String get settingsShowJournal;
+
+  /// No description provided for @settingsShowJournalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'hledger text on each entry'**
+  String get settingsShowJournalHint;
 
   /// No description provided for @settingsHiddenAccounts.
   ///
@@ -1075,6 +1093,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View slip image'**
   String get viewSlipImage;
+
+  /// No description provided for @viewImageAction.
+  ///
+  /// In en, this message translates to:
+  /// **'View image'**
+  String get viewImageAction;
+
+  /// No description provided for @slipImageMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'This slip image is no longer on the device'**
+  String get slipImageMissing;
 
   /// No description provided for @bootOpening.
   ///

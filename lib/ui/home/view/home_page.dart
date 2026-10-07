@@ -20,7 +20,14 @@ class HomePage extends StatelessWidget {
             .settings
             .hideOnLaunch,
       )..load(),
-      child: const HomeView(),
+      child: BlocListener<SettingsCubit, SettingsState>(
+        listenWhen: (previous, current) =>
+            previous.settings.hideOnLaunch != current.settings.hideOnLaunch,
+        listener: (context, state) => context
+            .read<HomeCubit>()
+            .setAmountsHidden(state.settings.hideOnLaunch),
+        child: const HomeView(),
+      ),
     );
   }
 }

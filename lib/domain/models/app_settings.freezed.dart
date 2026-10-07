@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$AppSettings {
 
  AppLanguage get language; YearEra get yearEra;/// Start with amounts masked on Home.
- bool get hideOnLaunch; bool get showZeroBalance; bool get keepSlipImages;
+ bool get hideOnLaunch;/// Show each entry's hledger text on its detail screen.
+ bool get showJournal; bool get keepSlipImages;
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,20 +29,20 @@ $AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppS
 @override
 bool operator ==(Object other) {
   final _this = this as AppSettings;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.language, _this.language) || other.language == _this.language)&&(identical(other.yearEra, _this.yearEra) || other.yearEra == _this.yearEra)&&(identical(other.hideOnLaunch, _this.hideOnLaunch) || other.hideOnLaunch == _this.hideOnLaunch)&&(identical(other.showZeroBalance, _this.showZeroBalance) || other.showZeroBalance == _this.showZeroBalance)&&(identical(other.keepSlipImages, _this.keepSlipImages) || other.keepSlipImages == _this.keepSlipImages));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.language, _this.language) || other.language == _this.language)&&(identical(other.yearEra, _this.yearEra) || other.yearEra == _this.yearEra)&&(identical(other.hideOnLaunch, _this.hideOnLaunch) || other.hideOnLaunch == _this.hideOnLaunch)&&(identical(other.showJournal, _this.showJournal) || other.showJournal == _this.showJournal)&&(identical(other.keepSlipImages, _this.keepSlipImages) || other.keepSlipImages == _this.keepSlipImages));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AppSettings;
-  return Object.hash(runtimeType,_this.language,_this.yearEra,_this.hideOnLaunch,_this.showZeroBalance,_this.keepSlipImages);
+  return Object.hash(runtimeType,_this.language,_this.yearEra,_this.hideOnLaunch,_this.showJournal,_this.keepSlipImages);
 }
 
 @override
 String toString() {
   final _this = this as AppSettings;
-  return 'AppSettings(language: ${_this.language}, yearEra: ${_this.yearEra}, hideOnLaunch: ${_this.hideOnLaunch}, showZeroBalance: ${_this.showZeroBalance}, keepSlipImages: ${_this.keepSlipImages})';
+  return 'AppSettings(language: ${_this.language}, yearEra: ${_this.yearEra}, hideOnLaunch: ${_this.hideOnLaunch}, showJournal: ${_this.showJournal}, keepSlipImages: ${_this.keepSlipImages})';
 }
 
 
@@ -52,7 +53,7 @@ abstract mixin class $AppSettingsCopyWith<$Res>  {
   factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
 @useResult
 $Res call({
- AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showZeroBalance, bool keepSlipImages
+ AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showJournal, bool keepSlipImages
 });
 
 
@@ -69,12 +70,12 @@ class _$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showZeroBalance = null,Object? keepSlipImages = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showJournal = null,Object? keepSlipImages = null,}) {
   return _then(AppSettings(
 language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as AppLanguage,yearEra: null == yearEra ? _self.yearEra : yearEra // ignore: cast_nullable_to_non_nullable
 as YearEra,hideOnLaunch: null == hideOnLaunch ? _self.hideOnLaunch : hideOnLaunch // ignore: cast_nullable_to_non_nullable
-as bool,showZeroBalance: null == showZeroBalance ? _self.showZeroBalance : showZeroBalance // ignore: cast_nullable_to_non_nullable
+as bool,showJournal: null == showJournal ? _self.showJournal : showJournal // ignore: cast_nullable_to_non_nullable
 as bool,keepSlipImages: null == keepSlipImages ? _self.keepSlipImages : keepSlipImages // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showZeroBalance,  bool keepSlipImages)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showZeroBalance,_that.keepSlipImages);case _:
+return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showZeroBa
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showZeroBalance,  bool keepSlipImages)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages)  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings():
-return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showZeroBalance,_that.keepSlipImages);case _:
+return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showZeroBa
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showZeroBalance,  bool keepSlipImages)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages)?  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showZeroBalance,_that.keepSlipImages);case _:
+return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages);case _:
   return null;
 
 }
@@ -217,14 +218,15 @@ return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showZeroBa
 
 
 class _AppSettings implements AppSettings {
-  const _AppSettings({this.language = AppLanguage.th, this.yearEra = YearEra.buddhist, this.hideOnLaunch = false, this.showZeroBalance = false, this.keepSlipImages = true});
+  const _AppSettings({this.language = AppLanguage.th, this.yearEra = YearEra.buddhist, this.hideOnLaunch = false, this.showJournal = true, this.keepSlipImages = true});
   
 
 @override@JsonKey() final  AppLanguage language;
 @override@JsonKey() final  YearEra yearEra;
 /// Start with amounts masked on Home.
 @override@JsonKey() final  bool hideOnLaunch;
-@override@JsonKey() final  bool showZeroBalance;
+/// Show each entry's hledger text on its detail screen.
+@override@JsonKey() final  bool showJournal;
 @override@JsonKey() final  bool keepSlipImages;
 
 /// Create a copy of AppSettings
@@ -237,18 +239,18 @@ _$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.yearEra, yearEra) || other.yearEra == yearEra)&&(identical(other.hideOnLaunch, hideOnLaunch) || other.hideOnLaunch == hideOnLaunch)&&(identical(other.showZeroBalance, showZeroBalance) || other.showZeroBalance == showZeroBalance)&&(identical(other.keepSlipImages, keepSlipImages) || other.keepSlipImages == keepSlipImages));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.yearEra, yearEra) || other.yearEra == yearEra)&&(identical(other.hideOnLaunch, hideOnLaunch) || other.hideOnLaunch == hideOnLaunch)&&(identical(other.showJournal, showJournal) || other.showJournal == showJournal)&&(identical(other.keepSlipImages, keepSlipImages) || other.keepSlipImages == keepSlipImages));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,language,yearEra,hideOnLaunch,showZeroBalance,keepSlipImages);
+    return Object.hash(runtimeType,language,yearEra,hideOnLaunch,showJournal,keepSlipImages);
 }
 
 @override
 String toString() {
-    return 'AppSettings(language: $language, yearEra: $yearEra, hideOnLaunch: $hideOnLaunch, showZeroBalance: $showZeroBalance, keepSlipImages: $keepSlipImages)';
+    return 'AppSettings(language: $language, yearEra: $yearEra, hideOnLaunch: $hideOnLaunch, showJournal: $showJournal, keepSlipImages: $keepSlipImages)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showZeroBalance, bool keepSlipImages
+ AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showJournal, bool keepSlipImages
 });
 
 
@@ -276,12 +278,12 @@ class __$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showZeroBalance = null,Object? keepSlipImages = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showJournal = null,Object? keepSlipImages = null,}) {
   return _then(_AppSettings(
 language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as AppLanguage,yearEra: null == yearEra ? _self.yearEra : yearEra // ignore: cast_nullable_to_non_nullable
 as YearEra,hideOnLaunch: null == hideOnLaunch ? _self.hideOnLaunch : hideOnLaunch // ignore: cast_nullable_to_non_nullable
-as bool,showZeroBalance: null == showZeroBalance ? _self.showZeroBalance : showZeroBalance // ignore: cast_nullable_to_non_nullable
+as bool,showJournal: null == showJournal ? _self.showJournal : showJournal // ignore: cast_nullable_to_non_nullable
 as bool,keepSlipImages: null == keepSlipImages ? _self.keepSlipImages : keepSlipImages // ignore: cast_nullable_to_non_nullable
 as bool,
   ));

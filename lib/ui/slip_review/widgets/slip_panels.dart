@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ledger_app/data/parsers/slip/parsed_slip.dart';
@@ -11,6 +9,7 @@ import 'package:ledger_app/l10n/app_localizations.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/amount_text.dart';
+import 'package:ledger_app/ui/core/widgets/slip_thumbnail.dart';
 import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
 import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import 'package:ledger_app/utils/date_format.dart';
@@ -128,34 +127,6 @@ class _Fact extends StatelessWidget {
         ),
         Expanded(child: child),
       ],
-    );
-  }
-}
-
-class SlipThumbnail extends StatelessWidget {
-  const SlipThumbnail({super.key, required this.imagePath});
-
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Semantics(
-      image: true,
-      label: context.l10n.viewSlipImage,
-      child: Container(
-        width: 78,
-        height: 118,
-        decoration: BoxDecoration(
-          color: scheme.surfaceContainerLow,
-          border: Border.all(color: scheme.outlineVariant),
-        ),
-        child: Image.file(
-          File(imagePath),
-          fit: BoxFit.cover,
-          errorBuilder: (_, _, _) => const SizedBox.shrink(),
-        ),
-      ),
     );
   }
 }

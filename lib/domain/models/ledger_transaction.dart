@@ -21,6 +21,10 @@ abstract class LedgerTransaction with _$LedgerTransaction {
 
     /// Slip reference number; hledger's transaction code.
     String? code,
+
+    /// The slip image this entry was read from. A path on this device, so
+    /// it is never exported.
+    String? slipImagePath,
     required List<Posting> postings,
   }) = _LedgerTransaction;
 

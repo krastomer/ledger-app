@@ -55,10 +55,9 @@ class _Calendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final days = dailySpend.days;
-    final lead =
-        DateTime(dailySpend.month.year, dailySpend.month.month).weekday -
-        DateTime.monday;
     const week = DateTime.daysPerWeek;
+    final lead =
+        DateTime(dailySpend.month.year, dailySpend.month.month).weekday % week;
     final weekCount = (lead + days.length + week - 1) ~/ week;
     return Column(
       spacing: _rowGap,

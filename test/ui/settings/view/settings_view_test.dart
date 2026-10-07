@@ -122,7 +122,7 @@ void main() {
     expect(find.text('# display'), findsOneWidget);
     expect(find.text('hide_on_launch = false'), findsOneWidget);
     expect(find.text('# amounts on home start hidden'), findsOneWidget);
-    expect(find.text('show_zero_balance = false'), findsOneWidget);
+    expect(find.text('show_journal = true'), findsOneWidget);
     expect(find.text('hidden_accounts = 0'), findsOneWidget);
     expect(
       find.text('home_cards = [net_worth, inbox, month, recent]'),

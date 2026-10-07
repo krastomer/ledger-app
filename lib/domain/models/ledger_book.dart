@@ -107,7 +107,7 @@ class LedgerBook {
       amount: amount,
       kind: kind,
       isPending: t.status == TransactionStatus.pending,
-      hasSlip: t.code != null,
+      hasSlip: t.code != null || t.slipImagePath != null,
     );
   }
 
