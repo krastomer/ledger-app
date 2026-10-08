@@ -14,8 +14,8 @@
   calls `result(...)` exactly once, returning a `FlutterError` with a
   stable error code on failure.
 - Handle `MissingPluginException` / `PlatformException` in the service
-  and return a `Result` error, so unsupported platforms (Android OCR not
-  implemented yet) fail gracefully.
+  and return a `Result` error, so a platform without the plugin fails
+  gracefully.
 - Prefer an existing, well-maintained plugin over custom native code
   when one covers the need; if native code grows, consider `pigeon` for
   type-safe channels.

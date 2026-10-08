@@ -4,8 +4,9 @@ Personal ledger app (Flutter, Android + iOS). Core feature: read Thai bank
 transfer slips with on-device OCR and turn them into ledger entries.
 
 - Flutter stable 3.47.x, Dart SDK ^3.13
-- OCR: Apple Vision via `MethodChannel('ledger_app/slip_ocr')`
-  (`ios/Runner/AppDelegate.swift`); Android not implemented yet
+- OCR: `MethodChannel('ledger_app/slip_ocr')` — Apple Vision on iOS
+  (`ios/Runner/AppDelegate.swift`), Tesseract on Android
+  (`android/app/src/main/kotlin/com/example/ledger_app/SlipOcrPlugin.kt`)
 
 ## Commands
 

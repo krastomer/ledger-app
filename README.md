@@ -18,8 +18,9 @@ Thai and English localization.
 
 ## Status
 
-Early development. OCR uses Apple Vision on iOS through a platform channel
-(`ledger_app/slip_ocr`); Android OCR is not finished yet.
+Early development. OCR runs on-device through a platform channel
+(`ledger_app/slip_ocr`): Apple Vision on iOS, Tesseract (Thai + English) on
+Android. `tool/slip_parity.sh` checks both give the same parse results.
 
 ## Getting started
 
