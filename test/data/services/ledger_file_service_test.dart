@@ -33,6 +33,7 @@ void main() {
     await service.pick(types: const [LedgerFileService.rulesType]);
 
     expect(asked?.single.extensions, ['rules', 'txt']);
+    expect(asked?.single.mimeTypes, ['*/*']);
   });
 
   test('is ok with nothing when the user backs out', () async {

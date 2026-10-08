@@ -27,6 +27,8 @@ class LedgerFileService {
   static const rulesType = XTypeGroup(
     label: 'ledger rules',
     extensions: ['rules', 'txt'],
+    // Android knows only txt; without */* its picker greys out .rules files.
+    mimeTypes: ['*/*'],
     uniformTypeIdentifiers: ['public.data'],
   );
 
