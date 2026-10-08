@@ -32,4 +32,16 @@ void main() {
     act: (cubit) => cubit.run(),
     expect: () => [const BootState(status: BootStatus.failed)],
   );
+
+  blocTest<BootCubit, BootState>(
+    'on a first run it skips the ledger check',
+    build: () => BootCubit(
+      ledgerCheck: LedgerCheckUseCase(
+        ledgerRepository: FakeLedgerRepository(error: Exception('unused')),
+      ),
+      isFirstRun: true,
+    ),
+    act: (cubit) => cubit.run(),
+    expect: () => [const BootState(status: BootStatus.firstRun)],
+  );
 }

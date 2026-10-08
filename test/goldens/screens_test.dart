@@ -308,6 +308,29 @@ void main() {
         await expectScreen('boot', language);
       }, variant: ios);
 
+      testWidgets('boot_first_run', (tester) async {
+        final cubit = BootCubit(
+          ledgerCheck: LedgerCheckUseCase(ledgerRepository: ledger),
+          isFirstRun: true,
+        );
+        addTearDown(cubit.close);
+        await cubit.run();
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<BootCubit>.value(value: cubit),
+          child: InheritedGoRouter(
+            goRouter: GoRouter(
+              routes: [GoRoute(path: '/', builder: (_, _) => const SizedBox())],
+            ),
+            child: const BootView(),
+          ),
+        );
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump();
+        await expectScreen('boot_first_run', language);
+      }, variant: ios);
+
       testWidgets('setup_settings', (tester) async {
         await pumpScreen(tester, language, child: const SetupSettingsView());
         await expectScreen('setup_settings', language);

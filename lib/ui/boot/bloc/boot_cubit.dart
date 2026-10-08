@@ -8,11 +8,14 @@ part 'boot_cubit.freezed.dart';
 part 'boot_state.dart';
 
 class BootCubit extends Cubit<BootState> {
-  BootCubit({required this._ledgerCheck}) : super(const BootState());
+  BootCubit({required this._ledgerCheck, this._isFirstRun = false})
+    : super(const BootState());
 
   final LedgerCheckUseCase _ledgerCheck;
+  final bool _isFirstRun;
 
   Future<void> run() async {
+    if (_isFirstRun) return emit(const BootState(status: BootStatus.firstRun));
     final result = await _ledgerCheck();
     if (isClosed) return;
     emit(switch (result) {

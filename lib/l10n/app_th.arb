@@ -276,5 +276,10 @@
   "setupLimitedAccess": "เข้าถึงจำกัด · แสดงเฉพาะรูปที่คุณแชร์ให้",
   "setupSelectMore": "เลือกเพิ่ม",
   "setupAlbumsLoading": "กำลังอ่านอัลบั้ม...",
-  "setupAlbumsFailed": "อ่านอัลบั้มไม่ได้"
+  "setupAlbumsFailed": "อ่านอัลบั้มไม่ได้",
+  "bootStarted": "เริ่มโปรแกรม ledger",
+  "bootNoLedger": "ยังไม่มีสมุดบัญชีบนเครื่องนี้",
+  "bootStartingSetup": "กำลังเริ่มตั้งค่าครั้งแรก",
+  "bootSetUpAction": "ตั้งค่า",
+  "bootFirstRunHint": "ใช้เวลาประมาณหนึ่งนาที · ไม่มีอะไรออกจากเครื่อง"
 }

@@ -980,4 +980,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupAlbumsFailed => 'Couldn\'t read the albums';
+
+  @override
+  String get bootStarted => 'Started ledger';
+
+  @override
+  String get bootNoLedger => 'No ledger on this device';
+
+  @override
+  String get bootStartingSetup => 'Starting first-run setup';
+
+  @override
+  String get bootSetUpAction => 'Set up';
+
+  @override
+  String get bootFirstRunHint =>
+      'takes about a minute · nothing leaves this phone';
 }

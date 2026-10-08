@@ -565,5 +565,10 @@
   "setupLimitedAccess": "limited access · only the photos you shared are listed",
   "setupSelectMore": "Select more",
   "setupAlbumsLoading": "reading albums...",
-  "setupAlbumsFailed": "Couldn't read the albums"
+  "setupAlbumsFailed": "Couldn't read the albums",
+  "bootStarted": "Started ledger",
+  "bootNoLedger": "No ledger on this device",
+  "bootStartingSetup": "Starting first-run setup",
+  "bootSetUpAction": "Set up",
+  "bootFirstRunHint": "takes about a minute · nothing leaves this phone"
 }

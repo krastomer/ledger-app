@@ -960,4 +960,20 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get setupAlbumsFailed => 'อ่านอัลบั้มไม่ได้';
+
+  @override
+  String get bootStarted => 'เริ่มโปรแกรม ledger';
+
+  @override
+  String get bootNoLedger => 'ยังไม่มีสมุดบัญชีบนเครื่องนี้';
+
+  @override
+  String get bootStartingSetup => 'กำลังเริ่มตั้งค่าครั้งแรก';
+
+  @override
+  String get bootSetUpAction => 'ตั้งค่า';
+
+  @override
+  String get bootFirstRunHint =>
+      'ใช้เวลาประมาณหนึ่งนาที · ไม่มีอะไรออกจากเครื่อง';
 }

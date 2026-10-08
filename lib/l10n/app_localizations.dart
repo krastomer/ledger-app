@@ -1759,6 +1759,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t read the albums'**
   String get setupAlbumsFailed;
+
+  /// No description provided for @bootStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Started ledger'**
+  String get bootStarted;
+
+  /// No description provided for @bootNoLedger.
+  ///
+  /// In en, this message translates to:
+  /// **'No ledger on this device'**
+  String get bootNoLedger;
+
+  /// No description provided for @bootStartingSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting first-run setup'**
+  String get bootStartingSetup;
+
+  /// No description provided for @bootSetUpAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up'**
+  String get bootSetUpAction;
+
+  /// No description provided for @bootFirstRunHint.
+  ///
+  /// In en, this message translates to:
+  /// **'takes about a minute · nothing leaves this phone'**
+  String get bootFirstRunHint;
 }
 
 class _AppLocalizationsDelegate

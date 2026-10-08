@@ -74,8 +74,9 @@ class _BootViewState extends State<BootView> {
     final canContinue = switch (status) {
       BootStatus.checking => false,
       BootStatus.ready => _remaining != null,
-      BootStatus.failed => true,
+      BootStatus.failed || BootStatus.firstRun => true,
     };
+    final firstRun = status == BootStatus.firstRun;
     final small = theme.textTheme.bodySmall?.copyWith(
       color: scheme.onSurfaceVariant,
     );
@@ -129,19 +130,26 @@ class _BootViewState extends State<BootView> {
               DecoratedBox(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: canContinue ? scheme.primary : scheme.outlineVariant,
+                    color: canContinue && !firstRun
+                        ? scheme.primary
+                        : scheme.outlineVariant,
                   ),
                 ),
-                child: TuiButton.action(
-                  label: _remaining == null
-                      ? l10n.continueAction
-                      : '${l10n.continueAction} (${_remaining}s)',
-                  onPressed: canContinue ? _continue : null,
-                ),
+                child: firstRun
+                    ? TuiButton.primary(
+                        label: l10n.bootSetUpAction,
+                        onPressed: _continue,
+                      )
+                    : TuiButton.action(
+                        label: _remaining == null
+                            ? l10n.continueAction
+                            : '${l10n.continueAction} (${_remaining}s)',
+                        onPressed: canContinue ? _continue : null,
+                      ),
               ),
               const SizedBox(height: Dimens.gapS),
               Text(
-                '# ${l10n.dataStaysOnDevice.toLowerCase()}',
+                '# ${firstRun ? l10n.bootFirstRunHint : l10n.dataStaysOnDevice.toLowerCase()}',
                 textAlign: TextAlign.center,
                 style: small,
               ),
@@ -190,6 +198,12 @@ class _BootLog extends StatelessWidget {
           ),
       ],
       (BootStatus.failed, _) => [(_Level.fail, l10n.bootFailed)],
+      (BootStatus.firstRun, _) => [
+        (_Level.ok, l10n.bootStarted),
+        (_Level.ok, l10n.bootOcr(_ocrEngine)),
+        (_Level.warn, l10n.bootNoLedger),
+        (_Level.wait, l10n.bootStartingSetup),
+      ],
       _ => [(_Level.wait, l10n.bootOpening)],
     };
     return Semantics(

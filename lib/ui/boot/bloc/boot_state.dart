@@ -1,6 +1,6 @@
 part of 'boot_cubit.dart';
 
-enum BootStatus { checking, ready, failed }
+enum BootStatus { checking, ready, failed, firstRun }
 
 @freezed
 abstract class BootState with _$BootState {
