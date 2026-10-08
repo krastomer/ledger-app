@@ -40,8 +40,8 @@ void main() {
     final router = GoRouter(
       routes: [
         GoRoute(
-          path: '/',
-          builder: (_, _) => const Scaffold(body: Text('home')),
+          path: '/setup/photos',
+          builder: (_, _) => const Scaffold(body: Text('photos')),
         ),
         GoRoute(
           path: '/setup',
@@ -61,16 +61,14 @@ void main() {
     return cubit;
   }
 
-  testWidgets('finishing setup marks it complete and opens Home', (
-    tester,
-  ) async {
+  testWidgets('creating the ledger opens the photos step', (tester) async {
     final cubit = await pumpListener(tester, FakeLedgerRepository());
 
     await cubit.startNew();
     await tester.pumpAndSettle();
 
-    expect(find.text('home'), findsOneWidget);
-    expect(settings.saved.setupComplete, isTrue);
+    expect(find.text('photos'), findsOneWidget);
+    expect(settings.saved.setupComplete, isFalse);
   });
 
   testWidgets('a failed save stays on the screen with a message', (

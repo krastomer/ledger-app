@@ -8,6 +8,15 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ledger_app/data/parsers/slip/parsed_slip.dart';
+import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
+import 'package:ledger_app/domain/models/money.dart' as slip_money;
+import 'package:ledger_app/domain/models/slip.dart';
+import 'package:ledger_app/domain/models/slip_party.dart';
+import 'package:ledger_app/domain/use_cases/import_slip_use_case.dart';
+import 'package:ledger_app/ui/setup/bloc/setup_scan_cubit.dart';
+import 'package:ledger_app/ui/setup/view/setup_scan_view.dart';
 import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.dart';
 import 'package:ledger_app/data/services/ledger_asset_service.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
@@ -15,11 +24,9 @@ import 'package:ledger_app/domain/models/app_settings.dart';
 import 'package:ledger_app/domain/models/ledger_import_draft.dart';
 import 'package:ledger_app/domain/models/transaction_status.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
-import 'package:ledger_app/data/parsers/slip/parsed_slip.dart';
 import 'package:ledger_app/domain/use_cases/accounts_summary_use_case.dart';
 import 'package:ledger_app/domain/use_cases/edit_transaction_use_case.dart';
 import 'package:ledger_app/domain/use_cases/home_summary_use_case.dart';
-import 'package:ledger_app/domain/use_cases/import_slip_use_case.dart';
 import 'package:ledger_app/domain/use_cases/income_statement_use_case.dart';
 import 'package:ledger_app/domain/use_cases/ledger_check_use_case.dart';
 import 'package:ledger_app/domain/use_cases/month_transactions_use_case.dart';
@@ -41,9 +48,12 @@ import 'package:ledger_app/ui/reports/bloc/reports_cubit.dart';
 import 'package:ledger_app/ui/reports/view/reports_view.dart';
 import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
+import 'package:ledger_app/ui/settings/widgets/settings_tile.dart';
 import 'package:ledger_app/ui/setup/bloc/setup_cubit.dart';
 import 'package:ledger_app/ui/setup/view/setup_import_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_new_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_photos_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
 import 'package:ledger_app/ui/slip_review/bloc/slip_review_bloc.dart';
 import 'package:ledger_app/ui/slip_review/view/slip_review_view.dart';
@@ -53,6 +63,7 @@ import 'package:ledger_app/ui/transactions/bloc/transactions_cubit.dart';
 import 'package:ledger_app/ui/transactions/view/transactions_view.dart';
 import 'package:ledger_app/utils/result.dart';
 
+import '../../testing/fakes/fake_gallery_repository.dart';
 import '../../testing/fakes/fake_ledger_import_repository.dart';
 import '../../testing/fakes/fake_ledger_repository.dart';
 import '../../testing/fakes/fake_settings_repository.dart';
@@ -269,9 +280,34 @@ void main() {
           tester,
           language,
           screenCubit: BlocProvider<BootCubit>.value(value: cubit),
-          child: const BootView(),
+          child: InheritedGoRouter(
+            goRouter: GoRouter(
+              routes: [GoRoute(path: '/', builder: (_, _) => const SizedBox())],
+            ),
+            child: const BootView(),
+          ),
         );
+        await tester.pump(const Duration(seconds: 2));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 500));
         await expectScreen('boot', language);
+      }, variant: ios);
+
+      testWidgets('setup_settings', (tester) async {
+        await pumpScreen(tester, language, child: const SetupSettingsView());
+        await expectScreen('setup_settings', language);
+      }, variant: ios);
+
+      testWidgets('setup_photos', (tester) async {
+        await pumpScreen(tester, language, child: const SetupPhotosView());
+        await expectScreen('setup_photos', language);
+      }, variant: ios);
+
+      testWidgets('setup_photos_sync', (tester) async {
+        await pumpScreen(tester, language, child: const SetupPhotosView());
+        await tester.tap(find.byType(SettingsSwitchTile));
+        await tester.pump();
+        await expectScreen('setup_photos_sync', language);
       }, variant: ios);
 
       testWidgets('setup_welcome', (tester) async {
@@ -315,6 +351,73 @@ void main() {
           child: const SetupImportView(),
         );
         await expectScreen('setup_import', language);
+      }, variant: ios);
+
+      Future<SetupScanCubit> scanned() async {
+        final cubit = SetupScanCubit(
+          galleryRepository: FakeGalleryRepository(
+            libraryCount: 1284,
+            photos: {
+              'rent': 'rent.jpg',
+              'food': 'food.jpg',
+              'bts': 'bts.jpg',
+              'blank': 'blank.jpg',
+              'cat': 'cat.jpg',
+            },
+          ),
+          importSlip: ImportSlipUseCase(
+            slipRepository: FakeSlipRepository({
+              'rent.jpg': transferSlip(reference: 'REF-RENT'),
+              'food.jpg': ParsedSlip(
+                Slip(
+                  source: SlipSource.kbank,
+                  kind: SlipKind.payment,
+                  timestamp: DateTime.utc(2026, 9, 29, 5, 30),
+                  reference: 'REF-FOOD',
+                  amount: const slip_money.Money(6000),
+                  from: const SlipParty(name: 'Mr. A. Sample'),
+                  to: const SlipParty(name: 'Rice shop'),
+                ),
+              ),
+              'bts.jpg': transferSlip(
+                reference: 'REF-BTS',
+                satang: 4700,
+                payee: 'BTS',
+                timestamp: DateTime.utc(2026, 9, 26, 1),
+              ),
+              'blank.jpg': transferSlip(reference: 'REF-BLANK', satang: null),
+            }),
+            ledgerRepository: ledger,
+            now: () => today,
+          ),
+          scope: GallerySyncScope.screenshots,
+        );
+        addTearDown(cubit.close);
+        await cubit.scan();
+        return cubit;
+      }
+
+      testWidgets('setup_scan', (tester) async {
+        final cubit = await scanned();
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<SetupScanCubit>.value(value: cubit),
+          child: const SetupScanView(),
+        );
+        await expectScreen('setup_scan', language);
+      }, variant: ios);
+
+      testWidgets('setup_found', (tester) async {
+        final cubit = await scanned();
+        cubit.review();
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<SetupScanCubit>.value(value: cubit),
+          child: const SetupScanView(),
+        );
+        await expectScreen('setup_found', language);
       }, variant: ios);
 
       testWidgets('inbox', (tester) async {

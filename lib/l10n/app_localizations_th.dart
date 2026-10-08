@@ -582,9 +582,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get setupHeader => 'ledger · setup';
 
   @override
-  String get setupNoLedger => 'ยังไม่มีสมุดบัญชีในเครื่องนี้';
-
-  @override
   String get setupTitle => 'ตั้งค่าเริ่มต้น';
 
   @override
@@ -658,6 +655,171 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get setupFileFailed => 'เปิดไฟล์ไม่ได้';
+
+  @override
+  String setupStep(int step, int total) {
+    return 'ขั้นที่ $step/$total';
+  }
+
+  @override
+  String get setupSettingsTitle => 'ตั้งค่า';
+
+  @override
+  String get setupPrivacy => 'ความเป็นส่วนตัว';
+
+  @override
+  String get setupChangeLater => 'เปลี่ยนทั้งหมดนี้ภายหลังได้ในการตั้งค่า';
+
+  @override
+  String get setupPhotosTitle => 'รูปสลิป';
+
+  @override
+  String get setupSyncGallery => 'ซิงก์แกลเลอรี';
+
+  @override
+  String get setupSyncGalleryHint => 'หาสลิปใหม่ในคลังรูปของคุณ';
+
+  @override
+  String get setupScopeScreenshots => 'อัลบั้มภาพหน้าจอ';
+
+  @override
+  String get setupScopeScreenshotsHint => 'ที่แอปธนาคารเก็บสลิป';
+
+  @override
+  String get setupScopeAll => 'ทุกรูป';
+
+  @override
+  String get setupScopeAllHint => 'สแกนทุกรูป ช้ากว่า';
+
+  @override
+  String get setupPhotosHint =>
+      'รูปไม่ออกจากเครื่อง เปิดหรือปิดภายหลังได้ในการตั้งค่า';
+
+  @override
+  String get setupFinish => 'เสร็จสิ้น';
+
+  @override
+  String get setupHowTitle => 'ทำงานอย่างไร';
+
+  @override
+  String get setupHowSteps =>
+      '1. แอปขอสิทธิ์เข้าถึงรูป\n2. รูปใหม่ถูกอ่านด้วย OCR ในเครื่อง\n3. นับสลิปที่เจอ\n4. คุณเลือกว่าจะนำเข้าอันไหน\n5. รูปอื่นจะถูกข้าม';
+
+  @override
+  String get setupPhotosScan => 'สแกนรูป';
+
+  @override
+  String get setupScanTitle => 'กำลังสแกนคลังรูป';
+
+  @override
+  String get setupScanCancel => 'ยกเลิก';
+
+  @override
+  String get setupScanScanning => 'กำลังสแกน...';
+
+  @override
+  String setupScanLibrary(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'มี $countString รูปในคลังรูป';
+  }
+
+  @override
+  String setupScanToCheckScreenshots(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString ภาพหน้าจอที่ต้องตรวจ';
+  }
+
+  @override
+  String setupScanToCheckAll(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString รูปที่ต้องตรวจ';
+  }
+
+  @override
+  String setupScanRead(int done, int total) {
+    final intl.NumberFormat doneNumberFormat = intl.NumberFormat.decimalPattern(
+      localeName,
+    );
+    final String doneString = doneNumberFormat.format(done);
+    final intl.NumberFormat totalNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String totalString = totalNumberFormat.format(total);
+
+    return 'อ่านข้อความแล้ว $doneString จาก $totalString';
+  }
+
+  @override
+  String setupScanFound(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return 'เจอสลิป $countString ใบ';
+  }
+
+  @override
+  String get setupScanHint => 'อ่านข้อความในเครื่องนี้ ไม่มีการอัปโหลด';
+
+  @override
+  String setupScanReview(int count) {
+    return 'ตรวจสอบ $count ใบที่เจอ';
+  }
+
+  @override
+  String get setupScanNoAccess => 'ไม่มีสิทธิ์เข้าถึงรูปของคุณ';
+
+  @override
+  String get setupScanNoAccessHint =>
+      'อนุญาตการเข้าถึงรูปในการตั้งค่าของระบบ แล้วสแกนใหม่จากการตั้งค่า';
+
+  @override
+  String get setupScanFailed => 'อ่านคลังรูปไม่ได้';
+
+  @override
+  String setupFoundSelected(int selected, int total) {
+    return 'เลือก $selected จาก $total';
+  }
+
+  @override
+  String get setupSelectAll => 'เลือกทั้งหมด';
+
+  @override
+  String get setupSelectNone => 'ไม่เลือกเลย';
+
+  @override
+  String get setupFoundTransfers => 'โอนเงิน';
+
+  @override
+  String get setupFoundPayments => 'ชำระเงิน';
+
+  @override
+  String get setupFoundOrders => 'คำสั่งซื้อขาย';
+
+  @override
+  String get setupFoundUnsure => 'ไม่แน่ใจ';
+
+  @override
+  String get setupFoundNoAmount => 'ดูเหมือนสลิป แต่ไม่มียอด';
+
+  @override
+  String get setupFoundInboxHint => 'ไปที่กล่องเข้าเพื่อตรวจสอบ';
+
+  @override
+  String setupFoundImport(int count) {
+    return 'นำเข้า $count';
+  }
+
+  @override
+  String get setupFoundSkip => 'ข้าม';
 
   @override
   String get setupSaveFailed => 'ตั้งค่าสมุดบัญชีไม่ได้';

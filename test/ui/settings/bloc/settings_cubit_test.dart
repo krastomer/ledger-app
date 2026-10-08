@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
+import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 
@@ -100,4 +101,37 @@ void main() {
       ),
     ),
   );
+
+  blocTest<SettingsCubit, SettingsState>(
+    'changes and saves gallery sync and its scope',
+    build: () =>
+        SettingsCubit(repository: repository, initial: const AppSettings()),
+    act: (cubit) async {
+      await cubit.setSyncGallery(true);
+      await cubit.setGallerySyncScope(GallerySyncScope.all);
+    },
+    expect: () => [
+      const SettingsState(settings: AppSettings(syncGallery: true)),
+      const SettingsState(
+        settings: AppSettings(
+          syncGallery: true,
+          gallerySyncScope: GallerySyncScope.all,
+        ),
+      ),
+    ],
+    verify: (_) => expect(
+      repository.saved,
+      const AppSettings(
+        syncGallery: true,
+        gallerySyncScope: GallerySyncScope.all,
+      ),
+    ),
+  );
+
+  test('gallery sync is off and limited to screenshots by default', () {
+    const settings = AppSettings();
+
+    expect(settings.syncGallery, isFalse);
+    expect(settings.gallerySyncScope, GallerySyncScope.screenshots);
+  });
 }

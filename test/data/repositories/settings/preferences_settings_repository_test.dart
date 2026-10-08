@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/data/repositories/settings/preferences_settings_repository.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
+import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/utils/result.dart';
 
@@ -29,6 +30,8 @@ void main() {
       hideOnLaunch: true,
       showJournal: false,
       keepSlipImages: false,
+      syncGallery: true,
+      gallerySyncScope: GallerySyncScope.all,
       setupComplete: true,
     );
 
@@ -41,7 +44,11 @@ void main() {
   test('falls back to defaults for unknown stored values', () async {
     final repository = PreferencesSettingsRepository(
       preferences: FakePreferencesService(
-        values: {'settings.language': 'fr', 'settings.yearEra': 'lunar'},
+        values: {
+          'settings.language': 'fr',
+          'settings.yearEra': 'lunar',
+          'settings.gallerySyncScope': 'cloud',
+        },
       ),
     );
 
@@ -81,11 +88,13 @@ void main() {
     expect(preferences.values, {
       'settings.language': 'en',
       'settings.yearEra': 'buddhist',
+      'settings.gallerySyncScope': 'screenshots',
     });
     expect(preferences.flags, {
       'settings.hideOnLaunch': true,
       'settings.showJournal': true,
       'settings.keepSlipImages': true,
+      'settings.syncGallery': false,
       'settings.setupComplete': false,
     });
   });

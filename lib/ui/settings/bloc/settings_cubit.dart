@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:ledger_app/data/repositories/settings/settings_repository.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
+import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/utils/result.dart';
 
@@ -29,6 +30,12 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   Future<void> setKeepSlipImages(bool value) =>
       _save(state.settings.copyWith(keepSlipImages: value));
+
+  Future<void> setSyncGallery(bool value) =>
+      _save(state.settings.copyWith(syncGallery: value));
+
+  Future<void> setGallerySyncScope(GallerySyncScope scope) =>
+      _save(state.settings.copyWith(gallerySyncScope: scope));
 
   Future<void> completeSetup() =>
       _save(state.settings.copyWith(setupComplete: true));

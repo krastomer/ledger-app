@@ -8,12 +8,18 @@ class SetupScaffold extends StatelessWidget {
     super.key,
     required this.children,
     required this.footer,
+    required this.step,
     this.canGoBack = true,
+    this.backLabel,
   });
 
   final List<Widget> children;
   final Widget footer;
+  final int step;
   final bool canGoBack;
+  final String? backLabel;
+
+  static const stepCount = 3;
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +37,25 @@ class SetupScaffold extends StatelessWidget {
                 Dimens.pagePadding,
                 0,
               ),
-              child: Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: canGoBack
-                    ? TuiButton(
-                        keyHint: 'q',
-                        label: context.l10n.back,
-                        tooltip: MaterialLocalizations.of(context)
-                            .backButtonTooltip,
-                        padding: 0,
-                        onPressed: () => Navigator.of(context).maybePop(),
-                      )
-                    : const SizedBox(height: Dimens.tapTarget),
+              child: Row(
+                children: [
+                  if (canGoBack)
+                    TuiButton(
+                      keyHint: 'q',
+                      label: backLabel ?? context.l10n.back,
+                      tooltip: MaterialLocalizations.of(context)
+                          .backButtonTooltip,
+                      padding: 0,
+                      onPressed: () => Navigator.of(context).maybePop(),
+                    )
+                  else
+                    const SizedBox(height: Dimens.tapTarget),
+                  const Spacer(),
+                  Text(
+                    context.l10n.setupStep(step, stepCount),
+                    style: TextStyle(color: scheme.onSurfaceVariant),
+                  ),
+                ],
               ),
             ),
             Expanded(

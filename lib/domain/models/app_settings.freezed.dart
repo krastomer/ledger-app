@@ -17,7 +17,8 @@ mixin _$AppSettings {
 
  AppLanguage get language; YearEra get yearEra;/// Start with amounts masked on Home.
  bool get hideOnLaunch;/// Show each entry's hledger text on its detail screen.
- bool get showJournal; bool get keepSlipImages;/// False until the first-run setup has created or imported a ledger.
+ bool get showJournal; bool get keepSlipImages;/// Look for new slips in the photo library.
+ bool get syncGallery; GallerySyncScope get gallerySyncScope;/// False until the first-run setup has created or imported a ledger.
  bool get setupComplete;
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
@@ -30,20 +31,20 @@ $AppSettingsCopyWith<AppSettings> get copyWith => _$AppSettingsCopyWithImpl<AppS
 @override
 bool operator ==(Object other) {
   final _this = this as AppSettings;
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.language, _this.language) || other.language == _this.language)&&(identical(other.yearEra, _this.yearEra) || other.yearEra == _this.yearEra)&&(identical(other.hideOnLaunch, _this.hideOnLaunch) || other.hideOnLaunch == _this.hideOnLaunch)&&(identical(other.showJournal, _this.showJournal) || other.showJournal == _this.showJournal)&&(identical(other.keepSlipImages, _this.keepSlipImages) || other.keepSlipImages == _this.keepSlipImages)&&(identical(other.setupComplete, _this.setupComplete) || other.setupComplete == _this.setupComplete));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppSettings&&(identical(other.language, _this.language) || other.language == _this.language)&&(identical(other.yearEra, _this.yearEra) || other.yearEra == _this.yearEra)&&(identical(other.hideOnLaunch, _this.hideOnLaunch) || other.hideOnLaunch == _this.hideOnLaunch)&&(identical(other.showJournal, _this.showJournal) || other.showJournal == _this.showJournal)&&(identical(other.keepSlipImages, _this.keepSlipImages) || other.keepSlipImages == _this.keepSlipImages)&&(identical(other.syncGallery, _this.syncGallery) || other.syncGallery == _this.syncGallery)&&(identical(other.gallerySyncScope, _this.gallerySyncScope) || other.gallerySyncScope == _this.gallerySyncScope)&&(identical(other.setupComplete, _this.setupComplete) || other.setupComplete == _this.setupComplete));
 }
 
 
 @override
 int get hashCode {
   final _this = this as AppSettings;
-  return Object.hash(runtimeType,_this.language,_this.yearEra,_this.hideOnLaunch,_this.showJournal,_this.keepSlipImages,_this.setupComplete);
+  return Object.hash(runtimeType,_this.language,_this.yearEra,_this.hideOnLaunch,_this.showJournal,_this.keepSlipImages,_this.syncGallery,_this.gallerySyncScope,_this.setupComplete);
 }
 
 @override
 String toString() {
   final _this = this as AppSettings;
-  return 'AppSettings(language: ${_this.language}, yearEra: ${_this.yearEra}, hideOnLaunch: ${_this.hideOnLaunch}, showJournal: ${_this.showJournal}, keepSlipImages: ${_this.keepSlipImages}, setupComplete: ${_this.setupComplete})';
+  return 'AppSettings(language: ${_this.language}, yearEra: ${_this.yearEra}, hideOnLaunch: ${_this.hideOnLaunch}, showJournal: ${_this.showJournal}, keepSlipImages: ${_this.keepSlipImages}, syncGallery: ${_this.syncGallery}, gallerySyncScope: ${_this.gallerySyncScope}, setupComplete: ${_this.setupComplete})';
 }
 
 
@@ -54,7 +55,7 @@ abstract mixin class $AppSettingsCopyWith<$Res>  {
   factory $AppSettingsCopyWith(AppSettings value, $Res Function(AppSettings) _then) = _$AppSettingsCopyWithImpl;
 @useResult
 $Res call({
- AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showJournal, bool keepSlipImages, bool setupComplete
+ AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showJournal, bool keepSlipImages, bool syncGallery, GallerySyncScope gallerySyncScope, bool setupComplete
 });
 
 
@@ -71,14 +72,16 @@ class _$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showJournal = null,Object? keepSlipImages = null,Object? setupComplete = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showJournal = null,Object? keepSlipImages = null,Object? syncGallery = null,Object? gallerySyncScope = null,Object? setupComplete = null,}) {
   return _then(AppSettings(
 language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as AppLanguage,yearEra: null == yearEra ? _self.yearEra : yearEra // ignore: cast_nullable_to_non_nullable
 as YearEra,hideOnLaunch: null == hideOnLaunch ? _self.hideOnLaunch : hideOnLaunch // ignore: cast_nullable_to_non_nullable
 as bool,showJournal: null == showJournal ? _self.showJournal : showJournal // ignore: cast_nullable_to_non_nullable
 as bool,keepSlipImages: null == keepSlipImages ? _self.keepSlipImages : keepSlipImages // ignore: cast_nullable_to_non_nullable
-as bool,setupComplete: null == setupComplete ? _self.setupComplete : setupComplete // ignore: cast_nullable_to_non_nullable
+as bool,syncGallery: null == syncGallery ? _self.syncGallery : syncGallery // ignore: cast_nullable_to_non_nullable
+as bool,gallerySyncScope: null == gallerySyncScope ? _self.gallerySyncScope : gallerySyncScope // ignore: cast_nullable_to_non_nullable
+as GallerySyncScope,setupComplete: null == setupComplete ? _self.setupComplete : setupComplete // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -164,10 +167,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages,  bool setupComplete)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages,  bool syncGallery,  GallerySyncScope gallerySyncScope,  bool setupComplete)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages,_that.setupComplete);case _:
+return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages,_that.syncGallery,_that.gallerySyncScope,_that.setupComplete);case _:
   return orElse();
 
 }
@@ -185,10 +188,10 @@ return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJourna
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages,  bool setupComplete)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages,  bool syncGallery,  GallerySyncScope gallerySyncScope,  bool setupComplete)  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings():
-return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages,_that.setupComplete);case _:
+return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages,_that.syncGallery,_that.gallerySyncScope,_that.setupComplete);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +208,10 @@ return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJourna
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages,  bool setupComplete)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AppLanguage language,  YearEra yearEra,  bool hideOnLaunch,  bool showJournal,  bool keepSlipImages,  bool syncGallery,  GallerySyncScope gallerySyncScope,  bool setupComplete)?  $default,) {final _that = this;
 switch (_that) {
 case _AppSettings() when $default != null:
-return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages,_that.setupComplete);case _:
+return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJournal,_that.keepSlipImages,_that.syncGallery,_that.gallerySyncScope,_that.setupComplete);case _:
   return null;
 
 }
@@ -220,7 +223,7 @@ return $default(_that.language,_that.yearEra,_that.hideOnLaunch,_that.showJourna
 
 
 class _AppSettings implements AppSettings {
-  const _AppSettings({this.language = AppLanguage.th, this.yearEra = YearEra.buddhist, this.hideOnLaunch = false, this.showJournal = true, this.keepSlipImages = true, this.setupComplete = false});
+  const _AppSettings({this.language = AppLanguage.th, this.yearEra = YearEra.buddhist, this.hideOnLaunch = false, this.showJournal = true, this.keepSlipImages = true, this.syncGallery = false, this.gallerySyncScope = GallerySyncScope.screenshots, this.setupComplete = false});
   
 
 @override@JsonKey() final  AppLanguage language;
@@ -230,6 +233,9 @@ class _AppSettings implements AppSettings {
 /// Show each entry's hledger text on its detail screen.
 @override@JsonKey() final  bool showJournal;
 @override@JsonKey() final  bool keepSlipImages;
+/// Look for new slips in the photo library.
+@override@JsonKey() final  bool syncGallery;
+@override@JsonKey() final  GallerySyncScope gallerySyncScope;
 /// False until the first-run setup has created or imported a ledger.
 @override@JsonKey() final  bool setupComplete;
 
@@ -243,18 +249,18 @@ _$AppSettingsCopyWith<_AppSettings> get copyWith => __$AppSettingsCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.yearEra, yearEra) || other.yearEra == yearEra)&&(identical(other.hideOnLaunch, hideOnLaunch) || other.hideOnLaunch == hideOnLaunch)&&(identical(other.showJournal, showJournal) || other.showJournal == showJournal)&&(identical(other.keepSlipImages, keepSlipImages) || other.keepSlipImages == keepSlipImages)&&(identical(other.setupComplete, setupComplete) || other.setupComplete == setupComplete));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppSettings&&(identical(other.language, language) || other.language == language)&&(identical(other.yearEra, yearEra) || other.yearEra == yearEra)&&(identical(other.hideOnLaunch, hideOnLaunch) || other.hideOnLaunch == hideOnLaunch)&&(identical(other.showJournal, showJournal) || other.showJournal == showJournal)&&(identical(other.keepSlipImages, keepSlipImages) || other.keepSlipImages == keepSlipImages)&&(identical(other.syncGallery, syncGallery) || other.syncGallery == syncGallery)&&(identical(other.gallerySyncScope, gallerySyncScope) || other.gallerySyncScope == gallerySyncScope)&&(identical(other.setupComplete, setupComplete) || other.setupComplete == setupComplete));
 }
 
 
 @override
 int get hashCode {
-    return Object.hash(runtimeType,language,yearEra,hideOnLaunch,showJournal,keepSlipImages,setupComplete);
+    return Object.hash(runtimeType,language,yearEra,hideOnLaunch,showJournal,keepSlipImages,syncGallery,gallerySyncScope,setupComplete);
 }
 
 @override
 String toString() {
-    return 'AppSettings(language: $language, yearEra: $yearEra, hideOnLaunch: $hideOnLaunch, showJournal: $showJournal, keepSlipImages: $keepSlipImages, setupComplete: $setupComplete)';
+    return 'AppSettings(language: $language, yearEra: $yearEra, hideOnLaunch: $hideOnLaunch, showJournal: $showJournal, keepSlipImages: $keepSlipImages, syncGallery: $syncGallery, gallerySyncScope: $gallerySyncScope, setupComplete: $setupComplete)';
 }
 
 
@@ -265,7 +271,7 @@ abstract mixin class _$AppSettingsCopyWith<$Res> implements $AppSettingsCopyWith
   factory _$AppSettingsCopyWith(_AppSettings value, $Res Function(_AppSettings) _then) = __$AppSettingsCopyWithImpl;
 @override @useResult
 $Res call({
- AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showJournal, bool keepSlipImages, bool setupComplete
+ AppLanguage language, YearEra yearEra, bool hideOnLaunch, bool showJournal, bool keepSlipImages, bool syncGallery, GallerySyncScope gallerySyncScope, bool setupComplete
 });
 
 
@@ -282,14 +288,16 @@ class __$AppSettingsCopyWithImpl<$Res>
 
 /// Create a copy of AppSettings
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showJournal = null,Object? keepSlipImages = null,Object? setupComplete = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? language = null,Object? yearEra = null,Object? hideOnLaunch = null,Object? showJournal = null,Object? keepSlipImages = null,Object? syncGallery = null,Object? gallerySyncScope = null,Object? setupComplete = null,}) {
   return _then(_AppSettings(
 language: null == language ? _self.language : language // ignore: cast_nullable_to_non_nullable
 as AppLanguage,yearEra: null == yearEra ? _self.yearEra : yearEra // ignore: cast_nullable_to_non_nullable
 as YearEra,hideOnLaunch: null == hideOnLaunch ? _self.hideOnLaunch : hideOnLaunch // ignore: cast_nullable_to_non_nullable
 as bool,showJournal: null == showJournal ? _self.showJournal : showJournal // ignore: cast_nullable_to_non_nullable
 as bool,keepSlipImages: null == keepSlipImages ? _self.keepSlipImages : keepSlipImages // ignore: cast_nullable_to_non_nullable
-as bool,setupComplete: null == setupComplete ? _self.setupComplete : setupComplete // ignore: cast_nullable_to_non_nullable
+as bool,syncGallery: null == syncGallery ? _self.syncGallery : syncGallery // ignore: cast_nullable_to_non_nullable
+as bool,gallerySyncScope: null == gallerySyncScope ? _self.gallerySyncScope : gallerySyncScope // ignore: cast_nullable_to_non_nullable
+as GallerySyncScope,setupComplete: null == setupComplete ? _self.setupComplete : setupComplete // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

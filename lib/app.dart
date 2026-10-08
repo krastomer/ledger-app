@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ledger_app/data/repositories/gallery/gallery_repository.dart';
 import 'package:ledger_app/data/repositories/ledger/ledger_repository.dart';
 import 'package:ledger_app/data/repositories/ledger_import/ledger_import_repository.dart';
 import 'package:ledger_app/data/repositories/settings/settings_repository.dart';
@@ -15,6 +16,7 @@ import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 class App extends StatelessWidget {
   const App({
     super.key,
+    required this.galleryRepository,
     required this.ledgerRepository,
     required this.ledgerImportRepository,
     required this.settingsRepository,
@@ -23,6 +25,7 @@ class App extends StatelessWidget {
     required this.router,
   });
 
+  final GalleryRepository galleryRepository;
   final LedgerRepository ledgerRepository;
   final LedgerImportRepository ledgerImportRepository;
   final SettingsRepository settingsRepository;
@@ -34,6 +37,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<GalleryRepository>.value(value: galleryRepository),
         RepositoryProvider<LedgerRepository>.value(value: ledgerRepository),
         RepositoryProvider<LedgerImportRepository>.value(
           value: ledgerImportRepository,

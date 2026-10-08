@@ -14,6 +14,9 @@ import 'package:ledger_app/ui/reports/view/reports_page.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_import_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_new_page.dart';
+import 'package:ledger_app/ui/setup/view/setup_photos_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_scan_page.dart';
+import 'package:ledger_app/ui/setup/view/setup_settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
 import 'package:ledger_app/ui/slip_review/view/slip_review_page.dart';
 import 'package:ledger_app/ui/transaction_detail/view/transaction_detail_page.dart';
@@ -30,8 +33,12 @@ GoRouter createRouter({String initialLocation = Routes.boot}) {
       GoRoute(path: Routes.boot, builder: (context, state) => const BootPage()),
       GoRoute(
         path: Routes.setup,
-        builder: (context, state) => const SetupWelcomeView(),
+        builder: (context, state) => const SetupSettingsView(),
         routes: [
+          GoRoute(
+            path: 'start',
+            builder: (context, state) => const SetupWelcomeView(),
+          ),
           GoRoute(
             path: 'new',
             builder: (context, state) => const SetupNewPage(),
@@ -39,6 +46,14 @@ GoRouter createRouter({String initialLocation = Routes.boot}) {
           GoRoute(
             path: 'import',
             builder: (context, state) => const SetupImportPage(),
+          ),
+          GoRoute(
+            path: 'photos',
+            builder: (context, state) => const SetupPhotosView(),
+          ),
+          GoRoute(
+            path: 'scan',
+            builder: (context, state) => const SetupScanPage(),
           ),
         ],
       ),

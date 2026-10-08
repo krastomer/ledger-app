@@ -1,0 +1,1 @@
+enum GallerySyncScope { screenshots, all }

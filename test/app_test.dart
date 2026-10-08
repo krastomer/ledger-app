@@ -21,11 +21,14 @@ import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_import_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_new_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_photos_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
 import 'package:ledger_app/ui/transaction_detail/view/transaction_detail_view.dart';
 import 'package:ledger_app/ui/transactions/view/transactions_view.dart';
 import 'package:ledger_app/ui/accounts/view/accounts_view.dart';
 
+import '../testing/fakes/fake_gallery_repository.dart';
 import '../testing/fakes/fake_ledger_import_repository.dart';
 import '../testing/fakes/fake_ledger_repository.dart';
 import '../testing/fakes/fake_settings_repository.dart';
@@ -58,6 +61,7 @@ void main() {
     addTearDown(router.dispose);
     await tester.pumpWidget(
       App(
+        galleryRepository: FakeGalleryRepository(),
         ledgerRepository: ledger,
         ledgerImportRepository: FakeLedgerImportRepository(),
         settingsRepository: settings,
@@ -134,6 +138,10 @@ void main() {
 
   testWidgets('the setup screens are reachable', (tester) async {
     final router = await pumpAt(tester, Routes.setup);
+    expect(find.byType(SetupSettingsView), findsOneWidget);
+
+    router.go(Routes.setupStart);
+    await tester.pumpAndSettle();
     expect(find.byType(SetupWelcomeView), findsOneWidget);
 
     router.go(Routes.setupNew);
@@ -143,6 +151,10 @@ void main() {
     router.go(Routes.setupImport);
     await tester.pumpAndSettle();
     expect(find.byType(SetupImportView), findsOneWidget);
+
+    router.go(Routes.setupPhotos);
+    await tester.pumpAndSettle();
+    expect(find.byType(SetupPhotosView), findsOneWidget);
   });
 
   testWidgets('follows the saved language and changes with it', (tester) async {

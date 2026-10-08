@@ -326,7 +326,6 @@
   "slipImageMissing": "This slip image is no longer on the device",
   "bootOpening": "Opening ledger",
   "setupHeader": "ledger · setup",
-  "setupNoLedger": "No ledger on this device yet.",
   "setupTitle": "Setup",
   "setupStartNew": "Start new ledger",
   "setupStartNewHint": "Empty books, filled from your slips",
@@ -371,5 +370,123 @@
     }
   },
   "setupFileFailed": "Couldn't open the file",
+  "setupStep": "step {step}/{total}",
+  "@setupStep": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "setupSettingsTitle": "Settings",
+  "setupPrivacy": "Privacy",
+  "setupChangeLater": "All of these can be changed later in config.",
+  "setupPhotosTitle": "Slip photos",
+  "setupSyncGallery": "Sync gallery",
+  "setupSyncGalleryHint": "find new slips in your photo library",
+  "setupScopeScreenshots": "Screenshots album",
+  "setupScopeScreenshotsHint": "where bank apps save slips",
+  "setupScopeAll": "All photos",
+  "setupScopeAllHint": "scans everything, slower",
+  "setupPhotosHint": "Photos never leave the device. You can turn this on or off later in config.",
+  "setupFinish": "Finish",
+  "setupHowTitle": "How it works",
+  "setupHowSteps": "1. ledger asks for photo access\n2. new images are read by on-device ocr\n3. it counts the slips it finds\n4. you pick which ones to import\n5. other photos are ignored",
+  "setupPhotosScan": "Scan photos",
+  "setupScanTitle": "Scanning photo library",
+  "setupScanCancel": "Cancel",
+  "setupScanScanning": "Scanning...",
+  "setupScanLibrary": "{count} photos in library",
+  "@setupScanLibrary": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "setupScanToCheckScreenshots": "{count} screenshots to check",
+  "@setupScanToCheckScreenshots": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "setupScanToCheckAll": "{count} photos to check",
+  "@setupScanToCheckAll": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "setupScanRead": "read text from {done} of {total}",
+  "@setupScanRead": {
+    "placeholders": {
+      "done": {
+        "type": "int",
+        "format": "decimalPattern"
+      },
+      "total": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "setupScanFound": "{count} slips found",
+  "@setupScanFound": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "setupScanHint": "reading text on this device. nothing is uploaded.",
+  "setupScanReview": "Review {count} found",
+  "@setupScanReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setupScanNoAccess": "No access to your photos",
+  "setupScanNoAccessHint": "Allow photo access in the system settings, then scan again from config.",
+  "setupScanFailed": "Couldn't read the photo library",
+  "setupFoundSelected": "{selected} of {total} selected",
+  "@setupFoundSelected": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "setupSelectAll": "Select all",
+  "setupSelectNone": "Select none",
+  "setupFoundTransfers": "Transfers",
+  "setupFoundPayments": "Payments",
+  "setupFoundOrders": "Orders",
+  "setupFoundUnsure": "Not sure",
+  "setupFoundNoAmount": "looks like a slip, no amount",
+  "setupFoundInboxHint": "goes to inbox for review",
+  "setupFoundImport": "Import {count}",
+  "@setupFoundImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setupFoundSkip": "Skip",
   "setupSaveFailed": "Couldn't set up the ledger"
 }

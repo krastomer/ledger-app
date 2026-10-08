@@ -1118,12 +1118,6 @@ abstract class AppLocalizations {
   /// **'ledger · setup'**
   String get setupHeader;
 
-  /// No description provided for @setupNoLedger.
-  ///
-  /// In en, this message translates to:
-  /// **'No ledger on this device yet.'**
-  String get setupNoLedger;
-
   /// No description provided for @setupTitle.
   ///
   /// In en, this message translates to:
@@ -1261,6 +1255,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t open the file'**
   String get setupFileFailed;
+
+  /// No description provided for @setupStep.
+  ///
+  /// In en, this message translates to:
+  /// **'step {step}/{total}'**
+  String setupStep(int step, int total);
+
+  /// No description provided for @setupSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get setupSettingsTitle;
+
+  /// No description provided for @setupPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get setupPrivacy;
+
+  /// No description provided for @setupChangeLater.
+  ///
+  /// In en, this message translates to:
+  /// **'All of these can be changed later in config.'**
+  String get setupChangeLater;
+
+  /// No description provided for @setupPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Slip photos'**
+  String get setupPhotosTitle;
+
+  /// No description provided for @setupSyncGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync gallery'**
+  String get setupSyncGallery;
+
+  /// No description provided for @setupSyncGalleryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'find new slips in your photo library'**
+  String get setupSyncGalleryHint;
+
+  /// No description provided for @setupScopeScreenshots.
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshots album'**
+  String get setupScopeScreenshots;
+
+  /// No description provided for @setupScopeScreenshotsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'where bank apps save slips'**
+  String get setupScopeScreenshotsHint;
+
+  /// No description provided for @setupScopeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All photos'**
+  String get setupScopeAll;
+
+  /// No description provided for @setupScopeAllHint.
+  ///
+  /// In en, this message translates to:
+  /// **'scans everything, slower'**
+  String get setupScopeAllHint;
+
+  /// No description provided for @setupPhotosHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos never leave the device. You can turn this on or off later in config.'**
+  String get setupPhotosHint;
+
+  /// No description provided for @setupFinish.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get setupFinish;
+
+  /// No description provided for @setupHowTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How it works'**
+  String get setupHowTitle;
+
+  /// No description provided for @setupHowSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'1. ledger asks for photo access\n2. new images are read by on-device ocr\n3. it counts the slips it finds\n4. you pick which ones to import\n5. other photos are ignored'**
+  String get setupHowSteps;
+
+  /// No description provided for @setupPhotosScan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan photos'**
+  String get setupPhotosScan;
+
+  /// No description provided for @setupScanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scanning photo library'**
+  String get setupScanTitle;
+
+  /// No description provided for @setupScanCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get setupScanCancel;
+
+  /// No description provided for @setupScanScanning.
+  ///
+  /// In en, this message translates to:
+  /// **'Scanning...'**
+  String get setupScanScanning;
+
+  /// No description provided for @setupScanLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} photos in library'**
+  String setupScanLibrary(int count);
+
+  /// No description provided for @setupScanToCheckScreenshots.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} screenshots to check'**
+  String setupScanToCheckScreenshots(int count);
+
+  /// No description provided for @setupScanToCheckAll.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} photos to check'**
+  String setupScanToCheckAll(int count);
+
+  /// No description provided for @setupScanRead.
+  ///
+  /// In en, this message translates to:
+  /// **'read text from {done} of {total}'**
+  String setupScanRead(int done, int total);
+
+  /// No description provided for @setupScanFound.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} slips found'**
+  String setupScanFound(int count);
+
+  /// No description provided for @setupScanHint.
+  ///
+  /// In en, this message translates to:
+  /// **'reading text on this device. nothing is uploaded.'**
+  String get setupScanHint;
+
+  /// No description provided for @setupScanReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review {count} found'**
+  String setupScanReview(int count);
+
+  /// No description provided for @setupScanNoAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'No access to your photos'**
+  String get setupScanNoAccess;
+
+  /// No description provided for @setupScanNoAccessHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow photo access in the system settings, then scan again from config.'**
+  String get setupScanNoAccessHint;
+
+  /// No description provided for @setupScanFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read the photo library'**
+  String get setupScanFailed;
+
+  /// No description provided for @setupFoundSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{selected} of {total} selected'**
+  String setupFoundSelected(int selected, int total);
+
+  /// No description provided for @setupSelectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get setupSelectAll;
+
+  /// No description provided for @setupSelectNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Select none'**
+  String get setupSelectNone;
+
+  /// No description provided for @setupFoundTransfers.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfers'**
+  String get setupFoundTransfers;
+
+  /// No description provided for @setupFoundPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get setupFoundPayments;
+
+  /// No description provided for @setupFoundOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Orders'**
+  String get setupFoundOrders;
+
+  /// No description provided for @setupFoundUnsure.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sure'**
+  String get setupFoundUnsure;
+
+  /// No description provided for @setupFoundNoAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'looks like a slip, no amount'**
+  String get setupFoundNoAmount;
+
+  /// No description provided for @setupFoundInboxHint.
+  ///
+  /// In en, this message translates to:
+  /// **'goes to inbox for review'**
+  String get setupFoundInboxHint;
+
+  /// No description provided for @setupFoundImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {count}'**
+  String setupFoundImport(int count);
+
+  /// No description provided for @setupFoundSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get setupFoundSkip;
 
   /// No description provided for @setupSaveFailed.
   ///

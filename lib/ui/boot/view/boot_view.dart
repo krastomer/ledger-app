@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +22,48 @@ const _banner = r'''
 |_|\___|\__,_|\__, |\___|_|
               |___/''';
 
-class BootView extends StatelessWidget {
+class BootView extends StatefulWidget {
   const BootView({super.key});
+
+  @override
+  State<BootView> createState() => _BootViewState();
+}
+
+class _BootViewState extends State<BootView> {
+  static const _countdownFrom = 2;
+
+  Timer? _timer;
+  int? _remaining;
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _startCountdown() {
+    if (_timer != null) return;
+    setState(() => _remaining = _countdownFrom);
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      final remaining = (_remaining ?? 0) - 1;
+      if (remaining > 0) {
+        setState(() => _remaining = remaining);
+      } else {
+        timer.cancel();
+        _continue();
+      }
+    });
+  }
+
+  void _continue() {
+    _timer?.cancel();
+    final setupComplete = context
+        .read<SettingsCubit>()
+        .state
+        .settings
+        .setupComplete;
+    context.go(setupComplete ? Routes.home : Routes.setup);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +71,11 @@ class BootView extends StatelessWidget {
     final scheme = theme.colorScheme;
     final l10n = context.l10n;
     final status = context.select((BootCubit cubit) => cubit.state.status);
-    final setupComplete = context.select(
-      (SettingsCubit cubit) => cubit.state.settings.setupComplete,
-    );
+    final canContinue = switch (status) {
+      BootStatus.checking => false,
+      BootStatus.ready => _remaining != null,
+      BootStatus.failed => true,
+    };
     final small = theme.textTheme.bodySmall?.copyWith(
       color: scheme.onSurfaceVariant,
     );
@@ -76,7 +120,7 @@ class BootView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const _BootLog(),
+                        _BootLog(onRevealed: _startCountdown),
                       ],
                     ),
                   ),
@@ -85,18 +129,14 @@ class BootView extends StatelessWidget {
               DecoratedBox(
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: status == BootStatus.checking
-                        ? scheme.outlineVariant
-                        : scheme.primary,
+                    color: canContinue ? scheme.primary : scheme.outlineVariant,
                   ),
                 ),
                 child: TuiButton.action(
-                  label: l10n.continueAction,
-                  onPressed: status == BootStatus.checking
-                      ? null
-                      : () => context.go(
-                          setupComplete ? Routes.home : Routes.setup,
-                        ),
+                  label: _remaining == null
+                      ? l10n.continueAction
+                      : '${l10n.continueAction} (${_remaining}s)',
+                  onPressed: canContinue ? _continue : null,
                 ),
               ),
               const SizedBox(height: Dimens.gapS),
@@ -116,7 +156,9 @@ class BootView extends StatelessWidget {
 enum _Level { ok, warn, fail, wait }
 
 class _BootLog extends StatelessWidget {
-  const _BootLog();
+  const _BootLog({required this.onRevealed});
+
+  final VoidCallback onRevealed;
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +194,9 @@ class _BootLog extends StatelessWidget {
     };
     return Semantics(
       liveRegion: true,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          for (final (level, text) in lines) _LogLine(level: level, text: text),
-          const _Prompt(),
-        ],
+      child: _LineReveal(
+        lines: lines,
+        onRevealed: state.status == BootStatus.ready ? onRevealed : null,
       ),
     );
   }
@@ -166,6 +205,80 @@ class _BootLog extends StatelessWidget {
     TargetPlatform.iOS || TargetPlatform.macOS => 'Apple Vision',
     _ => 'Tesseract',
   };
+}
+
+class _LineReveal extends StatefulWidget {
+  const _LineReveal({required this.lines, this.onRevealed});
+
+  final List<(_Level, String)> lines;
+  final VoidCallback? onRevealed;
+
+  @override
+  State<_LineReveal> createState() => _LineRevealState();
+}
+
+class _LineRevealState extends State<_LineReveal> {
+  static const _interval = Duration(milliseconds: 500);
+
+  Timer? _timer;
+  int _visible = 1;
+  bool _notified = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _start();
+  }
+
+  @override
+  void didUpdateWidget(_LineReveal oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!listEquals(oldWidget.lines, widget.lines)) {
+      _visible = 1;
+      _notified = false;
+      _start();
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _start() {
+    _timer?.cancel();
+    if (widget.lines.length <= _visible) return;
+    _timer = Timer.periodic(_interval, (timer) {
+      if (_visible >= widget.lines.length) {
+        timer.cancel();
+        return;
+      }
+      setState(() => _visible++);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final count = MediaQuery.disableAnimationsOf(context)
+        ? widget.lines.length
+        : _visible.clamp(0, widget.lines.length);
+    final onRevealed = widget.onRevealed;
+    if (onRevealed != null && !_notified && count == widget.lines.length) {
+      _notified = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) onRevealed();
+      });
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (final (level, text) in widget.lines.take(count))
+          _LogLine(level: level, text: text),
+        const _Prompt(),
+      ],
+    );
+  }
 }
 
 class _LogLine extends StatelessWidget {

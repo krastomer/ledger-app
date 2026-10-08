@@ -1,8 +1,11 @@
 abstract final class Routes {
   static const boot = '/boot';
   static const setup = '/setup';
+  static const setupStart = '/setup/start';
   static const setupNew = '/setup/new';
   static const setupImport = '/setup/import';
+  static const setupPhotos = '/setup/photos';
+  static const setupScan = '/setup/scan';
   static const home = '/';
   static const accounts = '/accounts';
   static const reports = '/reports';

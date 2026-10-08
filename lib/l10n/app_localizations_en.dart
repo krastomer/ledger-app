@@ -593,9 +593,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupHeader => 'ledger · setup';
 
   @override
-  String get setupNoLedger => 'No ledger on this device yet.';
-
-  @override
   String get setupTitle => 'Setup';
 
   @override
@@ -669,6 +666,172 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupFileFailed => 'Couldn\'t open the file';
+
+  @override
+  String setupStep(int step, int total) {
+    return 'step $step/$total';
+  }
+
+  @override
+  String get setupSettingsTitle => 'Settings';
+
+  @override
+  String get setupPrivacy => 'Privacy';
+
+  @override
+  String get setupChangeLater => 'All of these can be changed later in config.';
+
+  @override
+  String get setupPhotosTitle => 'Slip photos';
+
+  @override
+  String get setupSyncGallery => 'Sync gallery';
+
+  @override
+  String get setupSyncGalleryHint => 'find new slips in your photo library';
+
+  @override
+  String get setupScopeScreenshots => 'Screenshots album';
+
+  @override
+  String get setupScopeScreenshotsHint => 'where bank apps save slips';
+
+  @override
+  String get setupScopeAll => 'All photos';
+
+  @override
+  String get setupScopeAllHint => 'scans everything, slower';
+
+  @override
+  String get setupPhotosHint =>
+      'Photos never leave the device. You can turn this on or off later in config.';
+
+  @override
+  String get setupFinish => 'Finish';
+
+  @override
+  String get setupHowTitle => 'How it works';
+
+  @override
+  String get setupHowSteps =>
+      '1. ledger asks for photo access\n2. new images are read by on-device ocr\n3. it counts the slips it finds\n4. you pick which ones to import\n5. other photos are ignored';
+
+  @override
+  String get setupPhotosScan => 'Scan photos';
+
+  @override
+  String get setupScanTitle => 'Scanning photo library';
+
+  @override
+  String get setupScanCancel => 'Cancel';
+
+  @override
+  String get setupScanScanning => 'Scanning...';
+
+  @override
+  String setupScanLibrary(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString photos in library';
+  }
+
+  @override
+  String setupScanToCheckScreenshots(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString screenshots to check';
+  }
+
+  @override
+  String setupScanToCheckAll(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString photos to check';
+  }
+
+  @override
+  String setupScanRead(int done, int total) {
+    final intl.NumberFormat doneNumberFormat = intl.NumberFormat.decimalPattern(
+      localeName,
+    );
+    final String doneString = doneNumberFormat.format(done);
+    final intl.NumberFormat totalNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String totalString = totalNumberFormat.format(total);
+
+    return 'read text from $doneString of $totalString';
+  }
+
+  @override
+  String setupScanFound(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString slips found';
+  }
+
+  @override
+  String get setupScanHint =>
+      'reading text on this device. nothing is uploaded.';
+
+  @override
+  String setupScanReview(int count) {
+    return 'Review $count found';
+  }
+
+  @override
+  String get setupScanNoAccess => 'No access to your photos';
+
+  @override
+  String get setupScanNoAccessHint =>
+      'Allow photo access in the system settings, then scan again from config.';
+
+  @override
+  String get setupScanFailed => 'Couldn\'t read the photo library';
+
+  @override
+  String setupFoundSelected(int selected, int total) {
+    return '$selected of $total selected';
+  }
+
+  @override
+  String get setupSelectAll => 'Select all';
+
+  @override
+  String get setupSelectNone => 'Select none';
+
+  @override
+  String get setupFoundTransfers => 'Transfers';
+
+  @override
+  String get setupFoundPayments => 'Payments';
+
+  @override
+  String get setupFoundOrders => 'Orders';
+
+  @override
+  String get setupFoundUnsure => 'Not sure';
+
+  @override
+  String get setupFoundNoAmount => 'looks like a slip, no amount';
+
+  @override
+  String get setupFoundInboxHint => 'goes to inbox for review';
+
+  @override
+  String setupFoundImport(int count) {
+    return 'Import $count';
+  }
+
+  @override
+  String get setupFoundSkip => 'Skip';
 
   @override
   String get setupSaveFailed => 'Couldn\'t set up the ledger';

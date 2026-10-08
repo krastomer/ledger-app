@@ -4,9 +4,7 @@ import 'package:ledger_app/domain/models/starter_accounts.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 import 'package:ledger_app/ui/core/widgets/tui_button.dart';
-import 'package:ledger_app/ui/core/widgets/tui_dashed_line.dart';
 import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
-import 'package:ledger_app/ui/settings/widgets/preference_tiles.dart';
 import 'package:ledger_app/ui/settings/widgets/settings_tile.dart';
 
 import '../bloc/setup_cubit.dart';
@@ -26,6 +24,7 @@ class SetupNewView extends StatelessWidget {
     );
     return SetupListener(
       child: SetupScaffold(
+        step: 2,
         footer: Align(
           alignment: AlignmentDirectional.centerEnd,
           child: TuiButton.primary(
@@ -44,10 +43,6 @@ class SetupNewView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const LanguageTile(),
-                TuiDashedLine(color: scheme.surfaceContainerHigh),
-                const YearEraTile(),
-                TuiDashedLine(color: scheme.surfaceContainerHigh),
                 ConstrainedBox(
                   constraints: const BoxConstraints(
                     minHeight: Dimens.tapTarget,

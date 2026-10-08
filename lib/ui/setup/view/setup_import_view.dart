@@ -26,6 +26,7 @@ class SetupImportView extends StatelessWidget {
         state.status == SetupStatus.saving;
     return SetupListener(
       child: SetupScaffold(
+        step: 2,
         footer: Align(
           alignment: AlignmentDirectional.centerEnd,
           child: TuiButton.primary(
