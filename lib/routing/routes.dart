@@ -4,6 +4,7 @@ abstract final class Routes {
   static const setupStart = '/setup/start';
   static const setupNew = '/setup/new';
   static const setupImport = '/setup/import';
+  static const setupRules = '/setup/rules';
   static const setupPhotos = '/setup/photos';
   static const setupScan = '/setup/scan';
   static const home = '/';
@@ -14,6 +15,7 @@ abstract final class Routes {
   static const inbox = '/inbox';
   static const slipReview = '/review';
   static const settings = '/settings';
+  static const rules = '/settings/rules';
 
   static String transactionPath(String id) => '/transaction/$id';
 }

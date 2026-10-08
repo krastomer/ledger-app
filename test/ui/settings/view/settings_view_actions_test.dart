@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ledger_app/data/repositories/rules/rules_repository.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
 
+import '../../../../testing/fakes/fake_rules_repository.dart';
 import '../../../../testing/fakes/fake_settings_repository.dart';
 import '../../../../testing/widget_harness.dart';
 
@@ -15,6 +18,10 @@ void main() {
     await pumpApp(
       tester,
       home: const SettingsView(),
+      wrap: (app) => RepositoryProvider<RulesRepository>.value(
+        value: FakeRulesRepository(),
+        child: app,
+      ),
       settingsRepository: repository,
     );
     tester.view

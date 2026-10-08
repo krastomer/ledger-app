@@ -15,6 +15,11 @@ import 'package:ledger_app/domain/models/money.dart' as slip_money;
 import 'package:ledger_app/domain/models/slip.dart';
 import 'package:ledger_app/domain/models/slip_party.dart';
 import 'package:ledger_app/domain/use_cases/import_slip_use_case.dart';
+import 'package:ledger_app/data/repositories/rules/rules_repository.dart';
+import 'package:ledger_app/domain/models/rule_issue.dart';
+import 'package:ledger_app/ui/rules/bloc/rules_cubit.dart';
+import 'package:ledger_app/ui/rules/view/rules_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_rules_view.dart';
 import 'package:ledger_app/ui/setup/bloc/setup_scan_cubit.dart';
 import 'package:ledger_app/ui/setup/view/setup_scan_view.dart';
 import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.dart';
@@ -66,8 +71,10 @@ import 'package:ledger_app/utils/result.dart';
 import '../../testing/fakes/fake_gallery_repository.dart';
 import '../../testing/fakes/fake_ledger_import_repository.dart';
 import '../../testing/fakes/fake_ledger_repository.dart';
+import '../../testing/fakes/fake_rules_repository.dart';
 import '../../testing/fakes/fake_settings_repository.dart';
 import '../../testing/fakes/fake_slip_repository.dart';
+import '../../testing/fixtures/rules_fixtures.dart';
 import '../../testing/fixtures/slip_draft_fixtures.dart';
 
 /// Every main screen on the bundled sample ledger, as an iPhone 17 shows it
@@ -110,6 +117,7 @@ void main() {
     AppLanguage language, {
     required Widget child,
     BlocProvider? screenCubit,
+    RulesRepository? rules,
   }) async {
     tester.view
       ..physicalSize = screen * pixelRatio
@@ -137,6 +145,9 @@ void main() {
                 repository: FakeSettingsRepository(saved: settings),
                 initial: settings,
               ),
+            ),
+            RepositoryProvider<RulesRepository>.value(
+              value: rules ?? FakeRulesRepository(saved: ruleSet()),
             ),
             ?screenCubit,
           ],
@@ -229,6 +240,7 @@ void main() {
 
       testWidgets('config', (tester) async {
         await pumpScreen(tester, language, child: const SettingsView());
+        await tester.pump();
         await expectScreen('config', language);
       }, variant: ios);
 
@@ -296,6 +308,54 @@ void main() {
       testWidgets('setup_settings', (tester) async {
         await pumpScreen(tester, language, child: const SetupSettingsView());
         await expectScreen('setup_settings', language);
+      }, variant: ios);
+
+      testWidgets('setup_rules', (tester) async {
+        final cubit = RulesCubit(repository: FakeRulesRepository());
+        addTearDown(cubit.close);
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<RulesCubit>.value(value: cubit),
+          child: const SetupRulesView(),
+        );
+        await expectScreen('setup_rules', language);
+      }, variant: ios);
+
+      testWidgets('setup_rules_picked', (tester) async {
+        final cubit = RulesCubit(
+          repository: FakeRulesRepository(
+            picked: ruleSet(
+              issues: const [
+                RuleIssue(line: 14, reason: RuleIssueReason.badRegex),
+              ],
+            ),
+          ),
+        );
+        addTearDown(cubit.close);
+        await cubit.pickFile();
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<RulesCubit>.value(value: cubit),
+          child: const SetupRulesView(),
+        );
+        await expectScreen('setup_rules_picked', language);
+      }, variant: ios);
+
+      testWidgets('rules', (tester) async {
+        final cubit = RulesCubit(
+          repository: FakeRulesRepository(saved: ruleSet()),
+        );
+        addTearDown(cubit.close);
+        await cubit.load();
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<RulesCubit>.value(value: cubit),
+          child: const RulesView(),
+        );
+        await expectScreen('rules', language);
       }, variant: ios);
 
       testWidgets('setup_photos', (tester) async {

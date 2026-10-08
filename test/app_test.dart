@@ -31,6 +31,7 @@ import 'package:ledger_app/ui/accounts/view/accounts_view.dart';
 import '../testing/fakes/fake_gallery_repository.dart';
 import '../testing/fakes/fake_ledger_import_repository.dart';
 import '../testing/fakes/fake_ledger_repository.dart';
+import '../testing/fakes/fake_rules_repository.dart';
 import '../testing/fakes/fake_settings_repository.dart';
 import '../testing/fakes/fake_slip_repository.dart';
 import '../testing/fixtures/ledger_fixtures.dart';
@@ -64,6 +65,7 @@ void main() {
         galleryRepository: FakeGalleryRepository(),
         ledgerRepository: ledger,
         ledgerImportRepository: FakeLedgerImportRepository(),
+        rulesRepository: FakeRulesRepository(),
         settingsRepository: settings,
         slipRepository: FakeSlipRepository({'slip.jpg': transferSlip()}),
         initialSettings: initial,

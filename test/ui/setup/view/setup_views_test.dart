@@ -82,8 +82,8 @@ void main() {
               BlocProvider<SetupCubit>.value(value: cubit, child: view),
         ),
         GoRoute(
-          path: '/setup/photos',
-          builder: (_, _) => const Text('photos page'),
+          path: '/setup/rules',
+          builder: (_, _) => const Text('rules page'),
         ),
       ],
     );
@@ -113,10 +113,10 @@ void main() {
       return router;
     }
 
-    testWidgets('shows step 1 of 3 without a back button', (tester) async {
+    testWidgets('shows step 1 of 4 without a back button', (tester) async {
       await pumpSettings(tester);
 
-      expect(find.text('step 1/3'), findsOneWidget);
+      expect(find.text('step 1/4'), findsOneWidget);
       expect(find.text('back'), findsNothing);
     });
 
@@ -182,7 +182,7 @@ void main() {
     ) async {
       await pumpPhotos(tester);
 
-      expect(find.text('step 3/3'), findsOneWidget);
+      expect(find.text('step 4/4'), findsOneWidget);
       expect(find.text('screenshots album'), findsNothing);
       expect(find.text('all photos'), findsNothing);
     });
@@ -272,12 +272,12 @@ void main() {
       return router;
     }
 
-    testWidgets('shows step 2 of 3 with a back button and no intro', (
+    testWidgets('shows step 2 of 4 with a back button and no intro', (
       tester,
     ) async {
       await pumpWelcome(tester);
 
-      expect(find.text('step 2/3'), findsOneWidget);
+      expect(find.text('step 2/4'), findsOneWidget);
       expect(find.text('back'), findsOneWidget);
       expect(find.text('No ledger on this device yet.'), findsNothing);
     });
@@ -327,7 +327,7 @@ void main() {
 
       expect(ledger.accounts.map((a) => a.name), contains('Assets'));
       expect(ledger.transactions, isEmpty);
-      expect(find.text('photos page'), findsOneWidget);
+      expect(find.text('rules page'), findsOneWidget);
       expect(settings.saved.setupComplete, isFalse);
     });
 
@@ -433,7 +433,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(ledger.transactions, hasLength(fixtureTransactions.length));
-      expect(find.text('photos page'), findsOneWidget);
+      expect(find.text('rules page'), findsOneWidget);
     });
 
     testWidgets('a failed import keeps the file and offers another try', (

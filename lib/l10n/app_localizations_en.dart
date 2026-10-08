@@ -835,4 +835,119 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupSaveFailed => 'Couldn\'t set up the ledger';
+
+  @override
+  String get settingsRules => 'Rules';
+
+  @override
+  String get rulesTitle => 'Rules';
+
+  @override
+  String get rulesSourceTitle => 'Source';
+
+  @override
+  String get rulesFile => 'File';
+
+  @override
+  String get rulesLoaded => 'Loaded';
+
+  @override
+  String get rulesSkipped => 'Skipped';
+
+  @override
+  String get rulesNone => '(none)';
+
+  @override
+  String get rulesNoFile => 'no rules file yet';
+
+  @override
+  String rulesLoadedCount(int count) {
+    return '$count loaded · view or replace';
+  }
+
+  @override
+  String rulesCount(int count) {
+    return '$count loaded';
+  }
+
+  @override
+  String get rulesViewOnly => 'view-only · edit the file, then replace it';
+
+  @override
+  String get rulesReplaceNote => 'a new file replaces every rule above';
+
+  @override
+  String get rulesFirstMatch => 'first match wins, top to bottom';
+
+  @override
+  String get rulesReplaceAction => 'Replace file';
+
+  @override
+  String get rulesChooseAction => 'Choose file';
+
+  @override
+  String get rulesLoadFailed => 'Couldn\'t read the saved rules';
+
+  @override
+  String get rulesFileFailed => 'Couldn\'t open the file';
+
+  @override
+  String get rulesNoneFound => 'No rules found in this file';
+
+  @override
+  String get rulesSaveFailed => 'Couldn\'t save the rules';
+
+  @override
+  String rulesSkippedLine(int line) {
+    return 'line $line skipped';
+  }
+
+  @override
+  String get rulesReasonBadRegex => 'bad regex';
+
+  @override
+  String get rulesReasonMissingAccount => 'no account2 line';
+
+  @override
+  String get rulesReasonUnknownField => 'unknown field';
+
+  @override
+  String get rulesReasonUnknownDirective => 'unknown directive';
+
+  @override
+  String get setupRulesFileTitle => 'Rules file';
+
+  @override
+  String get setupRulesOptional => 'optional';
+
+  @override
+  String get setupRulesFoundTitle => 'Rules found';
+
+  @override
+  String get setupRulesFormatTitle => 'File format · hledger style';
+
+  @override
+  String get setupRulesHintViewOnly => 'rules are view-only in the app';
+
+  @override
+  String get setupRulesHintEdit =>
+      'to change them, edit the file and replace it';
+
+  @override
+  String get setupRulesHintOrder =>
+      'first match wins · hand-set categories are kept';
+
+  @override
+  String get setupRulesSkip => 'Skip';
+
+  @override
+  String setupRulesImport(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Import $count rules',
+      one: 'Import 1 rule',
+    );
+    return '$_temp0';
+  }
 }

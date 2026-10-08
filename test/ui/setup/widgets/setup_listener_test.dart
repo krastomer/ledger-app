@@ -40,8 +40,8 @@ void main() {
     final router = GoRouter(
       routes: [
         GoRoute(
-          path: '/setup/photos',
-          builder: (_, _) => const Scaffold(body: Text('photos')),
+          path: '/setup/rules',
+          builder: (_, _) => const Scaffold(body: Text('rules')),
         ),
         GoRoute(
           path: '/setup',
@@ -61,13 +61,13 @@ void main() {
     return cubit;
   }
 
-  testWidgets('creating the ledger opens the photos step', (tester) async {
+  testWidgets('creating the ledger opens the rules step', (tester) async {
     final cubit = await pumpListener(tester, FakeLedgerRepository());
 
     await cubit.startNew();
     await tester.pumpAndSettle();
 
-    expect(find.text('photos'), findsOneWidget);
+    expect(find.text('rules'), findsOneWidget);
     expect(settings.saved.setupComplete, isFalse);
   });
 

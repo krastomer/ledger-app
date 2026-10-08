@@ -1501,6 +1501,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t set up the ledger'**
   String get setupSaveFailed;
+
+  /// No description provided for @settingsRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules'**
+  String get settingsRules;
+
+  /// No description provided for @rulesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules'**
+  String get rulesTitle;
+
+  /// No description provided for @rulesSourceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get rulesSourceTitle;
+
+  /// No description provided for @rulesFile.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get rulesFile;
+
+  /// No description provided for @rulesLoaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Loaded'**
+  String get rulesLoaded;
+
+  /// No description provided for @rulesSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Skipped'**
+  String get rulesSkipped;
+
+  /// No description provided for @rulesNone.
+  ///
+  /// In en, this message translates to:
+  /// **'(none)'**
+  String get rulesNone;
+
+  /// No description provided for @rulesNoFile.
+  ///
+  /// In en, this message translates to:
+  /// **'no rules file yet'**
+  String get rulesNoFile;
+
+  /// No description provided for @rulesLoadedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} loaded · view or replace'**
+  String rulesLoadedCount(int count);
+
+  /// No description provided for @rulesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} loaded'**
+  String rulesCount(int count);
+
+  /// No description provided for @rulesViewOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'view-only · edit the file, then replace it'**
+  String get rulesViewOnly;
+
+  /// No description provided for @rulesReplaceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'a new file replaces every rule above'**
+  String get rulesReplaceNote;
+
+  /// No description provided for @rulesFirstMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'first match wins, top to bottom'**
+  String get rulesFirstMatch;
+
+  /// No description provided for @rulesReplaceAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace file'**
+  String get rulesReplaceAction;
+
+  /// No description provided for @rulesChooseAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose file'**
+  String get rulesChooseAction;
+
+  /// No description provided for @rulesLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read the saved rules'**
+  String get rulesLoadFailed;
+
+  /// No description provided for @rulesFileFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t open the file'**
+  String get rulesFileFailed;
+
+  /// No description provided for @rulesNoneFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No rules found in this file'**
+  String get rulesNoneFound;
+
+  /// No description provided for @rulesSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save the rules'**
+  String get rulesSaveFailed;
+
+  /// No description provided for @rulesSkippedLine.
+  ///
+  /// In en, this message translates to:
+  /// **'line {line} skipped'**
+  String rulesSkippedLine(int line);
+
+  /// No description provided for @rulesReasonBadRegex.
+  ///
+  /// In en, this message translates to:
+  /// **'bad regex'**
+  String get rulesReasonBadRegex;
+
+  /// No description provided for @rulesReasonMissingAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'no account2 line'**
+  String get rulesReasonMissingAccount;
+
+  /// No description provided for @rulesReasonUnknownField.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown field'**
+  String get rulesReasonUnknownField;
+
+  /// No description provided for @rulesReasonUnknownDirective.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown directive'**
+  String get rulesReasonUnknownDirective;
+
+  /// No description provided for @setupRulesFileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules file'**
+  String get setupRulesFileTitle;
+
+  /// No description provided for @setupRulesOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'optional'**
+  String get setupRulesOptional;
+
+  /// No description provided for @setupRulesFoundTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules found'**
+  String get setupRulesFoundTitle;
+
+  /// No description provided for @setupRulesFormatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'File format · hledger style'**
+  String get setupRulesFormatTitle;
+
+  /// No description provided for @setupRulesHintViewOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'rules are view-only in the app'**
+  String get setupRulesHintViewOnly;
+
+  /// No description provided for @setupRulesHintEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'to change them, edit the file and replace it'**
+  String get setupRulesHintEdit;
+
+  /// No description provided for @setupRulesHintOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'first match wins · hand-set categories are kept'**
+  String get setupRulesHintOrder;
+
+  /// No description provided for @setupRulesSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get setupRulesSkip;
+
+  /// No description provided for @setupRulesImport.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Import 1 rule} other{Import {count} rules}}'**
+  String setupRulesImport(int count);
 }
 
 class _AppLocalizationsDelegate

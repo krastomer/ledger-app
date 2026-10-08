@@ -823,4 +823,112 @@ class AppLocalizationsTh extends AppLocalizations {
 
   @override
   String get setupSaveFailed => 'ตั้งค่าสมุดบัญชีไม่ได้';
+
+  @override
+  String get settingsRules => 'กฎจัดหมวด';
+
+  @override
+  String get rulesTitle => 'กฎจัดหมวด';
+
+  @override
+  String get rulesSourceTitle => 'ที่มา';
+
+  @override
+  String get rulesFile => 'ไฟล์';
+
+  @override
+  String get rulesLoaded => 'โหลดเมื่อ';
+
+  @override
+  String get rulesSkipped => 'ข้าม';
+
+  @override
+  String get rulesNone => '(ไม่มี)';
+
+  @override
+  String get rulesNoFile => 'ยังไม่มีไฟล์กฎ';
+
+  @override
+  String rulesLoadedCount(int count) {
+    return 'โหลดแล้ว $count กฎ · ดูหรือเปลี่ยนไฟล์';
+  }
+
+  @override
+  String rulesCount(int count) {
+    return 'โหลดแล้ว $count';
+  }
+
+  @override
+  String get rulesViewOnly => 'ดูได้อย่างเดียว · แก้ที่ไฟล์ แล้วเปลี่ยนไฟล์';
+
+  @override
+  String get rulesReplaceNote => 'ไฟล์ใหม่จะแทนที่ทุกกฎด้านบน';
+
+  @override
+  String get rulesFirstMatch => 'กฎที่ตรงก่อนชนะ ไล่จากบนลงล่าง';
+
+  @override
+  String get rulesReplaceAction => 'เปลี่ยนไฟล์';
+
+  @override
+  String get rulesChooseAction => 'เลือกไฟล์';
+
+  @override
+  String get rulesLoadFailed => 'อ่านกฎที่บันทึกไว้ไม่ได้';
+
+  @override
+  String get rulesFileFailed => 'เปิดไฟล์ไม่ได้';
+
+  @override
+  String get rulesNoneFound => 'ไม่พบกฎในไฟล์นี้';
+
+  @override
+  String get rulesSaveFailed => 'บันทึกกฎไม่สำเร็จ';
+
+  @override
+  String rulesSkippedLine(int line) {
+    return 'ข้ามบรรทัด $line';
+  }
+
+  @override
+  String get rulesReasonBadRegex => 'regex ไม่ถูกต้อง';
+
+  @override
+  String get rulesReasonMissingAccount => 'ไม่มีบรรทัด account2';
+
+  @override
+  String get rulesReasonUnknownField => 'ไม่รู้จักฟิลด์';
+
+  @override
+  String get rulesReasonUnknownDirective => 'ไม่รู้จักคำสั่ง';
+
+  @override
+  String get setupRulesFileTitle => 'ไฟล์กฎ';
+
+  @override
+  String get setupRulesOptional => 'ไม่บังคับ';
+
+  @override
+  String get setupRulesFoundTitle => 'กฎที่พบ';
+
+  @override
+  String get setupRulesFormatTitle => 'รูปแบบไฟล์ · สไตล์ hledger';
+
+  @override
+  String get setupRulesHintViewOnly => 'ในแอปดูกฎได้อย่างเดียว';
+
+  @override
+  String get setupRulesHintEdit => 'ถ้าจะแก้ ให้แก้ที่ไฟล์แล้วเปลี่ยนไฟล์';
+
+  @override
+  String get setupRulesHintOrder =>
+      'กฎที่ตรงก่อนชนะ · หมวดที่ตั้งเองไม่ถูกเขียนทับ';
+
+  @override
+  String get setupRulesSkip => 'ข้าม';
+
+  @override
+  String setupRulesImport(int count) {
+    return 'นำเข้า $count กฎ';
+  }
 }

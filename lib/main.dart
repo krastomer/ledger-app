@@ -3,6 +3,7 @@ import 'package:ledger_app/app.dart';
 import 'package:ledger_app/data/repositories/gallery/photo_gallery_repository.dart';
 import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.dart';
 import 'package:ledger_app/data/repositories/ledger_import/file_ledger_import_repository.dart';
+import 'package:ledger_app/data/repositories/rules/file_rules_repository.dart';
 import 'package:ledger_app/data/repositories/settings/preferences_settings_repository.dart';
 import 'package:ledger_app/data/repositories/slip/ocr_slip_repository.dart';
 import 'package:ledger_app/data/services/gallery_service.dart';
@@ -24,8 +25,10 @@ const _ledgerAsset = String.fromEnvironment(
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final preferences = PreferencesService();
+  final files = LedgerFileService();
   final settingsRepository = PreferencesSettingsRepository(
-    preferences: PreferencesService(),
+    preferences: preferences,
   );
   final settings = switch (await settingsRepository.load()) {
     Ok(:final value) => value,
@@ -38,8 +41,10 @@ Future<void> main() async {
       ledgerRepository: HledgerLedgerRepository(
         source: LedgerAssetService(path: _ledgerAsset),
       ),
-      ledgerImportRepository: FileLedgerImportRepository(
-        files: LedgerFileService(),
+      ledgerImportRepository: FileLedgerImportRepository(files: files),
+      rulesRepository: FileRulesRepository(
+        files: files,
+        preferences: preferences,
       ),
       settingsRepository: settingsRepository,
       slipRepository: OcrSlipRepository(

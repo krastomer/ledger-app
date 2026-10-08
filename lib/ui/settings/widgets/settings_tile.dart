@@ -76,22 +76,33 @@ class SettingsTile extends StatelessWidget {
     required this.value,
     required this.onTap,
     this.kind = SettingValueKind.text,
+    this.hint,
   });
 
   final String label;
   final String value;
   final SettingValueKind kind;
   final VoidCallback onTap;
+  final String? hint;
 
   @override
   Widget build(BuildContext context) {
+    final hint = this.hint;
     return _TileFrame(
       onTap: onTap,
       trailing: Text(
         '>',
         style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
       ),
-      child: SettingKeyValue(label: label, value: value, kind: kind),
+      child: hint == null
+          ? SettingKeyValue(label: label, value: value, kind: kind)
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SettingKeyValue(label: label, value: value, kind: kind),
+                SettingComment(hint, small: true),
+              ],
+            ),
     );
   }
 }

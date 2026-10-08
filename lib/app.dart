@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ledger_app/data/repositories/gallery/gallery_repository.dart';
 import 'package:ledger_app/data/repositories/ledger/ledger_repository.dart';
 import 'package:ledger_app/data/repositories/ledger_import/ledger_import_repository.dart';
+import 'package:ledger_app/data/repositories/rules/rules_repository.dart';
 import 'package:ledger_app/data/repositories/settings/settings_repository.dart';
 import 'package:ledger_app/data/repositories/slip/slip_repository.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
     required this.galleryRepository,
     required this.ledgerRepository,
     required this.ledgerImportRepository,
+    required this.rulesRepository,
     required this.settingsRepository,
     required this.slipRepository,
     required this.initialSettings,
@@ -28,6 +30,7 @@ class App extends StatelessWidget {
   final GalleryRepository galleryRepository;
   final LedgerRepository ledgerRepository;
   final LedgerImportRepository ledgerImportRepository;
+  final RulesRepository rulesRepository;
   final SettingsRepository settingsRepository;
   final SlipRepository slipRepository;
   final AppSettings initialSettings;
@@ -42,6 +45,7 @@ class App extends StatelessWidget {
         RepositoryProvider<LedgerImportRepository>.value(
           value: ledgerImportRepository,
         ),
+        RepositoryProvider<RulesRepository>.value(value: rulesRepository),
         RepositoryProvider<SettingsRepository>.value(value: settingsRepository),
         RepositoryProvider<SlipRepository>.value(value: slipRepository),
       ],

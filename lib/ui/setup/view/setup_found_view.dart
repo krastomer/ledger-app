@@ -25,7 +25,7 @@ class SetupFoundView extends StatelessWidget {
     final importable = state.found.where((slip) => slip.importable).length;
     final saving = state.phase != SetupScanPhase.review;
     return SetupScaffold(
-      step: 3,
+      step: 4,
       footer: Row(
         spacing: Dimens.gapS,
         children: [

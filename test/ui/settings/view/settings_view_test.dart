@@ -2,6 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ledger_app/data/repositories/rules/rules_repository.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
@@ -10,6 +11,8 @@ import 'package:ledger_app/ui/core/themes/app_theme.dart';
 import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
 import 'package:mocktail/mocktail.dart';
+
+import '../../../../testing/fakes/fake_rules_repository.dart';
 
 class _MockSettingsCubit extends MockCubit<SettingsState>
     implements SettingsCubit {}
@@ -38,9 +41,12 @@ void main() {
       locale: locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: BlocProvider<SettingsCubit>.value(
-        value: cubit,
-        child: const SettingsView(),
+      home: RepositoryProvider<RulesRepository>.value(
+        value: FakeRulesRepository(),
+        child: BlocProvider<SettingsCubit>.value(
+          value: cubit,
+          child: const SettingsView(),
+        ),
       ),
     ),
   );

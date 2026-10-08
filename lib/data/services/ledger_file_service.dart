@@ -17,11 +17,17 @@ class LedgerFileService {
   LedgerFileService({Future<XFile?> Function(List<XTypeGroup>)? opener})
     : _opener = opener ?? _openFile;
 
-  static const _jsonType = XTypeGroup(
+  static const jsonType = XTypeGroup(
     label: 'hledger JSON',
     extensions: ['json'],
     uniformTypeIdentifiers: ['public.json'],
     mimeTypes: ['application/json'],
+  );
+
+  static const rulesType = XTypeGroup(
+    label: 'ledger rules',
+    extensions: ['rules', 'txt'],
+    uniformTypeIdentifiers: ['public.data'],
   );
 
   final Future<XFile?> Function(List<XTypeGroup>) _opener;
@@ -29,9 +35,11 @@ class LedgerFileService {
   static Future<XFile?> _openFile(List<XTypeGroup> types) =>
       openFile(acceptedTypeGroups: types);
 
-  Future<Result<LedgerFile?>> pick() async {
+  Future<Result<LedgerFile?>> pick({
+    List<XTypeGroup> types = const [jsonType],
+  }) async {
     try {
-      final file = await _opener(const [_jsonType]);
+      final file = await _opener(types);
       if (file == null) return const Result.ok(null);
       final text = await file.readAsString();
       return Result.ok(

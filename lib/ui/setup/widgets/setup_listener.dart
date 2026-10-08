@@ -21,7 +21,7 @@ class SetupListener extends StatelessWidget {
               previous.error != current.error),
       listener: (context, state) {
         if (state.status == SetupStatus.done) {
-          context.push(Routes.setupPhotos);
+          context.push(Routes.setupRules);
         } else if (state.error == SetupError.saveFailed) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

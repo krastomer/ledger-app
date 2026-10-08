@@ -11,10 +11,12 @@ import 'package:ledger_app/ui/home/view/home_page.dart';
 import 'package:ledger_app/ui/inbox/bloc/inbox_cubit.dart';
 import 'package:ledger_app/ui/inbox/view/inbox_view.dart';
 import 'package:ledger_app/ui/reports/view/reports_page.dart';
+import 'package:ledger_app/ui/rules/view/rules_page.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_import_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_new_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_photos_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_rules_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_scan_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
@@ -46,6 +48,10 @@ GoRouter createRouter({String initialLocation = Routes.boot}) {
           GoRoute(
             path: 'import',
             builder: (context, state) => const SetupImportPage(),
+          ),
+          GoRoute(
+            path: 'rules',
+            builder: (context, state) => const SetupRulesPage(),
           ),
           GoRoute(
             path: 'photos',
@@ -135,6 +141,12 @@ GoRouter createRouter({String initialLocation = Routes.boot}) {
               GoRoute(
                 path: Routes.settings,
                 builder: (context, state) => const SettingsView(),
+                routes: [
+                  GoRoute(
+                    path: 'rules',
+                    builder: (context, state) => const RulesPage(),
+                  ),
+                ],
               ),
             ],
           ),

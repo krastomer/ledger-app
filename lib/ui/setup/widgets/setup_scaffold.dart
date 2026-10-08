@@ -19,7 +19,7 @@ class SetupScaffold extends StatelessWidget {
   final bool canGoBack;
   final String? backLabel;
 
-  static const stepCount = 3;
+  static const stepCount = 4;
 
   @override
   Widget build(BuildContext context) {

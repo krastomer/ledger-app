@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.dart';
 import 'package:ledger_app/data/repositories/ledger_import/file_ledger_import_repository.dart';
@@ -13,7 +14,9 @@ class _FakeLedgerFiles implements LedgerFileService {
   Result<LedgerFile?> result;
 
   @override
-  Future<Result<LedgerFile?>> pick() async => result;
+  Future<Result<LedgerFile?>> pick({
+    List<XTypeGroup> types = const [LedgerFileService.jsonType],
+  }) async => result;
 }
 
 void main() {

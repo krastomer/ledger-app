@@ -7,6 +7,7 @@ import 'package:ledger_app/ui/core/widgets/tui_panel.dart';
 import '../bloc/settings_cubit.dart';
 
 import '../widgets/preference_tiles.dart';
+import '../widgets/rules_tile.dart';
 import '../widgets/settings_section.dart';
 import '../widgets/settings_tile.dart';
 
@@ -55,7 +56,11 @@ class SettingsView extends StatelessWidget {
                   children: [
                     SettingsSection(
                       title: l10n.settingsGeneral,
-                      children: const [LanguageTile(), YearEraTile()],
+                      children: const [
+                        LanguageTile(),
+                        YearEraTile(),
+                        RulesTile(),
+                      ],
                     ),
                     SettingsSection(
                       title: l10n.settingsDisplay,

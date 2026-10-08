@@ -21,6 +21,20 @@ void main() {
     expect(asked?.single.mimeTypes, ['application/json']);
   });
 
+  test('asks for the types it is given', () async {
+    List<XTypeGroup>? asked;
+    final service = LedgerFileService(
+      opener: (types) async {
+        asked = types;
+        return null;
+      },
+    );
+
+    await service.pick(types: const [LedgerFileService.rulesType]);
+
+    expect(asked?.single.extensions, ['rules', 'txt']);
+  });
+
   test('is ok with nothing when the user backs out', () async {
     final service = LedgerFileService(opener: (_) async => null);
 

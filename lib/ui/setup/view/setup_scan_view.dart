@@ -47,7 +47,7 @@ class _ScanningView extends StatelessWidget {
     final scanned = state.phase == SetupScanPhase.scanned;
     final found = state.found.length;
     return SetupScaffold(
-      step: 3,
+      step: 4,
       backLabel: l10n.setupScanCancel,
       footer: Align(
         alignment: AlignmentDirectional.centerEnd,

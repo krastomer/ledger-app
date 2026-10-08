@@ -29,7 +29,7 @@ class SetupPhotosView extends StatelessWidget {
       (SettingsCubit cubit) => cubit.state.settings.syncGallery,
     );
     return SetupScaffold(
-      step: 3,
+      step: 4,
       footer: Align(
         alignment: AlignmentDirectional.centerEnd,
         child: TuiButton.primary(

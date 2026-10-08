@@ -488,5 +488,66 @@
     }
   },
   "setupFoundSkip": "Skip",
-  "setupSaveFailed": "Couldn't set up the ledger"
+  "setupSaveFailed": "Couldn't set up the ledger",
+  "settingsRules": "Rules",
+  "rulesTitle": "Rules",
+  "rulesSourceTitle": "Source",
+  "rulesFile": "File",
+  "rulesLoaded": "Loaded",
+  "rulesSkipped": "Skipped",
+  "rulesNone": "(none)",
+  "rulesNoFile": "no rules file yet",
+  "rulesLoadedCount": "{count} loaded · view or replace",
+  "@rulesLoadedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesCount": "{count} loaded",
+  "@rulesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesViewOnly": "view-only · edit the file, then replace it",
+  "rulesReplaceNote": "a new file replaces every rule above",
+  "rulesFirstMatch": "first match wins, top to bottom",
+  "rulesReplaceAction": "Replace file",
+  "rulesChooseAction": "Choose file",
+  "rulesLoadFailed": "Couldn't read the saved rules",
+  "rulesFileFailed": "Couldn't open the file",
+  "rulesNoneFound": "No rules found in this file",
+  "rulesSaveFailed": "Couldn't save the rules",
+  "rulesSkippedLine": "line {line} skipped",
+  "@rulesSkippedLine": {
+    "placeholders": {
+      "line": {
+        "type": "int"
+      }
+    }
+  },
+  "rulesReasonBadRegex": "bad regex",
+  "rulesReasonMissingAccount": "no account2 line",
+  "rulesReasonUnknownField": "unknown field",
+  "rulesReasonUnknownDirective": "unknown directive",
+  "setupRulesFileTitle": "Rules file",
+  "setupRulesOptional": "optional",
+  "setupRulesFoundTitle": "Rules found",
+  "setupRulesFormatTitle": "File format · hledger style",
+  "setupRulesHintViewOnly": "rules are view-only in the app",
+  "setupRulesHintEdit": "to change them, edit the file and replace it",
+  "setupRulesHintOrder": "first match wins · hand-set categories are kept",
+  "setupRulesSkip": "Skip",
+  "setupRulesImport": "{count, plural, =1{Import 1 rule} other{Import {count} rules}}",
+  "@setupRulesImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
