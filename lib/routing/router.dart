@@ -144,6 +144,7 @@ GoRouter createRouter({String initialLocation = Routes.boot}) {
                 routes: [
                   GoRoute(
                     path: 'rules',
+                    parentNavigatorKey: rootKey,
                     builder: (context, state) => const RulesPage(),
                   ),
                 ],

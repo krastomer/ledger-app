@@ -13,7 +13,7 @@ Future<T?> pickChoice<T>(
   required List<(T, String)> options,
   bool searchable = false,
 }) {
-  return Navigator.of(context).push<T>(
+  return Navigator.of(context, rootNavigator: true).push<T>(
     MaterialPageRoute(
       builder: (context) => ChoicePage<T>(
         title: title,
