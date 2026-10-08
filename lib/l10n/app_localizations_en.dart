@@ -691,18 +691,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupSyncGalleryHint => 'find new slips in your photo library';
 
   @override
-  String get setupScopeScreenshots => 'Screenshots album';
-
-  @override
-  String get setupScopeScreenshotsHint => 'where bank apps save slips';
-
-  @override
-  String get setupScopeAll => 'All photos';
-
-  @override
-  String get setupScopeAllHint => 'scans everything, slower';
-
-  @override
   String get setupPhotosHint =>
       'Photos never leave the device. You can turn this on or off later in config.';
 
@@ -735,24 +723,6 @@ class AppLocalizationsEn extends AppLocalizations {
     final String countString = countNumberFormat.format(count);
 
     return '$countString photos in library';
-  }
-
-  @override
-  String setupScanToCheckScreenshots(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return '$countString screenshots to check';
-  }
-
-  @override
-  String setupScanToCheckAll(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return '$countString photos to check';
   }
 
   @override
@@ -950,4 +920,64 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String setupScanToCheck(int count) {
+    return '$count photos to check';
+  }
+
+  @override
+  String get setupAlbumsHeading =>
+      'pick where your slips are saved · it differs per phone';
+
+  @override
+  String get setupAlbumSuggested => 'suggested';
+
+  @override
+  String setupAlbumPhotos(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString photos';
+  }
+
+  @override
+  String get setupAlbumRecentsHint => 'everything, slower';
+
+  @override
+  String get setupAlbumScreenshotsHint => 'system album';
+
+  @override
+  String get setupAlbumSuggestedHint => 'named like a bank app';
+
+  @override
+  String get setupLookBack => 'Look back';
+
+  @override
+  String get setupLookBack30 => '30 days';
+
+  @override
+  String get setupLookBack90 => '90 days';
+
+  @override
+  String get setupLookBackAll => 'All time';
+
+  @override
+  String setupNothingPicked(String period) {
+    return 'nothing picked: Recents for the last $period';
+  }
+
+  @override
+  String get setupLimitedAccess =>
+      'limited access · only the photos you shared are listed';
+
+  @override
+  String get setupSelectMore => 'Select more';
+
+  @override
+  String get setupAlbumsLoading => 'reading albums...';
+
+  @override
+  String get setupAlbumsFailed => 'Couldn\'t read the albums';
 }

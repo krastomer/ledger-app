@@ -4,7 +4,7 @@ import 'package:ledger_app/data/repositories/gallery/gallery_repository.dart';
 import 'package:ledger_app/domain/models/found_slip.dart';
 import 'package:ledger_app/domain/models/gallery_access.dart';
 import 'package:ledger_app/domain/models/gallery_listing.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
+import 'package:ledger_app/domain/models/gallery_query.dart';
 import 'package:ledger_app/domain/use_cases/import_slip_use_case.dart';
 import 'package:ledger_app/utils/result.dart';
 
@@ -15,12 +15,12 @@ class SetupScanCubit extends Cubit<SetupScanState> {
   SetupScanCubit({
     required this._galleryRepository,
     required this._importSlip,
-    required this._scope,
+    required this._query,
   }) : super(const SetupScanState());
 
   final GalleryRepository _galleryRepository;
   final ImportSlipUseCase _importSlip;
-  final GallerySyncScope _scope;
+  final GalleryQuery _query;
 
   Future<void> scan() async {
     final access = await _galleryRepository.requestAccess();
@@ -33,7 +33,7 @@ class SetupScanCubit extends Cubit<SetupScanState> {
       case Ok():
         break;
     }
-    final listing = await _galleryRepository.list(_scope);
+    final listing = await _galleryRepository.list(_query);
     if (isClosed) return;
     switch (listing) {
       case Ok(:final value):

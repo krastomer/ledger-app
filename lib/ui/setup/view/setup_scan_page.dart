@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ledger_app/domain/models/gallery_query.dart';
 import 'package:ledger_app/domain/use_cases/import_slip_use_case.dart';
 import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 
@@ -20,7 +21,10 @@ class SetupScanPage extends StatelessWidget {
           ledgerRepository: context.read(),
           keepSlipImages: settings.keepSlipImages,
         ),
-        scope: settings.gallerySyncScope,
+        query: GalleryQuery(
+          albumIds: {...?settings.galleryAlbumIds},
+          lookBack: settings.galleryLookBack,
+        ),
       )..scan(),
       child: const SetupScanView(),
     );

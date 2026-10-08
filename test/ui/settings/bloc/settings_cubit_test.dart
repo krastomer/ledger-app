@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
+import 'package:ledger_app/domain/models/gallery_look_back.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/ui/settings/bloc/settings_cubit.dart';
 
@@ -103,19 +103,24 @@ void main() {
   );
 
   blocTest<SettingsCubit, SettingsState>(
-    'changes and saves gallery sync and its scope',
+    'changes and saves gallery sync, its albums and look-back',
     build: () =>
         SettingsCubit(repository: repository, initial: const AppSettings()),
     act: (cubit) async {
       await cubit.setSyncGallery(true);
-      await cubit.setGallerySyncScope(GallerySyncScope.all);
+      await cubit.setGalleryAlbumIds(['a', 'b']);
+      await cubit.setGalleryLookBack(GalleryLookBack.all);
     },
     expect: () => [
       const SettingsState(settings: AppSettings(syncGallery: true)),
       const SettingsState(
+        settings: AppSettings(syncGallery: true, galleryAlbumIds: ['a', 'b']),
+      ),
+      const SettingsState(
         settings: AppSettings(
           syncGallery: true,
-          gallerySyncScope: GallerySyncScope.all,
+          galleryAlbumIds: ['a', 'b'],
+          galleryLookBack: GalleryLookBack.all,
         ),
       ),
     ],
@@ -123,15 +128,17 @@ void main() {
       repository.saved,
       const AppSettings(
         syncGallery: true,
-        gallerySyncScope: GallerySyncScope.all,
+        galleryAlbumIds: ['a', 'b'],
+        galleryLookBack: GalleryLookBack.all,
       ),
     ),
   );
 
-  test('gallery sync is off and limited to screenshots by default', () {
+  test('gallery sync is off, has no albums chosen and looks back 90 days', () {
     const settings = AppSettings();
 
     expect(settings.syncGallery, isFalse);
-    expect(settings.gallerySyncScope, GallerySyncScope.screenshots);
+    expect(settings.galleryAlbumIds, isNull);
+    expect(settings.galleryLookBack, GalleryLookBack.days90);
   });
 }

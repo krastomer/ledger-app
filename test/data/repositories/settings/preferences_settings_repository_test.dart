@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/data/repositories/settings/preferences_settings_repository.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
+import 'package:ledger_app/domain/models/gallery_look_back.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/utils/result.dart';
 
@@ -31,7 +31,8 @@ void main() {
       showJournal: false,
       keepSlipImages: false,
       syncGallery: true,
-      gallerySyncScope: GallerySyncScope.all,
+      galleryAlbumIds: ['a', 'b'],
+      galleryLookBack: GalleryLookBack.all,
       setupComplete: true,
     );
 
@@ -47,7 +48,8 @@ void main() {
         values: {
           'settings.language': 'fr',
           'settings.yearEra': 'lunar',
-          'settings.gallerySyncScope': 'cloud',
+          'settings.galleryLookBack': 'cloud',
+          'settings.galleryAlbumIds': 'not json',
         },
       ),
     );
@@ -88,7 +90,7 @@ void main() {
     expect(preferences.values, {
       'settings.language': 'en',
       'settings.yearEra': 'buddhist',
-      'settings.gallerySyncScope': 'screenshots',
+      'settings.galleryLookBack': 'days90',
     });
     expect(preferences.flags, {
       'settings.hideOnLaunch': true,

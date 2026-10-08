@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:ledger_app/data/services/preferences_service.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
+import 'package:ledger_app/domain/models/gallery_look_back.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/utils/result.dart';
 
@@ -16,7 +18,8 @@ class PreferencesSettingsRepository implements SettingsRepository {
   static const _showJournalKey = 'settings.showJournal';
   static const _keepSlipImagesKey = 'settings.keepSlipImages';
   static const _syncGalleryKey = 'settings.syncGallery';
-  static const _gallerySyncScopeKey = 'settings.gallerySyncScope';
+  static const _galleryAlbumIdsKey = 'settings.galleryAlbumIds';
+  static const _galleryLookBackKey = 'settings.galleryLookBack';
   static const _setupCompleteKey = 'settings.setupComplete';
   static const _defaults = AppSettings();
 
@@ -31,7 +34,8 @@ class PreferencesSettingsRepository implements SettingsRepository {
       showJournal,
       keepSlipImages,
       syncGallery,
-      gallerySyncScope,
+      galleryAlbumIds,
+      galleryLookBack,
       setup,
     ) = await (
       _preferences.getString(_languageKey),
@@ -40,7 +44,8 @@ class PreferencesSettingsRepository implements SettingsRepository {
       _preferences.getBool(_showJournalKey),
       _preferences.getBool(_keepSlipImagesKey),
       _preferences.getBool(_syncGalleryKey),
-      _preferences.getString(_gallerySyncScopeKey),
+      _preferences.getString(_galleryAlbumIdsKey),
+      _preferences.getString(_galleryLookBackKey),
       _preferences.getBool(_setupCompleteKey),
     ).wait;
     final failure = _firstError([
@@ -50,7 +55,8 @@ class PreferencesSettingsRepository implements SettingsRepository {
       showJournal,
       keepSlipImages,
       syncGallery,
-      gallerySyncScope,
+      galleryAlbumIds,
+      galleryLookBack,
       setup,
     ]);
     if (failure != null) return Result.error(failure);
@@ -65,9 +71,10 @@ class PreferencesSettingsRepository implements SettingsRepository {
         showJournal: _valueOf(showJournal) ?? _defaults.showJournal,
         keepSlipImages: _valueOf(keepSlipImages) ?? _defaults.keepSlipImages,
         syncGallery: _valueOf(syncGallery) ?? _defaults.syncGallery,
-        gallerySyncScope:
-            GallerySyncScope.values.asNameMap()[_valueOf(gallerySyncScope)] ??
-            _defaults.gallerySyncScope,
+        galleryAlbumIds: _decodeIds(_valueOf(galleryAlbumIds)),
+        galleryLookBack:
+            GalleryLookBack.values.asNameMap()[_valueOf(galleryLookBack)] ??
+            _defaults.galleryLookBack,
         setupComplete: _valueOf(setup) ?? _defaults.setupComplete,
       ),
     );
@@ -82,14 +89,28 @@ class PreferencesSettingsRepository implements SettingsRepository {
       _preferences.setBool(_showJournalKey, settings.showJournal),
       _preferences.setBool(_keepSlipImagesKey, settings.keepSlipImages),
       _preferences.setBool(_syncGalleryKey, settings.syncGallery),
+      _saveAlbumIds(settings.galleryAlbumIds),
       _preferences.setString(
-        _gallerySyncScopeKey,
-        settings.gallerySyncScope.name,
+        _galleryLookBackKey,
+        settings.galleryLookBack.name,
       ),
       _preferences.setBool(_setupCompleteKey, settings.setupComplete),
     ]);
     final failure = _firstError(results);
     return failure == null ? const Result.ok(null) : Result.error(failure);
+  }
+
+  Future<Result<void>> _saveAlbumIds(List<String>? ids) => ids == null
+      ? Future.value(const Result.ok(null))
+      : _preferences.setString(_galleryAlbumIdsKey, jsonEncode(ids));
+
+  static List<String>? _decodeIds(String? text) {
+    if (text == null) return null;
+    try {
+      return (jsonDecode(text) as List<Object?>).whereType<String>().toList();
+    } on FormatException {
+      return null;
+    }
   }
 
   static Exception? _firstError(List<Result<Object?>> results) {

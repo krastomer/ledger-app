@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ledger_app/data/parsers/slip/parsed_slip.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
+import 'package:ledger_app/domain/models/gallery_query.dart';
 import 'package:ledger_app/domain/models/money.dart' as slip_money;
 import 'package:ledger_app/domain/models/slip.dart';
 import 'package:ledger_app/domain/models/slip_party.dart';
@@ -57,6 +57,9 @@ import 'package:ledger_app/ui/settings/widgets/settings_tile.dart';
 import 'package:ledger_app/ui/setup/bloc/setup_cubit.dart';
 import 'package:ledger_app/ui/setup/view/setup_import_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_new_view.dart';
+import 'package:ledger_app/domain/models/gallery_access.dart';
+import 'package:ledger_app/domain/models/gallery_album.dart';
+import 'package:ledger_app/ui/setup/bloc/setup_photos_cubit.dart';
 import 'package:ledger_app/ui/setup/view/setup_photos_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
@@ -358,16 +361,78 @@ void main() {
         await expectScreen('rules', language);
       }, variant: ios);
 
+      const albums = [
+        GalleryAlbum(
+          id: 'all',
+          name: 'Recents',
+          count: 1284,
+          kind: GalleryAlbumKind.recents,
+        ),
+        GalleryAlbum(
+          id: 'shots',
+          name: 'Screenshots',
+          count: 214,
+          kind: GalleryAlbumKind.screenshots,
+        ),
+        GalleryAlbum(
+          id: 'kplus',
+          name: 'K PLUS',
+          count: 38,
+          kind: GalleryAlbumKind.other,
+        ),
+        GalleryAlbum(
+          id: 'scb',
+          name: 'SCB EASY',
+          count: 12,
+          kind: GalleryAlbumKind.other,
+        ),
+      ];
+
+      Future<void> pumpPhotos(
+        WidgetTester tester,
+        AppLanguage language, {
+        required bool syncOn,
+        GalleryAccess access = GalleryAccess.granted,
+      }) async {
+        final cubit = SetupPhotosCubit(
+          galleryRepository: FakeGalleryRepository(
+            albums: albums,
+            access: Result.ok(access),
+          ),
+        );
+        addTearDown(cubit.close);
+        await pumpScreen(
+          tester,
+          language,
+          screenCubit: BlocProvider<SetupPhotosCubit>.value(value: cubit),
+          child: const SetupPhotosView(),
+        );
+        if (syncOn) {
+          await tester.tap(find.byType(SettingsSwitchTile));
+          await tester.pump();
+          await tester.pump();
+          await tester.pump();
+        }
+      }
+
       testWidgets('setup_photos', (tester) async {
-        await pumpScreen(tester, language, child: const SetupPhotosView());
+        await pumpPhotos(tester, language, syncOn: false);
         await expectScreen('setup_photos', language);
       }, variant: ios);
 
       testWidgets('setup_photos_sync', (tester) async {
-        await pumpScreen(tester, language, child: const SetupPhotosView());
-        await tester.tap(find.byType(SettingsSwitchTile));
-        await tester.pump();
+        await pumpPhotos(tester, language, syncOn: true);
         await expectScreen('setup_photos_sync', language);
+      }, variant: ios);
+
+      testWidgets('setup_photos_limited', (tester) async {
+        await pumpPhotos(
+          tester,
+          language,
+          syncOn: true,
+          access: GalleryAccess.limited,
+        );
+        await expectScreen('setup_photos_limited', language);
       }, variant: ios);
 
       testWidgets('setup_welcome', (tester) async {
@@ -450,7 +515,7 @@ void main() {
             ledgerRepository: ledger,
             now: () => today,
           ),
-          scope: GallerySyncScope.screenshots,
+          query: const GalleryQuery(),
         );
         addTearDown(cubit.close);
         await cubit.scan();

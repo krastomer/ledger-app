@@ -1298,30 +1298,6 @@ abstract class AppLocalizations {
   /// **'find new slips in your photo library'**
   String get setupSyncGalleryHint;
 
-  /// No description provided for @setupScopeScreenshots.
-  ///
-  /// In en, this message translates to:
-  /// **'Screenshots album'**
-  String get setupScopeScreenshots;
-
-  /// No description provided for @setupScopeScreenshotsHint.
-  ///
-  /// In en, this message translates to:
-  /// **'where bank apps save slips'**
-  String get setupScopeScreenshotsHint;
-
-  /// No description provided for @setupScopeAll.
-  ///
-  /// In en, this message translates to:
-  /// **'All photos'**
-  String get setupScopeAll;
-
-  /// No description provided for @setupScopeAllHint.
-  ///
-  /// In en, this message translates to:
-  /// **'scans everything, slower'**
-  String get setupScopeAllHint;
-
   /// No description provided for @setupPhotosHint.
   ///
   /// In en, this message translates to:
@@ -1375,18 +1351,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} photos in library'**
   String setupScanLibrary(int count);
-
-  /// No description provided for @setupScanToCheckScreenshots.
-  ///
-  /// In en, this message translates to:
-  /// **'{count} screenshots to check'**
-  String setupScanToCheckScreenshots(int count);
-
-  /// No description provided for @setupScanToCheckAll.
-  ///
-  /// In en, this message translates to:
-  /// **'{count} photos to check'**
-  String setupScanToCheckAll(int count);
 
   /// No description provided for @setupScanRead.
   ///
@@ -1699,6 +1663,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{Import 1 rule} other{Import {count} rules}}'**
   String setupRulesImport(int count);
+
+  /// No description provided for @setupScanToCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} photos to check'**
+  String setupScanToCheck(int count);
+
+  /// No description provided for @setupAlbumsHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'pick where your slips are saved · it differs per phone'**
+  String get setupAlbumsHeading;
+
+  /// No description provided for @setupAlbumSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'suggested'**
+  String get setupAlbumSuggested;
+
+  /// No description provided for @setupAlbumPhotos.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} photos'**
+  String setupAlbumPhotos(int count);
+
+  /// No description provided for @setupAlbumRecentsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'everything, slower'**
+  String get setupAlbumRecentsHint;
+
+  /// No description provided for @setupAlbumScreenshotsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'system album'**
+  String get setupAlbumScreenshotsHint;
+
+  /// No description provided for @setupAlbumSuggestedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'named like a bank app'**
+  String get setupAlbumSuggestedHint;
+
+  /// No description provided for @setupLookBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Look back'**
+  String get setupLookBack;
+
+  /// No description provided for @setupLookBack30.
+  ///
+  /// In en, this message translates to:
+  /// **'30 days'**
+  String get setupLookBack30;
+
+  /// No description provided for @setupLookBack90.
+  ///
+  /// In en, this message translates to:
+  /// **'90 days'**
+  String get setupLookBack90;
+
+  /// No description provided for @setupLookBackAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All time'**
+  String get setupLookBackAll;
+
+  /// No description provided for @setupNothingPicked.
+  ///
+  /// In en, this message translates to:
+  /// **'nothing picked: Recents for the last {period}'**
+  String setupNothingPicked(String period);
+
+  /// No description provided for @setupLimitedAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'limited access · only the photos you shared are listed'**
+  String get setupLimitedAccess;
+
+  /// No description provided for @setupSelectMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Select more'**
+  String get setupSelectMore;
+
+  /// No description provided for @setupAlbumsLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'reading albums...'**
+  String get setupAlbumsLoading;
+
+  /// No description provided for @setupAlbumsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read the albums'**
+  String get setupAlbumsFailed;
 }
 
 class _AppLocalizationsDelegate

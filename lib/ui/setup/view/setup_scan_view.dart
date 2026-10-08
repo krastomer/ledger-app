@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
 import 'package:ledger_app/routing/routes.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
@@ -105,9 +104,6 @@ class _ScanLog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final scope = context.select(
-      (SettingsCubit cubit) => cubit.state.settings.gallerySyncScope,
-    );
     final scanning = state.phase == SetupScanPhase.scanning;
     final scanned = state.phase == SetupScanPhase.scanned;
     return Column(
@@ -132,12 +128,7 @@ class _ScanLog extends StatelessWidget {
           ),
           SetupLogLine(
             level: SetupLogLevel.ok,
-            text: switch (scope) {
-              GallerySyncScope.screenshots => l10n.setupScanToCheckScreenshots(
-                state.toCheck,
-              ),
-              GallerySyncScope.all => l10n.setupScanToCheckAll(state.toCheck),
-            },
+            text: l10n.setupScanToCheck(state.toCheck),
           ),
           SetupLogLine(
             level: scanning ? SetupLogLevel.working : SetupLogLevel.ok,

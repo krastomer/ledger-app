@@ -1,7 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/domain/models/gallery_access.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
+import 'package:ledger_app/domain/models/gallery_look_back.dart';
+import 'package:ledger_app/domain/models/gallery_query.dart';
 import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/domain/use_cases/import_slip_use_case.dart';
 import 'package:ledger_app/ui/setup/bloc/setup_scan_cubit.dart';
@@ -34,7 +35,7 @@ void main() {
   SetupScanCubit build({
     FakeGalleryRepository? gallery,
     FakeLedgerRepository? ledgerRepository,
-    GallerySyncScope scope = GallerySyncScope.screenshots,
+    GalleryQuery query = const GalleryQuery(),
   }) => SetupScanCubit(
     galleryRepository:
         gallery ??
@@ -61,7 +62,7 @@ void main() {
       ledgerRepository: ledgerRepository ?? ledger,
       now: () => fixtureToday,
     ),
-    scope: scope,
+    query: query,
   );
 
   group('scan', () {
@@ -107,14 +108,18 @@ void main() {
       verify: (cubit) => expect(cubit.state.found, hasLength(1)),
     );
 
-    test('lists the photos in the chosen scope', () async {
+    test('lists the photos in the chosen albums and period', () async {
       final gallery = FakeGalleryRepository();
-      final cubit = build(gallery: gallery, scope: GallerySyncScope.all);
+      const query = GalleryQuery(
+        albumIds: {'shots'},
+        lookBack: GalleryLookBack.days30,
+      );
+      final cubit = build(gallery: gallery, query: query);
       addTearDown(cubit.close);
 
       await cubit.scan();
 
-      expect(gallery.listedScope, GallerySyncScope.all);
+      expect(gallery.listedQuery, query);
     });
 
     test('keeps slips and skips what is not a new slip', () async {

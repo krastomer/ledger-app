@@ -387,10 +387,6 @@
   "setupPhotosTitle": "Slip photos",
   "setupSyncGallery": "Sync gallery",
   "setupSyncGalleryHint": "find new slips in your photo library",
-  "setupScopeScreenshots": "Screenshots album",
-  "setupScopeScreenshotsHint": "where bank apps save slips",
-  "setupScopeAll": "All photos",
-  "setupScopeAllHint": "scans everything, slower",
   "setupPhotosHint": "Photos never leave the device. You can turn this on or off later in config.",
   "setupFinish": "Finish",
   "setupHowTitle": "How it works",
@@ -401,24 +397,6 @@
   "setupScanScanning": "Scanning...",
   "setupScanLibrary": "{count} photos in library",
   "@setupScanLibrary": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "decimalPattern"
-      }
-    }
-  },
-  "setupScanToCheckScreenshots": "{count} screenshots to check",
-  "@setupScanToCheckScreenshots": {
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "decimalPattern"
-      }
-    }
-  },
-  "setupScanToCheckAll": "{count} photos to check",
-  "@setupScanToCheckAll": {
     "placeholders": {
       "count": {
         "type": "int",
@@ -549,5 +527,43 @@
         "type": "int"
       }
     }
-  }
+  },
+  "setupScanToCheck": "{count} photos to check",
+  "@setupScanToCheck": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setupAlbumsHeading": "pick where your slips are saved · it differs per phone",
+  "setupAlbumSuggested": "suggested",
+  "setupAlbumPhotos": "{count} photos",
+  "@setupAlbumPhotos": {
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "decimalPattern"
+      }
+    }
+  },
+  "setupAlbumRecentsHint": "everything, slower",
+  "setupAlbumScreenshotsHint": "system album",
+  "setupAlbumSuggestedHint": "named like a bank app",
+  "setupLookBack": "Look back",
+  "setupLookBack30": "30 days",
+  "setupLookBack90": "90 days",
+  "setupLookBackAll": "All time",
+  "setupNothingPicked": "nothing picked: Recents for the last {period}",
+  "@setupNothingPicked": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "setupLimitedAccess": "limited access · only the photos you shared are listed",
+  "setupSelectMore": "Select more",
+  "setupAlbumsLoading": "reading albums...",
+  "setupAlbumsFailed": "Couldn't read the albums"
 }

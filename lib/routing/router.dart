@@ -15,7 +15,7 @@ import 'package:ledger_app/ui/rules/view/rules_page.dart';
 import 'package:ledger_app/ui/settings/view/settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_import_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_new_page.dart';
-import 'package:ledger_app/ui/setup/view/setup_photos_view.dart';
+import 'package:ledger_app/ui/setup/view/setup_photos_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_rules_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_scan_page.dart';
 import 'package:ledger_app/ui/setup/view/setup_settings_view.dart';
@@ -55,7 +55,7 @@ GoRouter createRouter({String initialLocation = Routes.boot}) {
           ),
           GoRoute(
             path: 'photos',
-            builder: (context, state) => const SetupPhotosView(),
+            builder: (context, state) => const SetupPhotosPage(),
           ),
           GoRoute(
             path: 'scan',

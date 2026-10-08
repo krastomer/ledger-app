@@ -10,14 +10,12 @@ import 'package:ledger_app/domain/models/account.dart';
 import 'package:ledger_app/domain/models/account_type.dart';
 import 'package:ledger_app/domain/models/app_language.dart';
 import 'package:ledger_app/domain/models/app_settings.dart';
-import 'package:ledger_app/domain/models/gallery_sync_scope.dart';
 import 'package:ledger_app/domain/models/year_era.dart';
 import 'package:ledger_app/domain/models/ledger_import_draft.dart';
 import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/ui/setup/bloc/setup_cubit.dart';
 import 'package:ledger_app/ui/setup/view/setup_import_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_new_view.dart';
-import 'package:ledger_app/ui/setup/view/setup_photos_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_settings_view.dart';
 import 'package:ledger_app/ui/setup/view/setup_welcome_view.dart';
 import 'package:ledger_app/utils/result.dart';
@@ -157,98 +155,6 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('start page'), findsOneWidget);
-    });
-  });
-
-  group('SetupPhotosView', () {
-    Future<void> pumpPhotos(WidgetTester tester) async {
-      final router = GoRouter(
-        routes: [
-          GoRoute(path: '/', builder: (_, _) => const Text('home')),
-          GoRoute(
-            path: '/setup/photos',
-            builder: (_, _) => const SetupPhotosView(),
-          ),
-        ],
-        initialLocation: '/setup/photos',
-      );
-      addTearDown(router.dispose);
-      await pumpApp(tester, router: router, settingsRepository: settings);
-      await tester.pumpAndSettle();
-    }
-
-    testWidgets('leaves the gallery off and hides the scope by default', (
-      tester,
-    ) async {
-      await pumpPhotos(tester);
-
-      expect(find.text('step 4/4'), findsOneWidget);
-      expect(find.text('screenshots album'), findsNothing);
-      expect(find.text('all photos'), findsNothing);
-    });
-
-    testWidgets('ticking sync_gallery shows and saves the scope choice', (
-      tester,
-    ) async {
-      await pumpPhotos(tester);
-
-      await tester.tap(find.textContaining('sync_gallery', findRichText: true));
-      await tester.pumpAndSettle();
-      expect(settings.saved.syncGallery, isTrue);
-      expect(find.text('screenshots album'), findsOneWidget);
-
-      await tester.tap(find.text('all photos'));
-      await tester.pumpAndSettle();
-      expect(settings.saved.gallerySyncScope, GallerySyncScope.all);
-    });
-
-    testWidgets('shows how the scan works once the gallery is on', (
-      tester,
-    ) async {
-      await pumpPhotos(tester);
-      expect(find.text('how it works'), findsNothing);
-
-      await tester.tap(find.textContaining('sync_gallery', findRichText: true));
-      await tester.pumpAndSettle();
-
-      expect(find.text('how it works'), findsOneWidget);
-    });
-
-    testWidgets('with the gallery on, scan photos opens the scan', (
-      tester,
-    ) async {
-      final router = GoRouter(
-        routes: [
-          GoRoute(path: '/', builder: (_, _) => const Text('home')),
-          GoRoute(
-            path: '/setup/photos',
-            builder: (_, _) => const SetupPhotosView(),
-          ),
-          GoRoute(path: '/setup/scan', builder: (_, _) => const Text('scan')),
-        ],
-        initialLocation: '/setup/photos',
-      );
-      addTearDown(router.dispose);
-      await pumpApp(tester, router: router, settingsRepository: settings);
-      await tester.pumpAndSettle();
-      await tester.tap(find.textContaining('sync_gallery', findRichText: true));
-      await tester.pumpAndSettle();
-
-      await tester.tap(find.text('< scan photos >'));
-      await tester.pumpAndSettle();
-
-      expect(find.text('scan'), findsOneWidget);
-      expect(settings.saved.setupComplete, isFalse);
-    });
-
-    testWidgets('finish completes setup and opens Home', (tester) async {
-      await pumpPhotos(tester);
-
-      await tester.tap(find.text('< finish >'));
-      await tester.pumpAndSettle();
-
-      expect(settings.saved.setupComplete, isTrue);
-      expect(find.text('home'), findsOneWidget);
     });
   });
 

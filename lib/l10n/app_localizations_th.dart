@@ -680,18 +680,6 @@ class AppLocalizationsTh extends AppLocalizations {
   String get setupSyncGalleryHint => 'หาสลิปใหม่ในคลังรูปของคุณ';
 
   @override
-  String get setupScopeScreenshots => 'อัลบั้มภาพหน้าจอ';
-
-  @override
-  String get setupScopeScreenshotsHint => 'ที่แอปธนาคารเก็บสลิป';
-
-  @override
-  String get setupScopeAll => 'ทุกรูป';
-
-  @override
-  String get setupScopeAllHint => 'สแกนทุกรูป ช้ากว่า';
-
-  @override
   String get setupPhotosHint =>
       'รูปไม่ออกจากเครื่อง เปิดหรือปิดภายหลังได้ในการตั้งค่า';
 
@@ -724,24 +712,6 @@ class AppLocalizationsTh extends AppLocalizations {
     final String countString = countNumberFormat.format(count);
 
     return 'มี $countString รูปในคลังรูป';
-  }
-
-  @override
-  String setupScanToCheckScreenshots(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return '$countString ภาพหน้าจอที่ต้องตรวจ';
-  }
-
-  @override
-  String setupScanToCheckAll(int count) {
-    final intl.NumberFormat countNumberFormat =
-        intl.NumberFormat.decimalPattern(localeName);
-    final String countString = countNumberFormat.format(count);
-
-    return '$countString รูปที่ต้องตรวจ';
   }
 
   @override
@@ -931,4 +901,63 @@ class AppLocalizationsTh extends AppLocalizations {
   String setupRulesImport(int count) {
     return 'นำเข้า $count กฎ';
   }
+
+  @override
+  String setupScanToCheck(int count) {
+    return '$count รูปที่ต้องตรวจ';
+  }
+
+  @override
+  String get setupAlbumsHeading =>
+      'เลือกที่ที่คุณเก็บสลิป · แต่ละเครื่องไม่เหมือนกัน';
+
+  @override
+  String get setupAlbumSuggested => 'แนะนำ';
+
+  @override
+  String setupAlbumPhotos(int count) {
+    final intl.NumberFormat countNumberFormat =
+        intl.NumberFormat.decimalPattern(localeName);
+    final String countString = countNumberFormat.format(count);
+
+    return '$countString รูป';
+  }
+
+  @override
+  String get setupAlbumRecentsHint => 'ทุกรูป ช้ากว่า';
+
+  @override
+  String get setupAlbumScreenshotsHint => 'อัลบั้มของระบบ';
+
+  @override
+  String get setupAlbumSuggestedHint => 'ชื่อคล้ายแอปธนาคาร';
+
+  @override
+  String get setupLookBack => 'ย้อนหลัง';
+
+  @override
+  String get setupLookBack30 => '30 วัน';
+
+  @override
+  String get setupLookBack90 => '90 วัน';
+
+  @override
+  String get setupLookBackAll => 'ทั้งหมด';
+
+  @override
+  String setupNothingPicked(String period) {
+    return 'ไม่ได้เลือก: ใช้ Recents ย้อนหลัง $period';
+  }
+
+  @override
+  String get setupLimitedAccess => 'เข้าถึงจำกัด · แสดงเฉพาะรูปที่คุณแชร์ให้';
+
+  @override
+  String get setupSelectMore => 'เลือกเพิ่ม';
+
+  @override
+  String get setupAlbumsLoading => 'กำลังอ่านอัลบั้ม...';
+
+  @override
+  String get setupAlbumsFailed => 'อ่านอัลบั้มไม่ได้';
 }

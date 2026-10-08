@@ -96,7 +96,7 @@ void main() {
       await pumpScan(tester);
 
       expect(find.textContaining('1,284 photos in library'), findsOneWidget);
-      expect(find.textContaining('214 screenshots to check'), findsOneWidget);
+      expect(find.textContaining('214 photos to check'), findsOneWidget);
       expect(find.textContaining('read text from 80 of 214'), findsOneWidget);
       expect(find.text('step 4/4'), findsOneWidget);
       expect(find.text('< scanning... >'), findsOneWidget);
