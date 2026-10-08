@@ -48,4 +48,30 @@ void main() {
   test('fails for an unknown id', () async {
     expect(await edit.markCleared('nope'), isA<Error<void>>());
   });
+
+  test('reports which entry was missing', () async {
+    final result = await edit.recategorize('nope', from: 'a', to: 'b');
+
+    expect(
+      (result as Error<void>).error,
+      isA<TransactionNotFoundException>().having((e) => e.id, 'id', 'nope'),
+    );
+  });
+
+  test('leaves other postings on an entry alone when recategorizing', () async {
+    await edit.recategorize('lunch', from: 'Expenses:Food:Lunch', to: 'X:Y');
+
+    final lunch = repository.transactions.firstWhere((t) => t.id == 'lunch');
+    expect(lunch.postings.last.account, 'Assets:Bank:KBank');
+    expect(lunch.isBalanced, isTrue);
+  });
+
+  test('passes a ledger failure on', () async {
+    final failing = EditTransactionUseCase(
+      ledgerRepository: FakeLedgerRepository(error: Exception('disk')),
+    );
+
+    expect(await failing.markCleared('rent'), isA<Error<void>>());
+    expect(await failing.delete('rent'), isA<Error<void>>());
+  });
 }

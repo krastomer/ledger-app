@@ -188,10 +188,15 @@ class _RowContent extends StatelessWidget {
           ),
           SizedBox(
             width: _shareWidth,
-            child: Text(
-              share == null ? '' : formatPerMille(share),
-              textAlign: TextAlign.end,
-              style: TextStyle(color: scheme.onSurfaceVariant),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerEnd,
+              child: Text(
+                share == null ? '' : formatPerMille(share),
+                maxLines: 1,
+                softWrap: false,
+                style: TextStyle(color: scheme.onSurfaceVariant),
+              ),
             ),
           ),
           SizedBox(

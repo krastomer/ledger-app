@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ledger_app/data/repositories/ledger/hledger_ledger_repository.dart';
 import 'package:ledger_app/data/services/ledger_asset_service.dart';
+import 'package:ledger_app/data/parsers/hledger/parsed_ledger.dart';
+import 'package:ledger_app/domain/models/account.dart';
 import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/utils/result.dart';
 
@@ -169,5 +171,34 @@ void main() {
       (await repository.getTransactions() as Ok<List<LedgerTransaction>>).value,
       isEmpty,
     );
+  });
+
+  test('describes an unreadable export by how many problems it has', () {
+    const exception = LedgerImportException([
+      LedgerIssue(kind: LedgerIssueKind.malformed),
+      LedgerIssue(entry: 3, kind: LedgerIssueKind.badAmount),
+    ]);
+
+    expect(exception.toString(), 'LedgerImportException(2 issues)');
+  });
+
+  test('fails to list accounts when the export cannot be read', () async {
+    final repository = HledgerLedgerRepository(
+      source: _FakeLedgerSource(Result.error(Exception('missing'))),
+    );
+
+    expect(await repository.getAccounts(), isA<Error<List<Account>>>());
+  });
+
+  test('retries reading after a failure', () async {
+    final source = _FakeLedgerSource(Result.error(Exception('missing')));
+    final repository = HledgerLedgerRepository(source: source);
+
+    await repository.getTransactions();
+    source.result = Result.ok(export);
+    final retried = await repository.getTransactions();
+
+    expect(retried, isA<Ok<List<LedgerTransaction>>>());
+    expect(source.reads, 2);
   });
 }

@@ -1,6 +1,7 @@
 import 'package:ledger_app/data/parsers/slip/parsed_slip.dart';
 import 'package:ledger_app/data/repositories/ledger/ledger_repository.dart';
 import 'package:ledger_app/data/repositories/slip/slip_repository.dart';
+import 'package:ledger_app/domain/models/ledger_book.dart';
 import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/domain/models/money.dart' as slip_money;
 import 'package:ledger_app/domain/models/posting.dart';
@@ -60,8 +61,7 @@ class ImportSlipUseCase {
     final reference = slip.reference;
     final description = _description(slip);
     final source = _sourceAccount(slip.source);
-    final newestFirst = ledger.reversed.toList()
-      ..sort((a, b) => b.date.compareTo(a.date));
+    final newestFirst = LedgerBook.sortNewestFirst(ledger);
     final samePayee = newestFirst
         .where((t) => t.description == description && t.postings.length >= 2)
         .firstOrNull;

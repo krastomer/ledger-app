@@ -37,6 +37,7 @@ class TransactionDetailCubit extends Cubit<TransactionDetailState> {
   }
 
   Future<void> confirm() async {
+    emit(state.copyWith(error: null));
     final result = await _editTransaction.markCleared(id);
     if (isClosed) return;
     if (result is Error<void>) {
@@ -47,6 +48,7 @@ class TransactionDetailCubit extends Cubit<TransactionDetailState> {
   }
 
   Future<void> delete() async {
+    emit(state.copyWith(error: null));
     final result = await _editTransaction.delete(id);
     if (isClosed) return;
     emit(

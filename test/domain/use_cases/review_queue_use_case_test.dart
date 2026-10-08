@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ledger_app/domain/models/ledger_book.dart';
 import 'package:ledger_app/domain/models/ledger_transaction.dart';
 import 'package:ledger_app/domain/models/review_item.dart';
 import 'package:ledger_app/domain/use_cases/review_queue_use_case.dart';
@@ -75,5 +76,46 @@ void main() {
       ReviewReason.duplicate,
       ReviewReason.uncategorized,
     ]);
+  });
+
+  test('fails when the ledger cannot be read', () async {
+    final result = await ReviewQueueUseCase(
+      ledgerRepository: FakeLedgerRepository(error: Exception('disk')),
+    )();
+
+    expect(result, isA<Error<List<ReviewItem>>>());
+  });
+
+  test('counts the same entries it lists', () async {
+    final extra = [
+      fixtureTransaction('mystery', DateTime(2026, 9, 29), {
+        'Expenses:Unknown': thb(100),
+        'Assets:Bank:KBank': thb(-100),
+      }),
+      fixtureTransaction('bts again', DateTime(2026, 9, 28), {
+        'Expenses:Transport': thb(5000),
+        'Liabilities:Credit card': thb(-5000),
+      }),
+    ];
+    final items = await queueFor(extra);
+
+    final book = LedgerBook(
+      accounts: fixtureAccounts,
+      transactions: [...fixtureTransactions, ...extra],
+    );
+
+    expect(book.reviewCount(), items.length);
+  });
+
+  test('relays ledger changes', () async {
+    final ledger = FakeLedgerRepository(
+      accounts: fixtureAccounts,
+      transactions: fixtureTransactions,
+    );
+    final next = ReviewQueueUseCase(ledgerRepository: ledger).changes.first;
+
+    await ledger.delete('bts');
+
+    await expectLater(next, completes);
   });
 }

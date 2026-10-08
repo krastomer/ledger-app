@@ -17,14 +17,16 @@ class TuiShade extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return ExcludeSemantics(
-      child: CustomPaint(
-        painter: _ShadePainter(
-          level: level,
-          cellWidth: measureTuiCell(context).width,
-          color:
-              color ?? (level > 0 ? scheme.onSurface : scheme.outlineVariant),
+      child: RepaintBoundary(
+        child: CustomPaint(
+          painter: _ShadePainter(
+            level: level,
+            cellWidth: measureTuiCell(context).width,
+            color:
+                color ?? (level > 0 ? scheme.onSurface : scheme.outlineVariant),
+          ),
+          child: const SizedBox.expand(),
         ),
-        child: const SizedBox.expand(),
       ),
     );
   }

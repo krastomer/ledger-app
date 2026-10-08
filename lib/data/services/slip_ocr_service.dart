@@ -24,13 +24,16 @@ class SlipOcrService {
 
   Future<Result<List<OcrLine>>> recognize(String imagePath) async {
     try {
-      final lines = await _channel.invokeListMethod<Map<Object?, Object?>>(
+      final lines = await _channel.invokeListMethod<Object?>(
         'recognize',
         imagePath,
       );
       return Result.ok([
-        for (final map in lines ?? const <Map<Object?, Object?>>[])
-          OcrLine.fromMap(map),
+        for (final line in lines ?? const <Object?>[])
+          switch (line) {
+            final Map<Object?, Object?> map => OcrLine.fromMap(map),
+            _ => throw const FormatException('Unexpected OCR line'),
+          },
       ]);
     } on MissingPluginException {
       return Result.error(
@@ -38,6 +41,8 @@ class SlipOcrService {
       );
     } on PlatformException catch (e) {
       return Result.error(Exception('Slip OCR failed (${e.code})'));
+    } on FormatException {
+      return Result.error(Exception('Slip OCR returned unexpected data'));
     }
   }
 }

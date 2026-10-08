@@ -21,58 +21,68 @@ class PreferencesSettingsRepository implements SettingsRepository {
 
   @override
   Future<Result<AppSettings>> load() async {
-    final texts = <String, String?>{};
-    for (final key in [_languageKey, _yearEraKey]) {
-      switch (await _preferences.getString(key)) {
-        case Ok(:final value):
-          texts[key] = value;
-        case Error(:final error):
-          return Result.error(error);
-      }
-    }
-    final flags = <String, bool?>{};
-    for (final key in [
-      _hideOnLaunchKey,
-      _showJournalKey,
-      _keepSlipImagesKey,
-      _setupCompleteKey,
-    ]) {
-      switch (await _preferences.getBool(key)) {
-        case Ok(:final value):
-          flags[key] = value;
-        case Error(:final error):
-          return Result.error(error);
-      }
-    }
+    final (
+      language,
+      yearEra,
+      hideOnLaunch,
+      showJournal,
+      keepSlipImages,
+      setup,
+    ) = await (
+      _preferences.getString(_languageKey),
+      _preferences.getString(_yearEraKey),
+      _preferences.getBool(_hideOnLaunchKey),
+      _preferences.getBool(_showJournalKey),
+      _preferences.getBool(_keepSlipImagesKey),
+      _preferences.getBool(_setupCompleteKey),
+    ).wait;
+    final failure = _firstError([
+      language,
+      yearEra,
+      hideOnLaunch,
+      showJournal,
+      keepSlipImages,
+      setup,
+    ]);
+    if (failure != null) return Result.error(failure);
     return Result.ok(
       AppSettings(
         language:
-            AppLanguage.values.asNameMap()[texts[_languageKey]] ??
+            AppLanguage.values.asNameMap()[_valueOf(language)] ??
             _defaults.language,
         yearEra:
-            YearEra.values.asNameMap()[texts[_yearEraKey]] ?? _defaults.yearEra,
-        hideOnLaunch: flags[_hideOnLaunchKey] ?? _defaults.hideOnLaunch,
-        showJournal: flags[_showJournalKey] ?? _defaults.showJournal,
-        keepSlipImages: flags[_keepSlipImagesKey] ?? _defaults.keepSlipImages,
-        setupComplete: flags[_setupCompleteKey] ?? _defaults.setupComplete,
+            YearEra.values.asNameMap()[_valueOf(yearEra)] ?? _defaults.yearEra,
+        hideOnLaunch: _valueOf(hideOnLaunch) ?? _defaults.hideOnLaunch,
+        showJournal: _valueOf(showJournal) ?? _defaults.showJournal,
+        keepSlipImages: _valueOf(keepSlipImages) ?? _defaults.keepSlipImages,
+        setupComplete: _valueOf(setup) ?? _defaults.setupComplete,
       ),
     );
   }
 
   @override
   Future<Result<void>> save(AppSettings settings) async {
-    final writes = [
-      () => _preferences.setString(_languageKey, settings.language.name),
-      () => _preferences.setString(_yearEraKey, settings.yearEra.name),
-      () => _preferences.setBool(_hideOnLaunchKey, settings.hideOnLaunch),
-      () => _preferences.setBool(_showJournalKey, settings.showJournal),
-      () => _preferences.setBool(_keepSlipImagesKey, settings.keepSlipImages),
-      () => _preferences.setBool(_setupCompleteKey, settings.setupComplete),
-    ];
-    for (final write in writes) {
-      final result = await write();
-      if (result is Error<void>) return result;
-    }
-    return const Result.ok(null);
+    final results = await Future.wait([
+      _preferences.setString(_languageKey, settings.language.name),
+      _preferences.setString(_yearEraKey, settings.yearEra.name),
+      _preferences.setBool(_hideOnLaunchKey, settings.hideOnLaunch),
+      _preferences.setBool(_showJournalKey, settings.showJournal),
+      _preferences.setBool(_keepSlipImagesKey, settings.keepSlipImages),
+      _preferences.setBool(_setupCompleteKey, settings.setupComplete),
+    ]);
+    final failure = _firstError(results);
+    return failure == null ? const Result.ok(null) : Result.error(failure);
   }
+
+  static Exception? _firstError(List<Result<Object?>> results) {
+    for (final result in results) {
+      if (result case Error(:final error)) return error;
+    }
+    return null;
+  }
+
+  static T? _valueOf<T>(Result<T?> result) => switch (result) {
+    Ok(:final value) => value,
+    Error() => null,
+  };
 }

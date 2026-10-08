@@ -66,7 +66,7 @@ class _Ledger {
           .take(HomeSummaryUseCase.recentCount)
           .map(_book.summarize)
           .toList(),
-      reviewCount: _book.reviewItems().length,
+      reviewCount: _book.reviewCount(),
     );
   }
 

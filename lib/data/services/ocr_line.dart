@@ -13,14 +13,27 @@ class OcrLine {
   });
 
   /// Reads one entry of the `recognize` result (see [SlipOcrService]).
-  factory OcrLine.fromMap(Map<Object?, Object?> map) => OcrLine(
-    text: map['text'] as String,
-    confidence: (map['confidence'] as num).toDouble(),
-    x: (map['x'] as num).toDouble(),
-    y: (map['y'] as num).toDouble(),
-    width: (map['width'] as num).toDouble(),
-    height: (map['height'] as num).toDouble(),
-  );
+  /// Throws a [FormatException] when a key is missing or of the wrong type.
+  factory OcrLine.fromMap(Map<Object?, Object?> map) {
+    if (map case {
+      'text': final String text,
+      'confidence': final num confidence,
+      'x': final num x,
+      'y': final num y,
+      'width': final num width,
+      'height': final num height,
+    }) {
+      return OcrLine(
+        text: text,
+        confidence: confidence.toDouble(),
+        x: x.toDouble(),
+        y: y.toDouble(),
+        width: width.toDouble(),
+        height: height.toDouble(),
+      );
+    }
+    throw const FormatException('Unexpected OCR line');
+  }
 
   final String text;
 

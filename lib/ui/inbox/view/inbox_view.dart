@@ -115,9 +115,10 @@ class _QueuePanel extends StatelessWidget {
     final theme = Theme.of(context);
     final state = context.watch<InboxCubit>().state;
     final open = state.openItems;
+    final openIds = {for (final item in open) item.transaction.id};
     final resolved = [
       for (final item in state.resolved)
-        if (!open.contains(item)) item,
+        if (!openIds.contains(item.transaction.id)) item,
     ];
     final tiles = [
       for (final item in open) _OpenTile(item: item),

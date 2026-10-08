@@ -24,9 +24,11 @@ abstract class LedgerImportDraft with _$LedgerImportDraft {
 
   int get unbalancedCount => transactions.where((t) => !t.isBalanced).length;
 
-  DateTime? get firstDate => _dates.firstOrNull;
+  DateTime? get firstDate => transactions.isEmpty
+      ? null
+      : transactions.map((t) => t.date).reduce((a, b) => a.isBefore(b) ? a : b);
 
-  DateTime? get lastDate => _dates.lastOrNull;
-
-  List<DateTime> get _dates => [for (final t in transactions) t.date]..sort();
+  DateTime? get lastDate => transactions.isEmpty
+      ? null
+      : transactions.map((t) => t.date).reduce((a, b) => a.isAfter(b) ? a : b);
 }

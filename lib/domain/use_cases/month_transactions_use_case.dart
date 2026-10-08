@@ -6,6 +6,7 @@ import 'package:ledger_app/domain/models/month_transactions.dart';
 import 'package:ledger_app/domain/models/transaction_day.dart';
 import 'package:ledger_app/domain/models/transaction_filter.dart';
 import 'package:ledger_app/domain/models/transaction_status.dart';
+import 'package:ledger_app/domain/models/transaction_summary.dart';
 import 'package:ledger_app/utils/result.dart';
 
 class MonthTransactionsUseCase {
@@ -52,9 +53,8 @@ class MonthTransactionsUseCase {
     final monthTransactions = book.inMonth(month);
     final income = -book.sum(monthTransactions, AccountType.income);
     final expenses = book.sum(monthTransactions, AccountType.expense);
-    final matching = monthTransactions.where(
-      (t) => _matches(t, _terms(filter.query), filter),
-    );
+    final terms = _terms(filter.query);
+    final matching = monthTransactions.where((t) => _matches(t, terms, filter));
     return MonthTransactions(
       month: month,
       earliestMonth: book.earliestMonth ?? DateTime(today.year, today.month),
@@ -71,28 +71,25 @@ class MonthTransactionsUseCase {
     Iterable<LedgerTransaction> transactions,
     DateTime today,
   ) {
-    final days = <TransactionDay>[];
+    final byDate = <DateTime, List<TransactionSummary>>{};
     for (final t in book.newestFirst(transactions)) {
-      final summary = book.summarize(t);
-      if (days.isNotEmpty && days.last.date == t.date) {
-        final last = days.removeLast();
-        days.add(last.copyWith(transactions: [...last.transactions, summary]));
-      } else {
-        days.add(
-          TransactionDay(
-            date: t.date,
-            isToday: t.date == today,
-            transactions: [summary],
-          ),
-        );
-      }
+      byDate.putIfAbsent(t.date, () => []).add(book.summarize(t));
     }
-    return days;
+    return [
+      for (final MapEntry(key: date, value: summaries) in byDate.entries)
+        TransactionDay(
+          date: date,
+          isToday: date == today,
+          transactions: summaries,
+        ),
+    ];
   }
+
+  static final _whitespace = RegExp(r'\s+');
 
   List<String> _terms(String query) => query
       .toLowerCase()
-      .split(RegExp(r'\s+'))
+      .split(_whitespace)
       .where((term) => term.isNotEmpty)
       .toList();
 

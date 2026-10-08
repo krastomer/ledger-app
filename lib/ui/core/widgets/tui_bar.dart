@@ -26,12 +26,14 @@ class TuiBar extends StatelessWidget {
       child: SizedBox(
         height: cell.height,
         width: double.infinity,
-        child: CustomPaint(
-          painter: _BarPainter(
-            fraction: fraction,
-            cellWidth: cell.width,
-            fill: color ?? scheme.onSurface,
-            track: scheme.outlineVariant,
+        child: RepaintBoundary(
+          child: CustomPaint(
+            painter: _BarPainter(
+              fraction: fraction,
+              cellWidth: cell.width,
+              fill: color ?? scheme.onSurface,
+              track: scheme.outlineVariant,
+            ),
           ),
         ),
       ),

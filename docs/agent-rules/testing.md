@@ -15,6 +15,12 @@
 - Use hand-written **fakes** (`FakeTransactionRepository implements
   TransactionRepository`) in `testing/fakes/`. Prefer fakes over mocks;
   use `mocktail` only when a fake is impractical.
+- `testing/widget_harness.dart` has `pumpApp` (theme, l10n, a `SettingsCubit`;
+  `home:` or `router:`, `textScale:`) and `stubRouter` for widget tests. A
+  view that pops or navigates needs a router with a page underneath it.
+- A view that only reads state and adds events can use a `MockBloc`; give
+  `whenListen` a typed stream (`const Stream<XxxState>.empty()`). Events have
+  no `==`, so check them with `verify(() => bloc.add(captureAny()))`.
 - Never hit real platform channels, network or disk in unit/widget
   tests; fake the service instead.
 - Test names describe behaviour: `'returns error when amount is missing'`.
@@ -31,6 +37,13 @@
   then open the changed PNGs and check them. This is the usual way to
   look at a screen; use the simulator only for what goldens can't show
   (iOS text rendering, safe areas, the launch screen, real gestures).
+- `test/goldens/states_test.dart` renders what the screen goldens don't:
+  failed and empty ledgers, no search match, slips that can't be read or
+  have no amount, a missing slip image, text at 1.6× and a 360 dp phone. The
+  PNGs are in `test/goldens/states/`; regenerate with
+  `flutter test --update-goldens test/goldens/states_test.dart`. Open the
+  large-text and small-phone ones after a layout change: they are where
+  fixed widths and heights break.
 - Commit updated PNGs with the change that caused them. Add a golden when
   you add a screen.
 - Real async never finishes on the test's fake clock. Decode image files
@@ -41,3 +54,11 @@
   differently, so run them on macOS or exclude them with
   `flutter test -x golden`.
 
+## Pitfalls
+
+- Two tests in one file that load the same missing image path interfered:
+  the second never showed the error. Use a different path per test.
+- `find.text` doesn't see text inside `Text.rich`; use `findRichText: true`.
+  `TuiPanel` titles and most TUI labels are shown in lower case.
+- Don't assert on `DateTime.now()` months: use a clock the use case takes
+  (`now:`), or build the data from the current date.

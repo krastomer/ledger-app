@@ -14,11 +14,19 @@ abstract class Posting with _$Posting {
 
   const Posting._();
 
-  String get rootAccount => account.split(accountSeparator).first;
+  String get rootAccount {
+    final end = account.indexOf(accountSeparator);
+    return end < 0 ? account : account.substring(0, end);
+  }
 
   /// The account's first two levels, e.g. `Expenses:Food`.
-  String get category =>
-      account.split(accountSeparator).take(2).join(accountSeparator);
+  String get category {
+    final first = account.indexOf(accountSeparator);
+    if (first < 0) return account;
+    final second = account.indexOf(accountSeparator, first + 1);
+    return second < 0 ? account : account.substring(0, second);
+  }
 
-  String get leafName => account.split(accountSeparator).last;
+  String get leafName =>
+      account.substring(account.lastIndexOf(accountSeparator) + 1);
 }

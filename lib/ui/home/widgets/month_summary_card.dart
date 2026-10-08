@@ -107,7 +107,7 @@ class _FlowRow extends StatelessWidget {
       spacing: Dimens.gapS,
       children: [
         SizedBox(
-          width: _flowLabelWidth,
+          width: MediaQuery.textScalerOf(context).scale(_flowLabelWidth),
           child: Text(
             label.toLowerCase(),
             maxLines: 1,
@@ -175,7 +175,7 @@ class _SpendingRow extends StatelessWidget {
       spacing: 6,
       children: [
         SizedBox(
-          width: _nameWidth,
+          width: MediaQuery.textScalerOf(context).scale(_nameWidth),
           child: Text(
             category.name,
             maxLines: 1,
@@ -185,10 +185,15 @@ class _SpendingRow extends StatelessWidget {
         Expanded(child: TuiBar(fraction: category.sharePerMille / 1000)),
         SizedBox(
           width: _shareWidth,
-          child: Text(
-            formatPerMille(category.sharePerMille),
-            textAlign: TextAlign.end,
-            style: TextStyle(color: muted),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerEnd,
+            child: Text(
+              formatPerMille(category.sharePerMille),
+              maxLines: 1,
+              softWrap: false,
+              style: TextStyle(color: muted),
+            ),
           ),
         ),
         SizedBox(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ledger_app/ui/core/l10n.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
@@ -125,5 +126,5 @@ class _GuidesPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_GuidesPainter old) =>
-      old.color != color || old.guides != guides;
+      old.color != color || !listEquals(old.guides, guides);
 }

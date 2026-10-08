@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:ledger_app/ui/core/themes/dimens.dart';
 
@@ -49,11 +51,13 @@ class TuiPanel extends StatelessWidget {
     final side = BorderSide(color: borderColor ?? scheme.outlineVariant);
     final labelStyle = theme.textTheme.labelMedium;
     final trailing = this.trailing;
+    final labelHeight = MediaQuery.textScalerOf(context).scale(_labelHeight);
+    final labelGrowth = math.max(0.0, labelHeight - _labelHeight);
     return Stack(
       fit: StackFit.passthrough,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: _labelHeight / 2),
+          padding: EdgeInsets.only(top: labelHeight / 2),
           child: DecoratedBox(
             decoration: BoxDecoration(
               color: background,
@@ -61,7 +65,10 @@ class TuiPanel extends StatelessWidget {
                   ? Border(top: side, left: side, right: side)
                   : Border.fromBorderSide(side),
             ),
-            child: Padding(padding: padding, child: child),
+            child: Padding(
+              padding: padding.add(EdgeInsets.only(top: labelGrowth / 2)),
+              child: child,
+            ),
           ),
         ),
         PositionedDirectional(

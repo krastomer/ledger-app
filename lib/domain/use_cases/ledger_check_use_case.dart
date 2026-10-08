@@ -22,15 +22,21 @@ class LedgerCheckUseCase {
 
   LedgerCheck _check(LedgerBook book) {
     final transactions = book.transactions;
-    final dates = [for (final t in transactions) t.date]..sort();
+    final dates = [for (final t in transactions) t.date];
     DateTime? monthOf(DateTime? date) =>
         date == null ? null : DateTime(date.year, date.month);
     return LedgerCheck(
       transactionCount: transactions.length,
-      firstMonth: monthOf(dates.firstOrNull),
-      lastMonth: monthOf(dates.lastOrNull),
+      firstMonth: monthOf(dates.fold(null, _earlier)),
+      lastMonth: monthOf(dates.fold(null, _later)),
       unbalancedCount: transactions.where((t) => !t.isBalanced).length,
-      reviewCount: book.reviewItems().length,
+      reviewCount: book.reviewCount(),
     );
   }
+
+  static DateTime _earlier(DateTime? current, DateTime date) =>
+      current == null || date.isBefore(current) ? date : current;
+
+  static DateTime _later(DateTime? current, DateTime date) =>
+      current == null || date.isAfter(current) ? date : current;
 }

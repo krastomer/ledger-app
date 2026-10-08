@@ -82,6 +82,34 @@ void main() {
     ]);
   });
 
+  test('ignores a time tag that is not a time of day', () {
+    for (final text in ['25:00', '12:60', '24:00', 'noon', '9:5', '']) {
+      final ledger = parse([
+        _transaction(
+          tags: [
+            ['time', text],
+          ],
+        ),
+      ]);
+
+      expect(ledger.transactions.single.time, isNull, reason: text);
+    }
+  });
+
+  test('reads times at the edges of the day', () {
+    Duration? timeOf(String text) => parse([
+      _transaction(
+        tags: [
+          ['time', text],
+        ],
+      ),
+    ]).transactions.single.time;
+
+    expect(timeOf('00:00'), Duration.zero);
+    expect(timeOf('9:05'), const Duration(hours: 9, minutes: 5));
+    expect(timeOf('23:59'), const Duration(hours: 23, minutes: 59));
+  });
+
   test('uses the id tag, and no code or time when absent', () {
     final ledger = parse([
       _transaction(

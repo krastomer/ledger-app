@@ -62,8 +62,16 @@ class LedgerBook {
 
   /// Newest date first. Within a day, timed entries come before untimed
   /// ones, and ties fall back to entry order (later entries first).
-  Iterable<LedgerTransaction> newestFirst([Iterable<LedgerTransaction>? from]) {
-    final indexed = (from ?? transactions).toList().indexed.toList()
+  Iterable<LedgerTransaction> newestFirst([
+    Iterable<LedgerTransaction>? from,
+  ]) => sortNewestFirst(from ?? transactions);
+
+  /// [newestFirst] without a book. The entry order breaks every tie, so the
+  /// result doesn't depend on the sort being stable.
+  static List<LedgerTransaction> sortNewestFirst(
+    Iterable<LedgerTransaction> from,
+  ) {
+    final indexed = from.toList().indexed.toList()
       ..sort((a, b) {
         final (aIndex, aTx) = a;
         final (bIndex, bTx) = b;
@@ -77,7 +85,7 @@ class LedgerBook {
         };
         return byTime != 0 ? byTime : bIndex.compareTo(aIndex);
       });
-    return indexed.map((entry) => entry.$2);
+    return [for (final (_, transaction) in indexed) transaction];
   }
 
   TransactionSummary summarize(LedgerTransaction t) {
@@ -122,6 +130,68 @@ class LedgerBook {
   /// later copies of an earlier entry (same day and postings), and entries
   /// booked to an uncategorized account. Newest first within each reason.
   List<ReviewItem> reviewItems() {
+    final duplicateOf = _duplicates();
+    final choices = <AccountType, List<String>>{};
+    final byReason = [for (final _ in ReviewReason.values) <ReviewItem>[]];
+    for (final t in newestFirst()) {
+      final item = switch (_reasonOf(t, duplicateOf)) {
+        ReviewReason.pending => ReviewItem(
+          reason: ReviewReason.pending,
+          transaction: summarize(t),
+        ),
+        ReviewReason.duplicate => ReviewItem(
+          reason: ReviewReason.duplicate,
+          transaction: summarize(t),
+          duplicateOf: duplicateOf[t.id],
+        ),
+        ReviewReason.uncategorized => _uncategorizedItem(t, choices),
+        null => null,
+      };
+      if (item != null) byReason[item.reason.index].add(item);
+    }
+    return [for (final items in byReason) ...items];
+  }
+
+  /// How many entries [reviewItems] lists, without building the items.
+  int reviewCount() {
+    final duplicateOf = _duplicates();
+    return transactions.where((t) => _reasonOf(t, duplicateOf) != null).length;
+  }
+
+  ReviewReason? _reasonOf(
+    LedgerTransaction t,
+    Map<String, String> duplicateOf,
+  ) {
+    if (t.status == TransactionStatus.pending) return ReviewReason.pending;
+    if (duplicateOf.containsKey(t.id)) return ReviewReason.duplicate;
+    if (t.postings.any(_isUncategorized)) return ReviewReason.uncategorized;
+    return null;
+  }
+
+  ReviewItem? _uncategorizedItem(
+    LedgerTransaction t,
+    Map<AccountType, List<String>> choices,
+  ) {
+    final posting = t.postings.where(_isUncategorized).firstOrNull;
+    final type = posting == null ? null : _types[posting.rootAccount];
+    if (posting == null || type == null) return null;
+    return ReviewItem(
+      reason: ReviewReason.uncategorized,
+      transaction: summarize(t),
+      uncategorizedAccount: posting.account,
+      categoryChoices: choices.putIfAbsent(
+        type,
+        () => [
+          for (final account in accountsOf(type))
+            if (!_isUncategorizedName(account)) account,
+        ],
+      ),
+    );
+  }
+
+  /// Transaction id → id of the earlier entry on the same day with the same
+  /// postings.
+  Map<String, String> _duplicates() {
     final firstByKey = <String, LedgerTransaction>{};
     final duplicateOf = <String, String>{};
     for (final t in transactions) {
@@ -133,26 +203,7 @@ class LedgerBook {
         duplicateOf[t.id] = first.id;
       }
     }
-    final items = <ReviewItem>[
-      for (final t in newestFirst())
-        if (t.status == TransactionStatus.pending)
-          ReviewItem(reason: ReviewReason.pending, transaction: summarize(t))
-        else if (duplicateOf[t.id] case final original?)
-          ReviewItem(
-            reason: ReviewReason.duplicate,
-            transaction: summarize(t),
-            duplicateOf: original,
-          )
-        else if (t.postings.where(_isUncategorized).firstOrNull
-            case final posting?)
-          ReviewItem(
-            reason: ReviewReason.uncategorized,
-            transaction: summarize(t),
-            uncategorizedAccount: posting.account,
-            categoryChoices: _categoryChoices(posting),
-          ),
-    ];
-    return items..sort((a, b) => a.reason.index.compareTo(b.reason.index));
+    return duplicateOf;
   }
 
   static String _duplicateKey(LedgerTransaction t) {
@@ -167,15 +218,6 @@ class LedgerBook {
       (_types[p.rootAccount] == AccountType.expense ||
           _types[p.rootAccount] == AccountType.income) &&
       _isUncategorizedName(p.account);
-
-  List<String> _categoryChoices(Posting posting) =>
-      switch (_types[posting.rootAccount]) {
-        final type? => [
-          for (final account in accountsOf(type))
-            if (!_isUncategorizedName(account)) account,
-        ],
-        null => const [],
-      };
 
   static bool _isUncategorizedName(String account) => const {
     'uncategorized',

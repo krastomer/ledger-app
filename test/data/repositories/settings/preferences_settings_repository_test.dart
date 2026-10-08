@@ -58,4 +58,35 @@ void main() {
     expect(await repository.load(), isA<Error<AppSettings>>());
     expect(await repository.save(const AppSettings()), isA<Error<void>>());
   });
+
+  test('reports the first error when several reads fail', () async {
+    final failure = Exception('disk');
+    final repository = PreferencesSettingsRepository(
+      preferences: FakePreferencesService(error: failure),
+    );
+
+    final result = await repository.load();
+
+    expect((result as Error<AppSettings>).error, same(failure));
+  });
+
+  test('writes every setting under its own key', () async {
+    final preferences = FakePreferencesService();
+    final repository = PreferencesSettingsRepository(preferences: preferences);
+
+    await repository.save(
+      const AppSettings(language: AppLanguage.en, hideOnLaunch: true),
+    );
+
+    expect(preferences.values, {
+      'settings.language': 'en',
+      'settings.yearEra': 'buddhist',
+    });
+    expect(preferences.flags, {
+      'settings.hideOnLaunch': true,
+      'settings.showJournal': true,
+      'settings.keepSlipImages': true,
+      'settings.setupComplete': false,
+    });
+  });
 }

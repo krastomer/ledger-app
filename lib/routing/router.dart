@@ -21,11 +21,11 @@ import 'package:ledger_app/ui/transactions/view/transactions_page.dart';
 
 import 'routes.dart';
 
-GoRouter createRouter() {
+GoRouter createRouter({String initialLocation = Routes.boot}) {
   final rootKey = GlobalKey<NavigatorState>();
   return GoRouter(
     navigatorKey: rootKey,
-    initialLocation: Routes.boot,
+    initialLocation: initialLocation,
     routes: [
       GoRoute(path: Routes.boot, builder: (context, state) => const BootPage()),
       GoRoute(

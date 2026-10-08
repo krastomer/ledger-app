@@ -158,10 +158,10 @@ class _Reader {
   static Duration? _parseTime(String? text) {
     final match = text == null ? null : _time.firstMatch(text);
     if (match == null) return null;
-    return Duration(
-      hours: int.parse(match.group(1) ?? '0'),
-      minutes: int.parse(match.group(2) ?? '0'),
-    );
+    final hours = int.parse(match.group(1) ?? '0');
+    final minutes = int.parse(match.group(2) ?? '0');
+    if (hours > 23 || minutes > 59) return null;
+    return Duration(hours: hours, minutes: minutes);
   }
 
   static AccountType? _typeFromRootName(String root) =>
